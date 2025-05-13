@@ -128,7 +128,7 @@
     - 他の人が作成したギフトリストを見れる（選択はできない状態）
 - パスワードリセット機能
 - Googleログイン認証
-- リストのデザインカスタマイズ機能（テーマやカラーを選べる）
+- リストのカバー画像設定
 - 利用規約
 - プライバシーポリシー
 - Xシェア機能
@@ -146,3 +146,6 @@
 - 画像投稿：ActiveStorage
 - LINE通知：LINE Messaging API
 - 商品情報の取得：Gem NokogiriでOGPを取得
+
+## 画面遷移図
+[Figma画面遷移図](https://www.figma.com/design/hwt5ympacYn9qtiDfzVVnB/%E3%82%AB%E3%82%BF%E3%83%AD%E3%82%B0%E3%82%AE%E3%83%95%E3%83%88%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC?node-id=0-1&t=QJoscmJ46NNUi8KM-1)
