@@ -55,3 +55,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "tailwindcss-rails", "~> 4.2.3", github: "rails/tailwindcss-rails", branch: "main"
