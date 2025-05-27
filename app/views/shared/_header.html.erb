@@ -1,10 +1,22 @@
-<header>
-  <h1>カタログギフトメーカー</h1>
-  <ul>
+<header class=" bg-yellow-200">
+<div class="flex justify-center items-center gap-4">
+  <h1 class="text-xl">カタログギフトメーカー</h1>
+  <ul class="flex gap-4">
     <li>通知アイコン</li>
     <li>ギフトリストを作る</li>
     <li>ギフトリスト一覧を見る</li>
     <li>マイページ</li>
-    <li>ログアウト</li>
+    <li>
+    <%= link_to "ユーザー新規登録", new_user_registration_path %></li>
+    <li class="text-base mr-5">
+      <%= link_to "ログイン", new_user_session_path %>
+    </li>
+    <li class="text-base mr-12">
+      <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }%>
+    </li>
+    <% if user_signed_in? %>
+    <li><%= current_user.name %></li>
+    <% end %>
   </ul>
+</div>
 </header>
