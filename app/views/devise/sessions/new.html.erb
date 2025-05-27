@@ -1,43 +1,27 @@
 <h2 class="text-3xl font-bold">ログイン</h2>
 
-<fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <label class="label">Email</label>
-  <div class="input">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+  <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
 
-  <div class="input">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+    <label class="label">名前</label>
+    <div class="input">
+      <%= f.text_field :name, autofocus: true, autocomplete: "email", placeholder: "名前" %>
     </div>
-  <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-  <button class="btn btn-neutral mt-4">ログイン</button>
+    <label class="label">メールアドレス</label>
+    <div class="input">
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "@が含まれたアドレス" %>
+    </div>
+
+    <label class="label">パスワード</label>
+    <div class="input">
+      <%= f.password_field :password, autocomplete: "current-password", placeholder: "6文字以上入力してください" %>
+    </div>
+
+    <button class="btn btn-neutral mt-4">
+      <%= f.submit "Log in" %>
+    </button>
   </fieldset>
 <% end %>
-
-
-<fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-  <legend class="fieldset-legend">ログイン</legend>
-
-  <label class="label">Email</label>
-  <input type="email" class="input" placeholder="Email" />
-
-  <label class="label">Password</label>
-  <input type="password" class="input" placeholder="Password" />
-
-  <button class="btn btn-neutral mt-4">ログイン</button>
-</fieldset>
 
 <%= render "devise/shared/links" %>
