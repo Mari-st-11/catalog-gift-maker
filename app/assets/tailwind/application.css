@@ -4,6 +4,7 @@
   themes: ["light", "dark"] /* デフォルトをlightにする */
 }
 
+
 @plugin "daisyui/theme" {
   name: "cgm";
   default: true;

@@ -1,12 +1,14 @@
-<h2>Log in</h2>
+<h2 class="text-3xl font-bold">ログイン</h2>
 
+<fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
+  <label class="label">Email</label>
+  <div class="input">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
-  <div class="field">
+  <div class="input">
     <%= f.label :password %><br />
     <%= f.password_field :password, autocomplete: "current-password" %>
   </div>
@@ -21,6 +23,21 @@
   <div class="actions">
     <%= f.submit "Log in" %>
   </div>
+  <button class="btn btn-neutral mt-4">ログイン</button>
+  </fieldset>
 <% end %>
+
+
+<fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+  <legend class="fieldset-legend">ログイン</legend>
+
+  <label class="label">Email</label>
+  <input type="email" class="input" placeholder="Email" />
+
+  <label class="label">Password</label>
+  <input type="password" class="input" placeholder="Password" />
+
+  <button class="btn btn-neutral mt-4">ログイン</button>
+</fieldset>
 
 <%= render "devise/shared/links" %>
