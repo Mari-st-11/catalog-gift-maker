@@ -3,11 +3,6 @@
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
 
-    <label class="label">名前</label>
-    <div class="input">
-      <%= f.text_field :name, autofocus: true, autocomplete: "email", placeholder: "名前" %>
-    </div>
-
     <label class="label">メールアドレス</label>
     <div class="input">
       <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "@が含まれたアドレス" %>
