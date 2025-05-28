@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
+
 @plugin "daisyui" {
   themes: ["light", "dark"] /* デフォルトをlightにする */
 }
+
 
 @plugin "daisyui/theme" {
   name: "cgm";
