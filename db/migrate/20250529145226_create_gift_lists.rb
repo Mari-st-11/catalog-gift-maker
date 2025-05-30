@@ -1,7 +1,7 @@
 class CreateGiftLists < ActiveRecord::Migration[7.2]
   def change
     create_table :gift_lists do |t|
-      t.string :reciipient_name, null: false
+      t.string :recipient_name, null: false
       t.string :purpose
       t.integer :cover_image
       t.string :public_name
