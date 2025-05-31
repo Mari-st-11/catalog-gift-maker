@@ -58,6 +58,7 @@ end
 
 gem "tailwindcss-rails", "~> 4.2.3", github: "rails/tailwindcss-rails", branch: "main"
 
+
 gem "devise"
 
 gem "draper", "4.0.2"

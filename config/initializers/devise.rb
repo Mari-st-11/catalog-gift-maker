@@ -68,12 +68,15 @@ Devise.setup do |config|
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
   # given strategies, for example, `config.params_authenticatable = [ :database ]` will
+
   # enable it only for database (email + password) authentication.
   # config.params_authenticatable = true
 
   # Tell if authentication through HTTP Auth is enabled. False by default.
   # It can be set to an array that will enable http authentication only for the
+
   # given strategies, for example, `config.http_authenticatable = [ :database ]` will
+
   # enable it only for database authentication.
   # For API-only applications to support authentication "out-of-the-box", you will likely want to
   # enable this with :database unless you are using a custom strategy.
@@ -108,7 +111,9 @@ Devise.setup do |config|
   # When false, Devise will not attempt to reload routes on eager load.
   # This can reduce the time taken to boot the app but if your application
   # requires the Devise mappings to be loaded during boot time the application
-  # won"t boot properly.
+
+  # won't boot properly.
+
   # config.reload_routes = true
 
   # ==> Configuration for :database_authenticatable
@@ -148,7 +153,9 @@ Devise.setup do |config|
   # A period that the user is allowed to confirm their account before their
   # token becomes invalid. For example, if set to 3.days, the user can confirm
   # their account within 3 days after the mail was sent, but on the fourth day
-  # their account can"t be confirmed with the token any more.
+
+  # their account can't be confirmed with the token any more.
+
   # Default is nil, meaning there is no restriction on how long a user can take
   # before confirming their account.
   # config.confirm_within = 3.days
@@ -160,6 +167,7 @@ Devise.setup do |config|
   config.reconfirmable = true
 
   # Defines which key will be used when confirming an account
+
   # config.confirmation_keys = [ :email ]
 
   # ==> Configuration for :rememberable
@@ -169,7 +177,8 @@ Devise.setup do |config|
   # Invalidates all the remember me tokens when the user signs out.
   config.expire_all_remember_me_on_sign_out = true
 
-  # If true, extends the user"s remember period when remembered via cookie.
+  # If true, extends the user's remember period when remembered via cookie.
+
   # config.extend_remember_period = false
 
   # Options to be passed to the created cookie. For instance, you can set
@@ -185,6 +194,7 @@ Devise.setup do |config|
   # to give user feedback and not to assert the e-mail validity.
   config.email_regexp = /\A[ ^@\s ]+@[ ^@\s ]+\z/
 
+
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
@@ -198,6 +208,7 @@ Devise.setup do |config|
 
   # Defines which key will be used when locking and unlocking an account
   # config.unlock_keys = [ :email ]
+
 
   # Defines which strategy will be used to unlock an account.
   # :email = Sends an unlock link to the user email
@@ -223,6 +234,7 @@ Devise.setup do |config|
 
   # Time interval you can reset your password with a reset password key.
   # Don"t put a too small interval or your users won"t have the time to
+
   # change their passwords.
   config.reset_password_within = 6.hours
 
@@ -242,11 +254,11 @@ Devise.setup do |config|
 
   # ==> Scopes configuration
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
-  # "users/sessions/new". It"s turned off by default because it"s slower if you
+  # "users/sessions/new". It's turned off by default because it's slower if you
   # are using only default views.
   # config.scoped_views = false
 
-  # Configure the default scope given to Warden. By default it"s the first
+  # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes (usually :user).
   # config.default_scope = :user
 
@@ -263,6 +275,7 @@ Devise.setup do |config|
   # should add them to the navigational formats lists.
   #
   # The "*/*" below is required to match Internet Explorer requests.
+
   # config.navigational_formats = [ "*/*", :html, :turbo_stream ]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
@@ -271,6 +284,7 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
+
   # config.omniauth :github, "APP_ID", "APP_SECRET", scope: "user,public_repo"
 
   # ==> Warden configuration
@@ -294,6 +308,7 @@ Devise.setup do |config|
   #
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
+
   # config.omniauth_path_prefix = "/my_engine/users/auth"
 
   # ==> Hotwire/Turbo configuration
