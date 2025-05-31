@@ -1,0 +1,21 @@
+<div class="">
+<h2 class="text-3xl font-bold">ギフトリスト一覧</h2>
+<!-- ギフトリスト一覧 -->
+
+  <% if @gift_lists.present? %>
+    <ul class="menu">
+      <% @gift_lists.each do |gl| %>
+        <li>
+          <%= link_to @url do %><strong class="md:font-bold"><%= "#{gl.recipient_name}"%></strong>さんへ贈る
+          <strong class="text-left"><%= "#{gl.purpose.presence || 'ギフトリスト'}" %></strong><% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="">
+      ギフトリストはまだありません<br>
+      ギフトリストを作成しましょう！
+    </div>
+  <% end %>
+
+</div>
