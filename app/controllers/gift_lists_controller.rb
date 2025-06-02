@@ -3,6 +3,10 @@ class GiftListsController < ApplicationController
     @gift_lists = current_user.gift_lists.includes(:user)
   end
 
+  def show
+    @gift_list = current_user.gift_lists.find(params[:id])
+  end
+
   def new
     @gift_list = GiftList.new
   end
