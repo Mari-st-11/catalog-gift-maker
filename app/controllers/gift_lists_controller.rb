@@ -1,6 +1,6 @@
 class GiftListsController < ApplicationController
   def index
-    @gift_lists = GiftList.includes(:user)
+    @gift_lists = current_user.gift_lists.includes(:user)
   end
 
   def new
