@@ -1,0 +1,22 @@
+<h2 class="text-3xl font-bold">ギフトリストを作成</h2>
+
+<%= form_with model: @gift_list do |f| %>
+  <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+
+    <label class="label">ギフトを贈る方の名前*</label>
+    <div class="input">
+      <%= f.text_field :recipient_name, autofocus: true, autocomplete: "recipient_name", placeholder: "敬称略で入力" %>
+    </div>
+
+    <label class="label">贈る用途</label>
+    <div class="input">
+      <%= f.text_field :purpose, autocomplete: "purpose", placeholder: "例：誕生日祝い" %>
+    </div>
+
+    <button class="btn btn-neutral mt-4">
+      <%= f.submit "ギフトリストを作成" %>
+    </button>
+
+  </fieldset>
+  <%= link_to "戻る", root_path %>
+<% end %>
