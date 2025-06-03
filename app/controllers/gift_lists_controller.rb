@@ -1,7 +1,10 @@
 class GiftListsController < ApplicationController
+  before_action :set_gift_list, only: %i[ show edit update ]
   def index
     @gift_lists = current_user.gift_lists.includes(:user)
   end
+
+  def show; end
 
   def new
     @gift_list = GiftList.new
@@ -15,7 +18,19 @@ class GiftListsController < ApplicationController
     end
   end
 
+  def edit; end
+
+  def update
+    if @gift_list.update(gift_lists_params)
+      redirect_to gift_lists_path(@gift_list)
+    end
+  end
+
   private
+
+  def set_gift_list
+    @gift_list = current_user.gift_lists.find(params[:id])
+  end
 
   def gift_lists_params
     params.require(:gift_list).permit(:recipient_name, :purpose)
