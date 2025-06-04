@@ -4,4 +4,5 @@
     <%= "#{@gift_list.purpose.presence || 'ギフトリスト'}" %>
   </h2>
   <%= link_to "タイトルの編集", edit_gift_list_path, {class: "text-sm"}%>
+    <%= render @gift_items %>
 </div>

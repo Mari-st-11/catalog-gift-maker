@@ -4,7 +4,9 @@ class GiftListsController < ApplicationController
     @gift_lists = current_user.gift_lists.includes(:user)
   end
 
-  def show; end
+  def show
+    @gift_items = @gift_list.gift_items.includes(:user)
+  end
 
   def new
     @gift_list = GiftList.new
