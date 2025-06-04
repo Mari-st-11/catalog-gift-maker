@@ -6,4 +6,9 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 100 }
   has_many :gift_lists, dependent: :destroy
+  has_many :gift_items, dependent: :destroy
+
+  def own?(object)
+    id == object&.user_id
+  end
 end
