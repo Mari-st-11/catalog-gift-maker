@@ -13,7 +13,7 @@ class GiftListsController < ApplicationController
   end
 
   def create
-    @gift_list = current_user.gift_lists.build(gift_lists_params)
+    @gift_list = current_user.gift_lists.build(gift_list_params)
 
     if @gift_list.save
       redirect_to gift_lists_path(@gift_list)
@@ -23,7 +23,7 @@ class GiftListsController < ApplicationController
   def edit; end
 
   def update
-    if @gift_list.update(gift_lists_params)
+    if @gift_list.update(gift_list_params)
       redirect_to gift_lists_path(@gift_list)
     end
   end
@@ -34,7 +34,7 @@ class GiftListsController < ApplicationController
     @gift_list = current_user.gift_lists.find(params[:id])
   end
 
-  def gift_lists_params
+  def gift_list_params
     params.require(:gift_list).permit(:recipient_name, :purpose)
   end
 end

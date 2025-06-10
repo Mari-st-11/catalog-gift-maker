@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   resources :gift_lists, only: %i[ index new create show edit update ] do
-    resources :gift_items, only: %i[ create edit ], shallow: true
+    resources :gift_items, only: %i[ create new edit show update ], shallow: true
   end
 
 
