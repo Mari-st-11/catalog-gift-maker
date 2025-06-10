@@ -1,4 +1,4 @@
-<%= form_with url: gift_list_gift_items_path do |f| %>
+<%= form_with model:gift_item, url: gift_list_gift_items_path do |f| %>
   <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
 
     <label class="label">商品URL</label>
@@ -8,17 +8,17 @@
 
     <label class="label">商品名</label>
     <div class="input">
-      <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "コーヒーメーカー" %>
+      <%= f.text_field :name, autocomplete: "name", placeholder: "コーヒーメーカー" %>
     </div>
     
     <label class="label">商品説明</label>
     <div class="input">
-      <%= f.text_field :description, autofocus: true, autocomplete: "description", placeholder: "電動ミル付きのコーヒーメーカーです" %>
+      <%= f.text_field :description, autocomplete: "description", placeholder: "電動ミル付きのコーヒーメーカーです" %>
     </div>
 
     <label class="label">商品画像</label>
     <div class="input">
-      <%= f.text_field :image, autofocus: true, autocomplete: "image", placeholder: "画像URL" %>
+      <%= f.text_field :image, autocomplete: "image", placeholder: "画像URL" %>
     </div>
 
     <button class="btn btn-neutral mt-4">
