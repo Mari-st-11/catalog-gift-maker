@@ -12,8 +12,9 @@ class GiftItemsController < ApplicationController
 
     @gift_item.name = doc.css('meta[property="og:title"] @content').to_s
     @gift_item.description = doc.css('meta[property="og:description"] @content').to_s
-    @gift_item.image = doc.css('meta[property="og:image"] @content').to_s
-    
+    image = doc.css('meta[property="og:image"] @content').to_s
+    @gift_item.image.attach(io: URI.open(image), filename: image)
+
     if @gift_item.save
       redirect_to root_path
     end
