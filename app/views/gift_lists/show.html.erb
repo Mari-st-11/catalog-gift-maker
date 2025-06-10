@@ -3,5 +3,14 @@
     <%= "#{@gift_list.recipient_name}"%>さんへ贈る<br>
     <%= "#{@gift_list.purpose.presence || 'ギフトリスト'}" %>
   </h2>
-  <%= link_to "タイトルの編集", edit_gift_list_path, {class: "text-sm"}%>
+  <%= link_to "タイトルの編集", edit_gift_list_path, {class: "text-sm"} %>
+  <%= link_to "ギフトを追加", new_gift_list_gift_item_path(@gift_list.id), {class: "btn btn-neutral mt-4"} %>
+
+    <% if @gift_items.present? %>
+      <%= render @gift_items %>
+    <% else %>
+      <div class="">
+        登録されたギフトがありません
+      </div>
+    <% end %>
 </div>
