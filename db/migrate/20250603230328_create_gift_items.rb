@@ -6,7 +6,7 @@ class CreateGiftItems < ActiveRecord::Migration[7.2]
       t.text :description
       t.string :image
       t.integer :status
-      
+
       t.references :user, foreign_key: true
       t.references :gift_item, foreign_key: true
       t.timestamps

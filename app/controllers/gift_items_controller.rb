@@ -1,5 +1,4 @@
 class GiftItemsController < ApplicationController
-
   def new
     @gift_item = GiftItem.new
   end
@@ -16,5 +15,4 @@ class GiftItemsController < ApplicationController
   def gift_item_params
     params.require(:gift_item).permit(:url, :name, :description, :image).merge(gift_list_id: params[:gift_list_id])
   end
-
 end
