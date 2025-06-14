@@ -6,7 +6,7 @@ class GiftItemsController < ApplicationController
   end
 
   def create
-    require 'open-uri'
+    require "open-uri"
     @gift_item = current_user.gift_items.build(gift_item_params)
 
     html = URI.open(@gift_item.url).read
@@ -37,7 +37,6 @@ class GiftItemsController < ApplicationController
   def gift_item_params
     params.require(:gift_item).permit(:url, :name, :description, :image).merge(gift_list_id: params[:gift_list_id])
   end
-  
 
   def gift_item_params_update
     params.require(:gift_item).permit(:url, :name, :description)
@@ -46,5 +45,4 @@ class GiftItemsController < ApplicationController
   def set_gift_item
     @gift_item = current_user.gift_items.find(params[:id])
   end
-
 end
