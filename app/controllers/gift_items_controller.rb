@@ -1,4 +1,5 @@
 class GiftItemsController < ApplicationController
+  before_action :set_gift_item, only: %i[ show edit update ]
   def new
     @gift_item = GiftItem.new
   end
@@ -20,9 +21,24 @@ class GiftItemsController < ApplicationController
     end
   end
 
+  def show; end
+
+  def edit; end
+
+  def update
+    if @gift_item.update(gift_item_params)
+      redirect_to gift_item_path(@gift_item)
+    end
+  end
+
   private
 
   def gift_item_params
     params.require(:gift_item).permit(:url, :name, :description, :image).merge(gift_list_id: params[:gift_list_id])
   end
+
+  def set_gift_item
+    @gift_item = current_user.gift_items.find(params[:id])
+  end
+
 end

@@ -64,3 +64,5 @@ gem "devise"
 gem "draper", "4.0.2"
 
 gem "nokogiri"
+
+gem 'pry-rails'
