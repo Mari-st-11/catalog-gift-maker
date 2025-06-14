@@ -1,19 +1,14 @@
 <%= form_with model: @gift_item do |f| %>
   <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
 
-    <label class="label">商品URL</label>
-    <div class="input">
-      <%= f.text_field :url, autofocus: true, autocomplete: "url", placeholder: "http://〜" %>
-    </div>
-
     <label class="label">商品名</label>
     <div class="input">
       <%= f.text_field :name, autocomplete: "name", placeholder: "コーヒーメーカー" %>
     </div>
     
     <label class="label">商品説明</label>
-    <div class="input">
-      <%= f.text_field :description, autocomplete: "description", placeholder: "電動ミル付きのコーヒーメーカーです" %>
+    <div class="textarea textarea-border max-w-none resize-none">
+      <%= f.text_area :description, autocomplete: "description", placeholder: "電動ミル付きのコーヒーメーカーです", size: "34x10"%>
     </div>
 <!--
     <label class="label">商品画像</label>

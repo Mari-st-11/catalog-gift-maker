@@ -1,10 +1,12 @@
 <div class="">
   <h2 class="text-xl font-bold">
-
+    <%= @gift_list.recipient_name %>さんへ贈る<br>
+    <%= @gift_list.purpose.presence || "ギフトリスト" %>
   </h2>
   <%= link_to "ギフトの編集", edit_gift_item_path, {class: "text-sm"} %>
 
   <%= image_tag @gift_item.image.presence || "https://placehold.jp/400x300.png?text=sample" %>
   <h2 class="card-title"><%= @gift_item.name %></h2>
   <p class=""><%= @gift_item.description %></p>
+  <%= link_to "< 一覧へ戻る", gift_list_path(@gift_list), {class: "text-sm"} %>
 </div>
