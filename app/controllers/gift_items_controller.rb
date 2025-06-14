@@ -1,6 +1,5 @@
 class GiftItemsController < ApplicationController
   before_action :set_gift_item, only: %i[ show edit update ]
-  before_action :set_gift_list, only: %i[ show edit update ]
 
   def new
     @gift_item = GiftItem.new
@@ -39,9 +38,6 @@ class GiftItemsController < ApplicationController
     params.require(:gift_item).permit(:url, :name, :description, :image).merge(gift_list_id: params[:gift_list_id])
   end
   
-  def set_gift_list
-    @gift_list = current_user.gift_lists.find(params[:id])
-  end
 
   def gift_item_params_update
     params.require(:gift_item).permit(:url, :name, :description)
