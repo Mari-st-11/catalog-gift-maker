@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     resources :gift_items, only: %i[ new create show edit update ], shallow: true
   end
 
+  resources :shared_gift_lists, only: %i[ show ]
+
   # トップページ
   root "static_pages#top"
 end
