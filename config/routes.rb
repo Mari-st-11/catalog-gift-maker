@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   resources :shared_gift_lists, only: %i[ show ] do
     member do
-      post :select
+      post :choose
     end
   end
 
