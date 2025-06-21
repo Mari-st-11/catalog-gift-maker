@@ -19,7 +19,7 @@ class SharedGiftListsController < ApplicationController
     end
     
     puts "状態は#{@selected_gift_item.status}です"
-    
+
     redirect_to action: :show
   end
 
