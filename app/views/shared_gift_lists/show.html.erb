@@ -1,0 +1,14 @@
+<div class="">
+  <h2 class="text-xl font-bold">
+    <%= @gift_list.recipient_name %>さんへ贈る<br>
+    <%= @gift_list.purpose.presence || "ギフトリスト" %>
+  </h2>
+
+    <% if @gift_items.present? %>
+      <%= render partial: "gift_items/shared_gift_item", collection: @gift_items, as: "gift_item" %>
+    <% else %>
+      <div class="">
+        登録されたギフトがありません
+      </div>
+    <% end %>
+</div>
