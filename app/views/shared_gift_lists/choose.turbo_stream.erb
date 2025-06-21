@@ -1,2 +1,9 @@
-<%= turbo_stream.update
-<%= button_to "このギフトを選ぶ", { controller: "shared_gift_lists", action: "choose" }, { params: { gift_item_id: gift_item.id }, class: "btn btn-neutral mt-4" } %>
+<%= turbo_stream.update("select_button_#{@selected_gift_item.id}") do %>
+  <%= render partial:"gift_items/selected_button", locals: { gift_item: @selected_gift_item } %>
+<% end %>
+
+<% @unselected_gift_items.each do |gift_item| %>
+  <%= turbo_stream.update("select_button_#{gift_item.id}") do %>
+    <%= render partial:"gift_items/unselected_button", locals: { gift_item: gift_item } %>
+  <% end %>
+<% end %>
