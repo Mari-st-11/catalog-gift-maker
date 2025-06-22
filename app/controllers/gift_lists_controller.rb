@@ -1,11 +1,12 @@
 class GiftListsController < ApplicationController
   before_action :set_gift_list, only: %i[ show edit update ]
   def index
-    @gift_lists = current_user.gift_lists.includes(:user)
+    @gift_lists = current_user.gift_lists.includes(:user).order(:id)
   end
 
   def show
-    @gift_items = @gift_list.gift_items.includes(:user)
+    @gift_items = @gift_list.gift_items.includes(:user).order(:id)
+    @selected_gift_item = @gift_list.gift_items.where(status: [ :selected ]).first
   end
 
   def new
