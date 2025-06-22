@@ -4,8 +4,9 @@
     <%= @gift_item.gift_list.purpose.presence || "ギフトリスト" %>
   </h2>
   <%= link_to "ギフトの編集", edit_gift_item_path, {class: "text-sm"} %>
+  <%= link_to "ギフトを削除する", gift_item_path(@gift_item), data: { turbo_method: :delete } %>
 
-  <%= image_tag @gift_item.image.presence || "https://placehold.jp/400x300.png?text=sample" %>
+  <%= image_tag @gift_item.image.url.presence %>
   <h2 class="card-title"><%= @gift_item.name %></h2>
   <p class=""><%= @gift_item.description %></p>
   <% if @gift_item.url.present? %>

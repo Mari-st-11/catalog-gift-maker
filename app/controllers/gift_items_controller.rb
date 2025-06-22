@@ -1,5 +1,5 @@
 class GiftItemsController < ApplicationController
-  before_action :set_gift_item, only: %i[ show edit update ]
+  before_action :set_gift_item, only: %i[ show edit update destroy ]
 
   def new
     @gift_item = GiftItem.new
@@ -14,11 +14,13 @@ class GiftItemsController < ApplicationController
 
     @gift_item.name = doc.css('meta[property="og:title"] @content').to_s
     @gift_item.description = doc.css('meta[property="og:description"] @content').to_s
-    image = doc.css('meta[property="og:image"] @content').to_s
-    @gift_item.image.attach(io: URI.open(image), filename: image)
+    image_url = doc.css('meta[property="og:image"] @content').to_s # 画像URLをテキストで保存
+    file = URI.open(image_url) # 画像をオブジェクトに
+
+    @gift_item.image = file
 
     if @gift_item.save
-      redirect_to root_path
+      redirect_to gift_item_path(@gift_item)
     end
   end
 
@@ -30,6 +32,12 @@ class GiftItemsController < ApplicationController
     if @gift_item.update(gift_item_params_update)
       redirect_to gift_item_path(@gift_item)
     end
+  end
+
+  def destroy
+    #@gift_list = GiftList.find(params[:id])
+    @gift_item.destroy!
+    redirect_to gift_lists_path
   end
 
   private
