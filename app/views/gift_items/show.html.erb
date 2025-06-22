@@ -8,5 +8,8 @@
   <%= image_tag @gift_item.image.presence || "https://placehold.jp/400x300.png?text=sample" %>
   <h2 class="card-title"><%= @gift_item.name %></h2>
   <p class=""><%= @gift_item.description %></p>
+  <% if @gift_item.url.present? %>
+    <%= link_to "ギフトを購入する", @gift_item.url, target: "_blank", rel: "noopener", class: "btn" %>
+  <% end %>
   <%= link_to "< 一覧へ戻る", gift_list_path(@gift_item.gift_list), {class: "text-sm"} %>
 </div>

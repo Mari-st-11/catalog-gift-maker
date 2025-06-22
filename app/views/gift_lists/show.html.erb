@@ -3,9 +3,20 @@
     <%= @gift_list.recipient_name %>さんへ贈る<br>
     <%= @gift_list.purpose.presence || "ギフトリスト" %>
   </h2>
-  <%= link_to "タイトルの編集", edit_gift_list_path, {class: "text-sm"} %>
-  <%= link_to "ギフトを追加", new_gift_list_gift_item_path(@gift_list.id), {class: "btn btn-neutral mt-4"} %>
-
+  <%= link_to "タイトルの編集", edit_gift_list_path, class: "text-sm" %>
+  <%= link_to "ギフトを追加", new_gift_list_gift_item_path(@gift_list.id), class: "btn btn-neutral mt-4" %>
+  <p>シェア用のURLはこちら ⇨ https://catalog-gift-maker.onrender.com/shared_gift_lists/<%= @gift_list.id %>/</p>
+    <% if @selected_gift_item.present? %>
+      <div>
+      <b><%= @gift_list.recipient_name %>さんが選んだギフト<br></b>
+      早速購入して贈りましょう！
+      <%= image_tag @selected_gift_item.image.presence || "https://placehold.jp/100x100.png?text=sample", :width => "100" %>
+      <%= @selected_gift_item.name %>
+      <% if @selected_gift_item.url.present? %>
+        <%= link_to "ギフトを購入する", @selected_gift_item.url, target: "_blank", rel: "noopener", class: "btn" %>
+      <% end %>
+      </div>
+    <% end %>
     <% if @gift_items.present? %>
       <%= render @gift_items %>
     <% else %>
