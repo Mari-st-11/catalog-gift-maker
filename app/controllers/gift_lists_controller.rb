@@ -1,7 +1,7 @@
 class GiftListsController < ApplicationController
   before_action :set_gift_list, only: %i[ show edit update ]
   def index
-    @gift_lists = current_user.gift_lists.includes(:user).order(:id)
+    @gift_lists = current_user.gift_lists.includes(:user).order(:id) if user_signed_in?
   end
 
   def show
