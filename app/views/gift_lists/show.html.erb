@@ -1,11 +1,11 @@
-<div class="">
-  <h2 class="text-xl font-bold">
+<div class="container mx-auto px-5 py-10 text-center">
+  <h1 class="text-xl font-bold mb-5">
     <%= @gift_list.recipient_name %>さんへ贈る<br>
     <%= @gift_list.purpose.presence || "ギフトリスト" %>
-  </h2>
-  <%= link_to "タイトルの編集", edit_gift_list_path, class: "text-sm" %>
+  </h1>
+  <div><%= link_to "リスト名を編集", edit_gift_list_path, class: "text-sm" %></div>
   <%= link_to "ギフトを追加", new_gift_list_gift_item_path(@gift_list.id), class: "btn btn-neutral mt-4" %>
-  <p>シェア用のURLはこちら ⇨ https://catalog-gift-maker.onrender.com/shared_gift_lists/<%= @gift_list.id %>/</p>
+  <p class="m-4">シェア用のURLはこちら　https://catalog-gift-maker.onrender.com/shared_gift_lists/<%= @gift_list.id %>/</p>
     <% if @selected_gift_item.present? %>
       <div>
       <b><%= @gift_list.recipient_name %>さんが選んだギフト<br></b>
@@ -18,7 +18,9 @@
       </div>
     <% end %>
     <% if @gift_items.present? %>
+      <div class="grid grid-cols-2 grid-rows-2 gap-5 md:grid-cols-3">
       <%= render @gift_items %>
+      </div>
     <% else %>
       <div class="">
         登録されたギフトがありません

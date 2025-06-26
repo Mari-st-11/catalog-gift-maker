@@ -31,6 +31,7 @@
   --color-warning-content: #373735;
   --color-error: oklch(50% 0.213 27.518);
   --color-error-content: oklch(96% 0.015 12.422);
+  --color-yellow-200: #EEDF96;
   --radius-selector: 0.5rem;
   --radius-field: 1rem;
   --radius-box: 0.5rem;
