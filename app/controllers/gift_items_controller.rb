@@ -7,14 +7,22 @@ class GiftItemsController < ApplicationController
 
   def create
     require "open-uri"
+    require "nokogiri"
+
+    user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36"
+
     @gift_item = current_user.gift_items.build(gift_item_params)
 
-    html = URI.open(@gift_item.url).read
+    html = URI.open(@gift_item.url, 'User-Agent' => user_agent ).read
     doc = Nokogiri::HTML.parse(html)
 
     @gift_item.name = doc.css('meta[property="og:title"] @content').to_s
     @gift_item.description = doc.css('meta[property="og:description"] @content').to_s
-    image_url = doc.css('meta[property="og:image"] @content').to_s # 画像URLをテキストで保存
+    og_image_meta = doc.css('meta[property="og:image"], meta[name="og:image"]').first # meta nameの場合も取得
+    image_url = og_image_meta['content'].to_s
+    puts "画像URL#{image_url}"
+    puts @gift_item.name 
+    puts @gift_item.description
     file = URI.open(image_url) # 画像をオブジェクトに
 
     @gift_item.image = file
