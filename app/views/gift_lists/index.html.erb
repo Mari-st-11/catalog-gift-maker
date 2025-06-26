@@ -1,13 +1,19 @@
 <div class="container mx-auto px-5 py-10 text-center">
 <h1 class="text-xl font-bold">ギフトリスト一覧</h1>
   <div class="mt-2">
-    <% if @gift_lists.present? %>
-      <%= render @gift_lists %>
+    <% if user_signed_in? %>
+    <%= link_to "ギフトリストを追加", new_gift_list_path, class:"btn btn-primary mt-3" %>
+      <% if @gift_lists.present? %>
+        <%= render @gift_lists %>
+      <% else %>
+        <div class="">
+          ギフトリストはまだありません<br>
+          
+        </div>
+      <% end %>
     <% else %>
-      <div class="">
-        ギフトリストはまだありません<br>
-        ギフトリストを作成しましょう！
-      </div>
+      <div>ギフトリストの作成にはユーザー登録が必要です</div>
+      <%= link_to "ユーザー新規登録", new_user_registration_path, class:"btn btn-info mt-3" %>
     <% end %>
   </div>
 </div>

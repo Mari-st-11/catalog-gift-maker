@@ -35,7 +35,7 @@ class GiftItemsController < ApplicationController
   end
 
   def destroy
-    #@gift_list = GiftList.find(params[:id])
+    # @gift_list = GiftList.find(params[:id])
     @gift_item.destroy!
     redirect_to gift_lists_path
   end
