@@ -1,17 +1,11 @@
 <header class="bg-gradient-to-r from-neutral to-yellow-200">
-<div class="flex justify-center items-center gap-4">
-  <h1 class="text-xl"><%= link_to "カタログギフトメーカー", root_path %></h1>
-  <ul class="menu menu-vertical lg:menu-horizontal rounded-box">
-    <li><%= link_to "通知アイコン", "#" %></li>
-    <li><%= link_to "ギフトリストを作る", new_gift_list_path %></li>
-    <li><%= link_to "ギフトリスト一覧", gift_lists_path %></li>
-    <li><%= link_to "マイページ", "#" %></li>
-    <li><%= link_to "ユーザー新規登録", new_user_registration_path %></li>
-    <li><%= link_to "ログイン", new_user_session_path %></li>
-    <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }%></li>
-    <% if user_signed_in? %>
-      <li><%= current_user.name %></li>
-    <% end %>
+<div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+  <h1 class="flex title-font font-bold items-center mb-4 md:mb-0"><%= link_to "カタログギフトメーカー", root_path %></h1>
+  <ul class="md:ml-auto flex flex-wrap items-center text-sm justify-center">
+    <li><%= link_to "ギフトリスト一覧", gift_lists_path, class:"mr-5" %></li>
+    <li><%= link_to "ログイン", new_user_session_path, class:"mr-5" if !user_signed_in? %></li>
+    <li><%= link_to "ログアウト", destroy_user_session_path, class:"mr-5", data: { turbo_method: :delete } if user_signed_in? %></li>
+    <li><%= current_user.name if user_signed_in? %></li>
   </ul>
 </div>
 </header>
