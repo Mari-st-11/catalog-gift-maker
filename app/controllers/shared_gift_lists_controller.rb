@@ -1,6 +1,6 @@
 class SharedGiftListsController < ApplicationController
   before_action :set_gift_list, only: %i[ show choose ]
-  before_action :set_gift_item, only: %i[ show choose ]
+  # before_action :set_gift_item, only: %i[ show choose ]
 
   def show
     @gift_items = @gift_list.gift_items.includes(:user).order(:id)
@@ -24,7 +24,7 @@ class SharedGiftListsController < ApplicationController
     @gift_list = GiftList.find(params[:id])
   end
 
-  def set_gift_item
-    @gift_item = GiftItem.find(params[:id])
-  end
+  # def set_gift_item
+  #   @gift_item = @gift_list.gift_items.find(params[:id])
+  # end
 end

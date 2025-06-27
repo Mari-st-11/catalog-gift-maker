@@ -16,16 +16,14 @@ class GiftItemsController < ApplicationController
     html = URI.open(@gift_item.url, 'User-Agent' => user_agent ).read
     doc = Nokogiri::HTML.parse(html)
 
-    @gift_item.name = doc.css('meta[property="og:title"] @content').to_s
-    @gift_item.description = doc.css('meta[property="og:description"] @content').to_s
+    @gift_item.name = doc.at('meta[property="og:title"]')&.[]('content') || doc.at('title')&.text
+    @gift_item.description = doc.css('meta[property="og:description"], meta[name="description"]').first&.[]('content') || ''
     og_image_meta = doc.css('meta[property="og:image"], meta[name="og:image"]').first # meta nameの場合も取得
-    image_url = og_image_meta['content'].to_s
-    puts "画像URL#{image_url}"
-    puts @gift_item.name 
-    puts @gift_item.description
-    file = URI.open(image_url) # 画像をオブジェクトに
-
-    @gift_item.image = file
+    if og_image_meta.present?
+      image_url = og_image_meta['content'].to_s
+      file = URI.open(image_url) # 画像をオブジェクトに
+      @gift_item.image = file
+    end
 
     if @gift_item.save
       redirect_to gift_item_path(@gift_item)

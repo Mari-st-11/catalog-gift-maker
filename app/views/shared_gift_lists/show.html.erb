@@ -5,7 +5,9 @@
   </h2>
 
     <% if @gift_items.present? %>
-      <%= render partial: "gift_items/shared_gift_item", collection: @gift_items, as: "gift_item" %>
+      <div class="grid grid-cols-2 grid-rows-2 gap-5 md:grid-cols-3">
+        <%= render partial: "gift_items/shared_gift_item", collection: @gift_items, as: "gift_item" %>
+      </div>
     <% else %>
       <div class="">
         登録されたギフトがありません
