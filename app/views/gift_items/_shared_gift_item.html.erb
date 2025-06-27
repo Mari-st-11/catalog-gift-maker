@@ -1,8 +1,9 @@
 
+<div class="flex items-stretch h-full">
   <div class="card w-96 bg-base-100 card-sm shadow-sm">
     <figure>
       <%= link_to gift_item_path(gift_item) do %>
-        <%= image_tag gift_item.image.presence || "https://placehold.jp/400x300.png?text=sample" %>
+        <%= image_tag gift_item.image.url.presence %>
       <% end %>
     </figure>
     <div class="card-body">
@@ -15,3 +16,4 @@
       </div>
     </div>
   </div>
+</div>

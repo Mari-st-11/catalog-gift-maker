@@ -6,17 +6,26 @@
   <div><%= link_to "リスト名を編集", edit_gift_list_path, class: "text-sm" %></div>
   <%= link_to "ギフトを追加", new_gift_list_gift_item_path(@gift_list.id), class: "btn btn-neutral mt-4" %>
   <p class="m-4">シェア用のURLはこちら　https://catalog-gift-maker.onrender.com/shared_gift_lists/<%= @gift_list.id %>/</p>
+
     <% if @selected_gift_item.present? %>
-      <div>
-      <b><%= @gift_list.recipient_name %>さんが選んだギフト<br></b>
-      早速購入して贈りましょう！
-      <%= image_tag @selected_gift_item.image.presence || "https://placehold.jp/100x100.png?text=sample", :width => "100" %>
-      <%= @selected_gift_item.name %>
-      <% if @selected_gift_item.url.present? %>
-        <%= link_to "ギフトを購入する", @selected_gift_item.url, target: "_blank", rel: "noopener", class: "btn" %>
-      <% end %>
+    <div class="w-4">
+    <div class="card card-side bg-natural shadow-sm mb-5">
+      <figure>
+        <%= image_tag @selected_gift_item.image.url.presence, width:"150" %>
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title"><%= @gift_list.recipient_name %>さんが選んだギフト</h2>
+        <p>早速購入して贈りましょう！</p>
+        <div class="card-actions justify-end">
+          <% if @selected_gift_item.url.present? %>
+            <%= link_to "ギフトを購入する", @selected_gift_item.url, target: "_blank", rel: "noopener", class: "btn btn-primary" %>
+          <% end %>
+        </div>
       </div>
+    </div>
+    </div>
     <% end %>
+
     <% if @gift_items.present? %>
       <div class="grid grid-cols-2 grid-rows-2 gap-5 md:grid-cols-3">
       <%= render @gift_items %>
