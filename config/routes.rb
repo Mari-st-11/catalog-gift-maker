@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     member do
       post :choose
     end
-    resources :shared_gift_items, only: %i[ show ]
+    resources :shared_gift_items, only: %i[ show ], shallow: true
   end
 
   # トップページ

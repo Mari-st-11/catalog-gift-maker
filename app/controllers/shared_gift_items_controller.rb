@@ -1,6 +1,6 @@
-class SharedGiftListsController < ApplicationController
+class SharedGiftItemsController < ApplicationController
   def show
-    @gift_item = GiftList.gift_items.find(params[:id])
-    
+    #@gift_list = GiftList.find(params[:id])
+    @gift_item = GiftItem.find(params[:id])
   end
 end
