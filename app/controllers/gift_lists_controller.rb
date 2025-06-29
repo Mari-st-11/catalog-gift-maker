@@ -17,7 +17,7 @@ class GiftListsController < ApplicationController
     @gift_list = current_user.gift_lists.build(gift_list_params)
 
     if @gift_list.save
-      redirect_to gift_lists_path(@gift_list)
+      redirect_to gift_list_path(@gift_list)
     end
   end
 

@@ -1,11 +1,12 @@
 class GiftItemsController < ApplicationController
   before_action :set_gift_item, only: %i[ show edit update destroy ]
+  before_action :set_gift_list, only: %i[ new ]
 
   def new
     @gift_item = GiftItem.new
   end
 
-  def create
+  def createbv 
     require "open-uri"
     require "nokogiri"
 
@@ -41,7 +42,6 @@ class GiftItemsController < ApplicationController
   end
 
   def destroy
-    # @gift_list = GiftList.find(params[:id])
     @gift_item.destroy!
     redirect_to gift_lists_path
   end
@@ -58,5 +58,9 @@ class GiftItemsController < ApplicationController
 
   def set_gift_item
     @gift_item = current_user.gift_items.find(params[:id])
+  end
+
+  def set_gift_list
+    @gift_list = GiftList.find(params[:gift_list_id])
   end
 end

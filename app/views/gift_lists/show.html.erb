@@ -5,7 +5,9 @@
   </h1>
   <div><%= link_to "リスト名を編集", edit_gift_list_path, class: "text-sm" %></div>
   <%= link_to "ギフトを追加", new_gift_list_gift_item_path(@gift_list.id), class: "btn btn-neutral mt-4" %>
-  <p class="m-4">シェア用のURLはこちら　https://catalog-gift-maker.onrender.com/shared_gift_lists/<%= @gift_list.id %>/</p>
+  <% if @gift_items.present? %>
+    <p class="m-4">シェア用のURLはこちら　https://catalog-gift-maker.onrender.com/shared_gift_lists/<%= @gift_list.id %>/</p>
+  <% end %>
 
     <% if @selected_gift_item.present? %>
     <div class="w-4">
@@ -31,8 +33,9 @@
       <%= render @gift_items %>
       </div>
     <% else %>
-      <div class="">
+      <div class="p-5">
         登録されたギフトがありません
       </div>
     <% end %>
+  <%= link_to "< ギフトリスト一覧へ戻る", gift_lists_path, class: "link" %>
 </div>
