@@ -1,11 +1,71 @@
-<div class="hero min-h-screen">
-  <div class="hero-content text-center">
-    <div class="max-w-md">
-      <h1 class="text-xl font-bold mb-5">カタログギフトメーカー</h1>
-      <p class="py-6">
-        「カタログギフトメーカー」は、贈り物を選ぶ楽しさを提供するWebアプリです。 一般的なカタログギフトとは異なり、特定のショップに縛られず自分で商品を選び、オリジナルのギフトカタログを作成できます。 受け取った相手はリストの中から欲しいものを選ぶことができるため、ミスマッチを防げます。
-      </p>
-      <button class="btn btn-primary">ギフトリストを作ってみる</button>
+<div class="max-w-md mx-auto p-4 space-y-8 font-sans mt-10">
+
+  <!-- タイトル -->
+  <header class="text-center space-y-2">
+    <h1 class="text-lg font-bold">自分でつくるWEBカタログギフト<br>
+    <span class="text-xl font-bold">カタログギフトメーカー</span></h1>
+  </header>
+
+  <!-- プレゼント選びの悩み -->
+  <section class="bg-gray-100 p-5 rounded-lg space-y-1 text-center mb-0.5">
+    <p><i class="fa-regular fa-face-frown"></i>「何を贈ろうかな？」</p>
+    <p><i class="fa-regular fa-face-frown"></i>「これはもう持ってるかも？」</p>
+    <p><i class="fa-regular fa-face-frown"></i>「どっちが好みなんだろう？」</p>
+  </section>
+
+  <!-- 矢印 -->
+  <div class="text-center text-2xl text-gray-200 mb-1"><i class="fa fa-angle-double-down"></i></div>
+
+  <!-- 課題解決 -->
+  <section class="text-center space-y-2">
+    <h3 class="text-lg font-bold mb-4">そんなプレゼント選びの悩みを<br>まとめて解決！</h3>
+    <p>カタログギフトメーカーなら、贈りたいアイテムをまとめてリストにして、相手に選んでもらえます。</p>
+  </section>
+
+  <!-- ベネフィット -->
+  <section class="space-y-4">
+    <div class="bg-gray-100 p-4 rounded-lg text-center">
+      <p class="text-sm ">特定のショップやブランドに縛られないから</p>
+      <p class="text-lg font-bold"><i class="fa-regular fa-face-smile mr-2"></i>組み合わせ自由</p>
     </div>
+    <div class="bg-gray-100 p-4 rounded-lg text-center">
+      <p class="text-sm ">リストの中から欲しいものを選べるから</p>
+      <p class="text-lg font-bold"><i class="fa-regular fa-face-smile mr-2"></i>もらう側も嬉しい</p>
+    </div>
+  </section>
+
+  <!-- 新規作成ボタン -->
+  <div class="text-center pt-5 pb-5">
+    <p class="text-sm">＼ さっそく使ってみる ／</p>
+    <%= link_to "ユーザー新規登録", new_user_registration_path, class:"btn btn-info mt-3 mr-3" %>
   </div>
+
+  <!-- 使い方 -->
+  <section class="space-y-4">
+    <h3 class="text-lg font-bold text-center">カタログギフトメーカーの使い方</h3>
+    <ol class="space-y-2 font-bold">
+      <li class="flex items-start bg-gray-100 p-4 rounded-lg">
+        <span class="font-bold text-info mr-4 text-lg">01</span>
+        <span class="text-sm">ギフトリストを作成<br><span class="font-normal">贈りたい商品の商品URLを入力</span></span>
+      </li>
+      <li class="flex items-start bg-gray-100 p-4 rounded-lg">
+        <span class="font-bold text-info mr-4">02</span>
+        <span class="text-sm">作成したギフトリストを相手にシェア</span>
+      </li>
+      <li class="flex items-start bg-gray-100 p-4 rounded-lg">
+        <span class="font-bold text-info mr-4">03</span>
+        <span class="text-sm">受け取った相手がギフトを選ぶ</span>
+      </li>
+      <li class="flex items-start bg-gray-100 p-4 rounded-lg">
+        <span class="font-bold text-info mr-4">04</span>
+        <span class="text-sm">選ばれたギフトを通知でお知らせ（未実装）</span>
+      </li>
+      <li class="flex items-start bg-gray-100 p-4 rounded-lg">
+        <span class="font-bold text-info mr-4">05</span>
+        <span class="text-sm">ギフトを購入してプレゼント！</span>
+      </li>
+    </ol>
+    <p class="text-sm text-center">※本アプリに購入機能はありません</p>
+  </section>
+
 </div>
