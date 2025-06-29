@@ -60,7 +60,7 @@ gem "tailwindcss-rails", "~> 4.2.3", github: "rails/tailwindcss-rails", branch: 
 
 gem "devise"
 
-gem "draper", "4.0.2"
+gem "draper", "4.0.4"
 
 gem "nokogiri"
 
