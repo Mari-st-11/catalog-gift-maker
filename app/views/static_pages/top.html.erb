@@ -7,28 +7,31 @@
   </header>
 
   <!-- プレゼント選びの悩み -->
-  <section class="bg-gray-100 p-5 rounded-lg space-y-1 text-center mb-0.5">
-    <p><i class="fa-regular fa-face-frown"></i>「何を贈ろうかな？」</p>
-    <p><i class="fa-regular fa-face-frown"></i>「これはもう持ってるかも？」</p>
-    <p><i class="fa-regular fa-face-frown"></i>「どっちが好みなんだろう？」</p>
+  <section class="text-center space-y-2 text-sm mb-0.5">
+    プレゼント選びの際、こんな悩みがありませんか？
   </section>
+  <section class="bg-zinc-100 p-5 rounded-lg space-y-1 text-center mb-5">
+
+    <p><i class="fa-regular fa-face-frown"></i>「これはもう持っているかも？」</p>
+    <p><i class="fa-regular fa-face-frown　bv"></i>「どっちが好みなんだろう？」</p>
+    <p><i class="fa-regular fa-face-frown"></i>「候補はあるけれど絞れない！」</p>
 
   <!-- 矢印 -->
-  <div class="text-center text-2xl text-gray-200 mb-1"><i class="fa fa-angle-double-down"></i></div>
-
+  <div class="text-center text-2xl text-zinc-400 mb-1"><i class="fa fa-angle-double-down"></i></div>
+  <h3 class="text-lg font-bold">そんなプレゼント選びの悩みを<br>まとめて解決！</h3>
+  </section>
   <!-- 課題解決 -->
-  <section class="text-center space-y-2">
-    <h3 class="text-lg font-bold mb-4">そんなプレゼント選びの悩みを<br>まとめて解決！</h3>
-    <p>カタログギフトメーカーなら、贈りたいアイテムをまとめてリストにして、相手に選んでもらえます。</p>
+  <section class="text-center space-y-2 text-sm">
+    カタログギフトメーカーなら<br><span class="font-bold">贈りたいアイテムをまとめてリストにして、<br>相手に選んでもらえます。</span>
   </section>
 
   <!-- ベネフィット -->
   <section class="space-y-4">
-    <div class="bg-gray-100 p-4 rounded-lg text-center">
+    <div class="bg-zinc-100 p-4 rounded-lg text-center">
       <p class="text-sm ">特定のショップやブランドに縛られないから</p>
       <p class="text-lg font-bold"><i class="fa-regular fa-face-smile mr-2"></i>組み合わせ自由</p>
     </div>
-    <div class="bg-gray-100 p-4 rounded-lg text-center">
+    <div class="bg-zinc-100 p-4 rounded-lg text-center">
       <p class="text-sm ">リストの中から欲しいものを選べるから</p>
       <p class="text-lg font-bold"><i class="fa-regular fa-face-smile mr-2"></i>もらう側も嬉しい</p>
     </div>
@@ -37,30 +40,31 @@
   <!-- 新規作成ボタン -->
   <div class="text-center pt-5 pb-5">
     <p class="text-sm">＼ さっそく使ってみる ／</p>
-    <%= link_to "ユーザー新規登録", new_user_registration_path, class:"btn btn-info mt-3 mr-3" %>
+    <%= link_to "ユーザー新規登録", new_user_registration_path, class:"btn btn-info mt-0.5" if !user_signed_in? %>
+    <%= link_to "ギフトリストを作成", gift_lists_path, class:"btn btn-primary mt-0.5" if user_signed_in? %>
   </div>
 
   <!-- 使い方 -->
   <section class="space-y-4">
     <h3 class="text-lg font-bold text-center">カタログギフトメーカーの使い方</h3>
     <ol class="space-y-2 font-bold">
-      <li class="flex items-start bg-gray-100 p-4 rounded-lg">
+      <li class="flex items-start bg-zinc-100 p-4 rounded-lg">
         <span class="font-bold text-info mr-4 text-lg">01</span>
         <span class="text-sm">ギフトリストを作成<br><span class="font-normal">贈りたい商品の商品URLを入力</span></span>
       </li>
-      <li class="flex items-start bg-gray-100 p-4 rounded-lg">
+      <li class="flex items-start bg-zinc-100 p-4 rounded-lg">
         <span class="font-bold text-info mr-4">02</span>
         <span class="text-sm">作成したギフトリストを相手にシェア</span>
       </li>
-      <li class="flex items-start bg-gray-100 p-4 rounded-lg">
+      <li class="flex items-start bg-zinc-100 p-4 rounded-lg">
         <span class="font-bold text-info mr-4">03</span>
         <span class="text-sm">受け取った相手がギフトを選ぶ</span>
       </li>
-      <li class="flex items-start bg-gray-100 p-4 rounded-lg">
+      <li class="flex items-start bg-zinc-100 p-4 rounded-lg">
         <span class="font-bold text-info mr-4">04</span>
         <span class="text-sm">選ばれたギフトを通知でお知らせ（未実装）</span>
       </li>
-      <li class="flex items-start bg-gray-100 p-4 rounded-lg">
+      <li class="flex items-start bg-zinc-100 p-4 rounded-lg">
         <span class="font-bold text-info mr-4">05</span>
         <span class="text-sm">ギフトを購入してプレゼント！</span>
       </li>
