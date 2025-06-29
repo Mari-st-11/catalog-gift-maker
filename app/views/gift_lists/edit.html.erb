@@ -3,4 +3,5 @@
   <div class="mx-auto">
   <%= render "form", gift_list: @gift_list %>
   </div>
+  <%= link_to "< ギフト一覧へ戻る", gift_list_path(@gift_list), class: "link" %>
 </div>

@@ -7,7 +7,7 @@
       <% end %>
     </figure>
     <div class="card-body">
-      <h2 class="card-title"><%= gift_item.id %><%= gift_item.name %></h2>
+      <h2 class="card-title"><%= gift_item.name %></h2>
       <div class="card-actions justify-end text-right">
         <%= link_to shared_gift_item_path(gift_item) do %><p class="underline">ギフトの詳細を見る ></p><% end %>
         <div id="select_button_<%= gift_item.id %>">
