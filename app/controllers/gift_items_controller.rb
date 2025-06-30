@@ -14,7 +14,7 @@ class GiftItemsController < ApplicationController
 
     @gift_item = current_user.gift_items.build(gift_item_params)
 
-    html = URI.open(@gift_item.url, "User-Agent" => user_agent).read
+    html = URI.open(@gift_item.url, "User-Agent" => user_agent, read_timeout: 20, open_timeout: 5).read
     doc = Nokogiri::HTML.parse(html)
 
     @gift_item.name = doc.at('meta[property="og:title"]')&.[]("content") || doc.at("title")&.text
