@@ -22,7 +22,7 @@ class GiftItemsController < ApplicationController
     og_image_meta = doc.css('meta[property="og:image"], meta[name="og:image"]').first # meta nameの場合も取得
     if og_image_meta.present?
       image_url = og_image_meta["content"].to_s
-      file = URI.open(image_url) # 画像をオブジェクトに
+      file = URI.open(image_url, read_timeout: 60, open_timeout: 10) # 画像をオブジェクトに
       @gift_item.image = file
     end
 
