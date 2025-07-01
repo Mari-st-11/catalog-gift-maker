@@ -71,3 +71,7 @@ gem "carrierwave"
 gem "aws-sdk-s3", require: false
 
 gem "fog-aws"
+
+gem "rails-i18n", "~> 7.0"
+
+gem "devise-i18n"

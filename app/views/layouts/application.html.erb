@@ -19,9 +19,11 @@
     <script src="https://kit.fontawesome.com/1970f07083.js" crossorigin="anonymous"></script>
   </head>
 
-  <body>
+  <body class="flex flex-col min-h-screen">
     <%= render 'shared/header' %>
-    <%= yield %>
+    <div class="flex-grow mb-10">
+      <%= yield %>
+    </div>
     <%= render 'shared/footer' %>
   </body>
 </html>

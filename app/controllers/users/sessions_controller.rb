@@ -22,7 +22,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # ログイン後に遷移するpath
   def after_sign_in_path_for(resource)
-    root_path
+    gift_lists_path
   end
 
   # ログアウト後に遷移するpath
