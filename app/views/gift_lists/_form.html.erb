@@ -1,10 +1,10 @@
 <div class="container mx-auto px-5 py-10">
 <%= form_with model: gift_list do |f| %>
-  <fieldset class="fieldset border-base-200 rounded-box w-xs border p-4">
+  <fieldset class="fieldset border-base-200 rounded-box w-xs border p-4 mx-auto">
 
     <label class="label">ギフトを贈る方の名前*</label>
     <div class="input">
-      <%= f.text_field :recipient_name, autofocus: true, autocomplete: "recipient_name", placeholder: "敬称略で入力" %>
+      <%= f.text_field :recipient_name, autofocus: true, autocomplete: "recipient_name", placeholder: "例：○○さん" %>
     </div>
 
     <label class="label">贈る用途</label>

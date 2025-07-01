@@ -1,6 +1,6 @@
 <div class="container mx-auto px-5 py-10 text-center">
   <h1 class="text-xl font-bold mb-5">
-    <%= @gift_list.recipient_name %>さんへ贈る<br>
+    <%= @gift_list.recipient_name %>へ贈る<br>
     <%= @gift_list.purpose.presence || "ギフトリスト" %>
   </h1>
   <div><%= link_to "リスト名を編集", edit_gift_list_path, class: "text-sm" %></div>
@@ -16,7 +16,7 @@
         <%= image_tag @selected_gift_item.image.url.presence, width:"150" %>
       </figure>
       <div class="card-body">
-        <h2 class="card-title"><%= @gift_list.recipient_name %>さんが選んだギフト</h2>
+        <h2 class="card-title"><%= @gift_list.recipient_name %>が選んだギフト</h2>
         <p>早速購入して贈りましょう！</p>
         <div class="card-actions justify-end">
           <% if @selected_gift_item.url.present? %>

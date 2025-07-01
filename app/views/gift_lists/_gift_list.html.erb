@@ -1,6 +1,6 @@
-<div class="m-2">
-<ul class="menu">
-  <li><%= link_to gift_list_path(gift_list)  do %><strong class="md:font-bold"><%= "#{gift_list.recipient_name}"%></strong>さんへ贈る
+<div class="m-2 mx-auto max-w-md">
+<ul class="menu w-min">
+  <li><%= link_to gift_list_path(gift_list)  do %><i class="fa-solid fa-gift" style="color: #D7B84A;"></i><strong class="md:font-bold"><%= "#{gift_list.recipient_name}"%></strong>へ贈る
     <strong class="text-left"><%= "#{gift_list.purpose.presence || 'ギフトリスト'}" %></strong><% end %></li>
 </ul>
 </div>
