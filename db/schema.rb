@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_01_222000) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_02_080354) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,12 +23,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_01_222000) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "gift_list_id", null: false
-    t.index ["gift_list_id"], name: "index_gift_items_on_gift_list_id"
+    t.uuid "gift_list_uuid"
+    t.index ["gift_list_uuid"], name: "index_gift_items_on_gift_list_uuid"
     t.index ["user_id"], name: "index_gift_items_on_user_id"
   end
 
-  create_table "gift_lists", force: :cascade do |t|
+  create_table "gift_lists", primary_key: "uuid", id: :uuid, default: nil, force: :cascade do |t|
     t.string "recipient_name", null: false
     t.string "purpose"
     t.integer "cover_image"
@@ -37,7 +37,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_01_222000) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "uuid"
     t.index ["user_id"], name: "index_gift_lists_on_user_id"
     t.index ["uuid"], name: "index_gift_lists_on_uuid", unique: true
   end
@@ -55,7 +54,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_01_222000) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "gift_items", "gift_lists"
+  add_foreign_key "gift_items", "gift_lists", column: "gift_list_uuid", primary_key: "uuid"
   add_foreign_key "gift_items", "users"
   add_foreign_key "gift_lists", "users"
 end

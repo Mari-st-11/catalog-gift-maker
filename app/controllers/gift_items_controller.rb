@@ -49,7 +49,7 @@ class GiftItemsController < ApplicationController
   private
 
   def gift_item_params
-    params.require(:gift_item).permit(:url, :name, :description, :image).merge(gift_list_id: params[:gift_list_id])
+    params.require(:gift_item).permit(:url, :name, :description, :image).merge(gift_list_uuid: params[:gift_list_id])
   end
 
   def gift_item_params_update
@@ -61,6 +61,6 @@ class GiftItemsController < ApplicationController
   end
 
   def set_gift_list
-    @gift_list = GiftList.find(params[:gift_list_id])
+    @gift_list = GiftList.find_by(params[:gift_list_uuid])
   end
 end
