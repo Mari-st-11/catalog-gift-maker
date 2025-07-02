@@ -1,4 +1,6 @@
 class GiftList < ApplicationRecord
+  before_create :set_uuid
+
   validates :recipient_name, presence: true, length: { maximum: 255 }
   validates :purpose, length: { maximum: 255 }
   enum :cover_image, { default: 0, birthday: 1 }
@@ -6,5 +8,12 @@ class GiftList < ApplicationRecord
   validates :is_public, inclusion: [ true, false ]
 
   belongs_to :user
-  has_many :gift_items
+  has_many :gift_items, dependent: :destroy
+
+  private
+
+def set_uuid
+  self.uuid = SecureRandom.uuid
+end
+
 end

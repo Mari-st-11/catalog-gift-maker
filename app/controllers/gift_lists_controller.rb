@@ -1,5 +1,5 @@
 class GiftListsController < ApplicationController
-  before_action :set_gift_list, only: %i[ show edit update ]
+  before_action :set_gift_list, only: %i[ show edit update destroy ]
   def index
     @gift_lists = current_user.gift_lists.includes(:user).order(:id) if user_signed_in?
   end
@@ -27,6 +27,11 @@ class GiftListsController < ApplicationController
     if @gift_list.update(gift_list_params)
       redirect_to gift_lists_path(@gift_list)
     end
+  end
+
+  def destroy
+    @gift_list.destroy!
+    redirect_to gift_lists_path
   end
 
   private
