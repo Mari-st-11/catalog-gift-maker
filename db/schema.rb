@@ -39,6 +39,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_01_222000) do
     t.datetime "updated_at", null: false
     t.string "uuid"
     t.index ["user_id"], name: "index_gift_lists_on_user_id"
+    t.index ["uuid"], name: "index_gift_lists_on_uuid", unique: true
   end
 
   create_table "users", force: :cascade do |t|

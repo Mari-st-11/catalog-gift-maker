@@ -8,7 +8,7 @@ class GiftList < ApplicationRecord
   validates :is_public, inclusion: [ true, false ]
 
   belongs_to :user
-  has_many :gift_items
+  has_many :gift_items, dependent: :destroy
 
   private
 
