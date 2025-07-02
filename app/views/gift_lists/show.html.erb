@@ -11,10 +11,10 @@
   <% end %>
 
     <% if @selected_gift_item.present? %>
-    <div class="w-4">
+    <div class="w-full">
     <div class="card card-side bg-natural shadow-sm mb-5">
-      <figure>
-        <%= image_tag @selected_gift_item.image.url.presence, width:"150" %>
+      <figure class="w-1/4 md:w-1/4 flex-shrink-0">
+        <%= image_tag @selected_gift_item.image.url.presence, class: "object-cover h-full w-full" %>
       </figure>
       <div class="card-body">
         <h2 class="card-title"><%= @gift_list.recipient_name %>が選んだギフト</h2>

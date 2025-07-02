@@ -21,7 +21,7 @@ class SharedGiftListsController < ApplicationController
   private
 
   def set_gift_list
-    @gift_list = GiftList.find(params[:id])
+    @gift_list = GiftList.find_by(params[:uuid])
   end
 
   # def set_gift_item

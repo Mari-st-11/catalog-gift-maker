@@ -5,5 +5,5 @@ class GiftItem < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   belongs_to :user
-  belongs_to :gift_list
+  belongs_to :gift_list, primary_key: :uuid, foreign_key: :gift_list_uuid
 end
