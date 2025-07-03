@@ -43,7 +43,7 @@ class GiftItemsController < ApplicationController
 
   def destroy
     @gift_item.destroy!
-    redirect_to gift_lists_path
+    redirect_to gift_list_path(@gift_item.gift_list)
   end
 
   private

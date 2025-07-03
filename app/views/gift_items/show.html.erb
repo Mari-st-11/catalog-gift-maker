@@ -5,7 +5,7 @@
   </h1>
   <div class="mb-5">
     <%= link_to "ギフトの編集", edit_gift_item_path, class: "btn text-sm mr-2" %>
-    <%= link_to "ギフトの削除", gift_item_path(@gift_item), class: "btn text-sm mr-2", data: { turbo_method: :delete } %>
+    <%= link_to "ギフトの削除", gift_item_path(@gift_item), class: "btn text-sm mr-2", data: { turbo_method: :delete, turbo_confirm: '削除しますか？'  } %>
     <% if @gift_item.url.present? %>
       <%= link_to "ギフトの購入", @gift_item.url, target: "_blank", rel: "noopener", class: "btn btn-success" %>
     <% end %>

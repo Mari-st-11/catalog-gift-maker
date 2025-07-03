@@ -4,7 +4,7 @@
     <%= @gift_list.purpose.presence || "ギフトリスト" %>
   </h1>
   <div><%= link_to "リスト名を編集", edit_gift_list_path, class: "text-sm" %></div>
-  <div><%= link_to "リストを削除", gift_list_path, class: "btn text-sm mr-2", data: { turbo_method: :delete } %></div>
+  <div><%= link_to "リストを削除", gift_list_path, class: "btn text-sm mr-2", data: { turbo_method: :delete, turbo_confirm: '削除しますか？' } %></div>
   <%= link_to "ギフトを追加", new_gift_list_gift_item_path(@gift_list.id), class: "btn btn-neutral mt-4" %>
   <% if @gift_items.present? %>
     <p class="m-4">シェア用のURLはこちら　https://catalog-gift-maker.onrender.com/shared_gift_lists/<%= @gift_list.id %>/</p>
