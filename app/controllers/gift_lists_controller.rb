@@ -25,7 +25,7 @@ class GiftListsController < ApplicationController
 
   def update
     if @gift_list.update(gift_list_params)
-      redirect_to gift_lists_path(@gift_list)
+      redirect_to gift_list_path(@gift_list)
     end
   end
 
@@ -37,7 +37,7 @@ class GiftListsController < ApplicationController
   private
 
   def set_gift_list
-    @gift_list = current_user.gift_lists.find_by(params[:uuid])
+    @gift_list = current_user.gift_lists.find_by(uuid: params[:uuid])
   end
 
   def gift_list_params
