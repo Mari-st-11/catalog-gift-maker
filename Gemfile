@@ -75,3 +75,5 @@ gem "fog-aws"
 gem "rails-i18n", "~> 7.0"
 
 gem "devise-i18n"
+
+gem 'font-awesome-sass'

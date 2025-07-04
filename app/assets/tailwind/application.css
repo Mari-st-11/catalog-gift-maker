@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 @plugin "daisyui" {
   themes: ["light", "dark"] /* デフォルトをlightにする */
 }
@@ -29,8 +28,8 @@
   --color-success-content: oklch(98% 0.014 180.72);
   --color-warning: #d5d7d7;
   --color-warning-content: #373735;
-  --color-error: oklch(50% 0.213 27.518);
-  --color-error-content: oklch(96% 0.015 12.422);
+  --color-error: oklch(70% 0.191 22.216);
+  --color-error-content: oklch(97% 0.013 17.38);
   --color-yellow-200: #EEDF96;
   --radius-selector: 0.5rem;
   --radius-field: 1rem;
@@ -41,5 +40,3 @@
   --depth: 0;
   --noise: 0;
 }
-
-
