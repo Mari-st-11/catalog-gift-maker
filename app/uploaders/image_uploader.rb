@@ -26,7 +26,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
 
   def default_url
-    "https://placehold.jp/400x300.png?text=sample"
+    "noimage"
   end
 
   # Process files as they are uploaded:

@@ -185,6 +185,8 @@ GEM
     fog-xml (0.1.5)
       fog-core
       nokogiri (>= 1.5.11, < 2.0.0)
+    font-awesome-sass (6.7.2)
+      sassc (~> 2.0)
     formatador (1.1.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -366,6 +368,8 @@ GEM
       logger
     ruby2_keywords (0.0.5)
     rubyzip (2.4.1)
+    sassc (2.4.0)
+      ffi (~> 1.9)
     securerandom (0.4.1)
     selenium-webdriver (4.32.0)
       base64 (~> 0.2)
@@ -441,6 +445,7 @@ DEPENDENCIES
   devise-i18n
   draper (= 4.0.2)
   fog-aws
+  font-awesome-sass
   jbuilder
   jsbundling-rails
   nokogiri
