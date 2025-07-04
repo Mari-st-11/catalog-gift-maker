@@ -10,7 +10,7 @@ class GiftItemsController < ApplicationController
     require "open-uri"
     require "nokogiri"
 
-    user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36"
+    user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/555.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/555.36"
 
     @gift_item = current_user.gift_items.build(gift_item_params)
 
@@ -43,13 +43,13 @@ class GiftItemsController < ApplicationController
 
   def destroy
     @gift_item.destroy!
-    redirect_to gift_lists_path
+    redirect_to gift_list_path(@gift_item.gift_list)
   end
 
   private
 
   def gift_item_params
-    params.require(:gift_item).permit(:url, :name, :description, :image).merge(gift_list_uuid: params[:gift_list_id])
+    params.require(:gift_item).permit(:url, :name, :description, :image).merge(gift_list_uuid: params[:gift_list_uuid])
   end
 
   def gift_item_params_update
@@ -61,6 +61,6 @@ class GiftItemsController < ApplicationController
   end
 
   def set_gift_list
-    @gift_list = GiftList.find_by(params[:gift_list_uuid])
+    @gift_list = GiftList.find_by(uuid: params[:gift_list_uuid])
   end
 end

@@ -3,17 +3,25 @@
     <%= @gift_item.gift_list.recipient_name %>へ贈る<br>
     <%= @gift_item.gift_list.purpose.presence || "ギフトリスト" %>
   </h1>
-  <div class="mb-5">
-    <%= link_to "ギフトの編集", edit_gift_item_path, class: "btn text-sm mr-2" %>
-    <%= link_to "ギフトの削除", gift_item_path(@gift_item), class: "btn text-sm mr-2", data: { turbo_method: :delete } %>
-    <% if @gift_item.url.present? %>
-      <%= link_to "ギフトの購入", @gift_item.url, target: "_blank", rel: "noopener", class: "btn btn-success" %>
-    <% end %>
-  </div>
   <div class="w-[90%] max-w-[500px] mx-auto bg-white p-4">
   <%= image_tag @gift_item.image.url.presence, class: "w-full h-auto mb-4" %>
   <h2 class="card-title mb-4"><%= @gift_item.name %></h2>
   <p class="mb-4 text-left text-sm/6"><%= @gift_item.description %></p>
+
+  <div class="mb-5">
+    <%= link_to edit_gift_item_path do %>
+      <i class="fa-solid fa-pen-to-square mr-1" style="color: #D7B84A;"></i><span class="text-sm mr-6">商品名・説明文の編集</span>
+    <% end %>
+    <%= link_to gift_item_path(@gift_item), data: { turbo_method: :delete, turbo_confirm: '削除しますか？' }  do %>
+      <i class="fa-solid fa-trash-can mr-1" style="color: #D7B84A;"></i><span class="text-sm">ギフトを削除</span>
+    <% end %>
+  </div>
+
+  <div class="mb-5">
+    <% if @gift_item.url.present? %>
+      <%= link_to "ギフトの購入", @gift_item.url, target: "_blank", rel: "noopener", class: "btn btn-success" %>
+    <% end %>
+  </div>
   <div class="mt-3">
     <%= link_to "< 一覧へ戻る", gift_list_path(@gift_item.gift_list), {class: "text-sm"} %>
   </div>

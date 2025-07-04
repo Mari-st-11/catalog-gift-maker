@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  resources :gift_lists, only: %i[ index new create show edit update destroy ] do
+  resources :gift_lists, only: %i[ index new create show edit update destroy ], param: :uuid do
     resources :gift_items, only: %i[ new create show edit update destroy ], shallow: true
   end
 
@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     member do
       post :choose
     end
-    resources :shared_gift_items, only: %i[ show ], shallow: true
+    resources :shared_gift_items, only: %i[ show ], shallow: false
   end
 
   # トップページ
