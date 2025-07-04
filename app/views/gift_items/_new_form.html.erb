@@ -1,13 +1,16 @@
 <div class="fieldset border-base-200 rounded-box w-xs border p-4 mb-5 mx-auto">
   <p>step1</p>
   <p>贈りたいアイテムの商品ページURLをコピー</p>
-  <%= link_to "贈りたいアイテムを探す(Google）", "https://www.google.com/", target: "_blank", rel: "noopener", class: "link" %>
+  <%= link_to "https://www.google.com/", target: "_blank", rel: "noopener", class: "link" do %>
+  贈りたいアイテムを探す(Google)<i class="fa-solid fa-arrow-up-right-from-square ml-1" style="color: #373735;"></i>
+  <% end %>
+  <p>※現在、楽天市場、Amazonは商品データを取得できません</p>
 </div>
 
 <%= form_with model:gift_item, url: gift_list_gift_items_path do |f| %>
   <fieldset class="fieldset border-base-200 rounded-box w-xs border p-4 mx-auto">
     <p>step2</p>
-    <label class="label">商品URLを入力</label>
+    <p>商品URLを入力</p>
     <div class="input">
       <%= f.text_field :url, autofocus: true, autocomplete: "url", placeholder: "https://〜" %>
     </div>

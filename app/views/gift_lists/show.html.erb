@@ -3,16 +3,19 @@
     <%= @gift_list.recipient_name %>へ贈る<br>
     <%= @gift_list.purpose.presence || "ギフトリスト" %>
   </h1>
-  <div><%= link_to edit_gift_list_path do %><i class="fa-solid fa-pen-to-square" style="color: #D7B84A;"></i><span class="text-sm mb-10">リスト名を編集</span><% end %>
+  <div>
+  <%= link_to edit_gift_list_path do %>
+    <i class="fa-solid fa-pen-to-square mr-1" style="color: #D7B84A;"></i><span class="text-sm mr-6">リスト名を編集</span>
+  <% end %>
   
   <%= link_to gift_list_path, data: { turbo_method: :delete, turbo_confirm: '削除しますか？' }  do %>
-  <i class="fa-solid fa-trash-can" style="color: #D7B84A;"></i><span class="text-sm">リストを削除</span><% end %></div>
+  <i class="fa-solid fa-trash-can mr-1" style="color: #D7B84A;"></i><span class="text-sm">リストを削除</span><% end %></div>
   <%= link_to new_gift_list_gift_item_path(@gift_list.id) do %>
   <button class="btn btn-neutral mt-4"><i class="fa-solid fa-plus" style="color: #ffffff;"></i>ギフトを追加</button><% end %>
   <% if @gift_items.present? %>
 
   <div class="m-5">
-    <div class="text-sm mb-5">ギフトリストが完成したら、共有URLをコピーしてリンクを相手に共有しましょう！</div>
+    <div class="text-sm mb-1">ギフトリストが完成したら、共有URLをコピーしてリンクを<%= @gift_list.recipient_name %>に共有しましょう！</div>
     <button onclick="copyShareUrl()" class="btn btn-outline btn-neutral"><i class="fa-solid fa-copy" style="color: #D7B84A;"></i>共有URLをコピー</button>
   </div>
   <% end %>
