@@ -26,7 +26,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
 
   def default_url
-    "noimage"
+    "https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/noimage.jpg"
   end
 
   # Process files as they are uploaded:
