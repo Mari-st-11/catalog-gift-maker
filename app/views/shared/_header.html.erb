@@ -1,6 +1,6 @@
 <header class="bg-gradient-to-r from-neutral to-yellow-200">
 <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-  <h1 class="flex title-font font-bold items-center mb-4 md:mb-0"><%= link_to "カタログギフトメーカー", root_path %></h1>
+  <h1 class="flex title-font font-bold items-center mb-4 md:mb-0"><%= link_to root_path do %><%= image_tag "https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/cgm-logo-w.png", width: "50px" %><% end %></h1>
   <ul class="md:ml-auto flex flex-wrap items-center text-sm justify-center">
     <li><%= link_to "ギフトリスト一覧", gift_lists_path, class:"mr-5" %></li>
     <li><%= link_to "ログイン", new_user_session_path, class:"mr-5" if !user_signed_in? %></li>
