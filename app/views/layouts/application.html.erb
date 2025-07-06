@@ -12,7 +12,7 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="apple-touch-icon" href="https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/cgm-favicon.png">
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
@@ -23,7 +23,9 @@
     <div class="flex-grow mb-10">
       <%= render 'shared/flash_message' %>
       <%= yield %>
+      <%= favicon_link_tag('https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/cgm-favicon.png') %>　
     </div>
     <%= render 'shared/footer' %>
   </body>
+  
 </html>

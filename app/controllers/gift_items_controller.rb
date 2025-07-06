@@ -80,7 +80,7 @@ class GiftItemsController < ApplicationController
   end
 
   def gift_item_params_update
-    params.require(:gift_item).permit(:url, :name, :description)
+    params.require(:gift_item).permit(:url, :name, :description, :image, :image_cache)
   end
 
   def set_gift_item

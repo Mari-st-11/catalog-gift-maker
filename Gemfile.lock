@@ -448,6 +448,7 @@ DEPENDENCIES
   font-awesome-sass
   jbuilder
   jsbundling-rails
+  mini_magick
   nokogiri
   pg (~> 1.1)
   pry-rails

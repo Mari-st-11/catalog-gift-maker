@@ -2,22 +2,21 @@
   <h1 class="text-xl font-bold mb-5">ギフトアイテムの編集</h1>
   <%= form_with model: @gift_item do |f| %>
     <fieldset class="fieldset border-base-200 rounded-box w-xs border p-4 mx-auto">
+      <%= image_tag @gift_item.image.url.presence, class: "w-full h-auto mb-4" %>
+      <label class="label">商品画像の差し替え</label>
+          <%= f.file_field :image, class: "file-input file-input-sm", accept: 'image/*' %>
+          <%= f.hidden_field :image_cache %>
 
       <label class="label">商品名</label>
-      <div class="input">
-        <%= f.text_field :name, autocomplete: "name", placeholder: "コーヒーメーカー" %>
+      <div class="textarea textarea-border max-w-none resize-none">
+        <%= f.text_area :name, autocomplete: "name", size: "34x3", placeholder: "コーヒーメーカー" %>
       </div>
       
       <label class="label">商品説明</label>
       <div class="textarea textarea-border max-w-none resize-none">
         <%= f.text_area :description, autocomplete: "description", placeholder: "電動ミル付きのコーヒーメーカーです", size: "34x10"%>
       </div>
-  <!--
-      <label class="label">商品画像</label>
-      <div class="input">
-        <%= f.text_field :image, autocomplete: "image", placeholder: "画像URL" %>
-      </div>
-  -->
+
       <button class="btn btn-neutral mt-4">
         <%= f.submit "編集を完了" %>
       </button>
