@@ -60,6 +60,13 @@
    - LINE通知（本リリース後）
 
 
+| ギフトリスト一覧 | ギフトリスト詳細画面 |
+| ---- | ---- |
+| [![Image from Gyazo](https://i.gyazo.com/863f7d6c91e9b59df13cb55ce11815c1.png)](https://gyazo.com/863f7d6c91e9b59df13cb55ce11815c1)| [![Image from Gyazo](https://i.gyazo.com/3fc818dececf0734df33004d35238aa6.png)](https://gyazo.com/3fc818dececf0734df33004d35238aa6) |
+
+| シェア用ギフトリスト画面（ギフト選択画面） | ギフトリスト詳細画面（ギフト選択後） |
+| ---- | ---- |
+| [![Image from Gyazo](https://i.gyazo.com/20c9857750cfd1fa4f8676728c6b04b9.png)](https://gyazo.com/20c9857750cfd1fa4f8676728c6b04b9) |[![Image from Gyazo](https://i.gyazo.com/76601990fd844360ea8688acf9ccd9eb.png)](https://gyazo.com/76601990fd844360ea8688acf9ccd9eb)
 
 ## このアプリを使うメリット
 
@@ -143,7 +150,7 @@
 
 - バックエンド：Ruby on Rails
 - CSS：Tailwind CSS
-- 画像投稿：ActiveStorage
+- 画像投稿：Carriewave
 - LINE通知：LINE Messaging API
 - 商品情報の取得：Gem NokogiriでOGPを取得
 
