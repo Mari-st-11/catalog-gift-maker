@@ -4,6 +4,11 @@
     <title>カタログギフトメーカー</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta property="og:title" content="カタログギフトメーカー">
+    <meta property="og:url" content="https://catalog-gift-maker.onrender.com/">
+    <meta property="og:image" content="https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/cdn-ogp.png">
+    <meta property="og:description" content="オリジナルのWEBカタログギフトを作れるサービスです。特定のショップやブランドに縛られずに、贈りたい商品を様々なECサイトから選んでカタログギフトにします。">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -16,6 +21,15 @@
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DKT6YZM7YF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-DKT6YZM7YF');
+    </script>
   </head>
 
   <body class="flex flex-col min-h-screen">
