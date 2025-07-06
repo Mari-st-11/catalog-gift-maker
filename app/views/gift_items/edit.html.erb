@@ -2,11 +2,10 @@
   <h1 class="text-xl font-bold mb-5">ギフトアイテムの編集</h1>
   <%= form_with model: @gift_item do |f| %>
     <fieldset class="fieldset border-base-200 rounded-box w-xs border p-4 mx-auto">
-<%= image_tag @gift_item.image.url.presence, class: "w-full h-auto mb-4" %>
+      <%= image_tag @gift_item.image.url.presence, class: "w-full h-auto mb-4" %>
       <label class="label">商品画像の差し替え</label>
           <%= f.file_field :image, class: "file-input file-input-sm", accept: 'image/*' %>
           <%= f.hidden_field :image_cache %>
-      
 
       <label class="label">商品名</label>
       <div class="textarea textarea-border max-w-none resize-none">
