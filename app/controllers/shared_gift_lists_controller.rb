@@ -7,14 +7,21 @@ class SharedGiftListsController < ApplicationController
 
   def choose
     @selected_gift_item = @gift_list.gift_items.find(params[:gift_item_id])
+    @unselected_gift_items = @gift_list.gift_items.where.not(id: params[:gift_item_id])
     # 選択されたアイテムのstatusをselectedに変更
     @selected_gift_item.selected!
-
-    @unselected_gift_items = @gift_list.gift_items.where.not(id: params[:gift_item_id])
     # 選択されなかったアイテムのstatusをunselectedに変更
     @unselected_gift_items.each do |unselected_gift_item|
       unselected_gift_item.unselected!
     end
+  end
+
+  def confirm
+    @selected_gift_item = @gift_list.gift_items.where(status: [ :selected ]).first
+
+      # statusを確定に変更する
+      @selected_gift_item.confirmed!
+    
   end
 
   private
