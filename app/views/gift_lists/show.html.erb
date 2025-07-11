@@ -31,8 +31,11 @@
         <p>早速購入して贈りましょう！</p>
         <div class="card-actions justify-end">
           <% if @selected_gift_item.url.present? %>
-            <%= link_to "ギフトを購入する", @selected_gift_item.url, target: "_blank", rel: "noopener", class: "btn btn-primary" %>
+            <%= link_to "ギフトを購入する", @selected_gift_item.url, target: "_blank", rel: "noopener", class: "btn btn-primary ml-3" %>
           <% end %>
+          <%= button_to "選び直してもらう",
+              cancel_shared_gift_list_path(@gift_list),
+              method: :post, class: "btn", data: { turbo_confirm: "ギフトを未選択状態にします" } %>
         </div>
       </div>
     </div>

@@ -4,11 +4,12 @@
     <%= @gift_list.purpose.presence || "ギフトリスト" %>
   </h2>
   <div class="">
-  <p>ギフトリストが届きました！<br>希望のギフトを１つ選んでください</p>
-  <p>選んだ後に「通知する」ボタンを押すと、贈り主に通知がいきます</p>
+  <p>ギフトリストが届きました！<br>ご希望のギフトを１つ選んでください</p>
   </div>
-  <div class="mt-5 text-sm">
-    （通知後）贈り主に伝えました！ギフトが届くまでお待ちください
+  <div class="m-5 text-sm">
+    <% if @gift_items.any? { |gift_item| gift_item.confirmed? } %>
+    贈り主に通知済みです！ギフトが届くまでお待ちください
+    <% end %>
   </div>
 
   <!-- ギフトアイテム確定ボタン -->
@@ -19,7 +20,7 @@
     選んだギフトはまだ通知されていません。「通知する」ボタンを押しましょう！</p>
         <%= button_to "贈り主に通知する",
           { controller: "shared_gift_lists", action: "confirm" },
-          { class: "btn btn-accent",data: { turbo_confirm: confirm_message } } %>
+          { class: "btn btn-accent", data: { turbo_confirm: confirm_message } } %>
     </div>
   <% end %>
 
