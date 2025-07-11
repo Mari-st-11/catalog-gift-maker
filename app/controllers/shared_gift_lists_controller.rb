@@ -1,5 +1,5 @@
 class SharedGiftListsController < ApplicationController
-  before_action :set_gift_list, only: %i[ show choose ]
+  before_action :set_gift_list, only: %i[ show choose confirm ]
 
   def show
     @gift_items = @gift_list.gift_items.includes(:user).order(:id)
@@ -18,10 +18,9 @@ class SharedGiftListsController < ApplicationController
 
   def confirm
     @selected_gift_item = @gift_list.gift_items.where(status: [ :selected ]).first
-
+    puts "選択されたギフトは#{@selected_gift_item.name}です"
       # statusを確定に変更する
       @selected_gift_item.confirmed!
-    
   end
 
   private

@@ -1,1 +1,2 @@
-<%= button_to "このギフトを選ぶ", { controller: "shared_gift_lists", action: "choose" }, { params: {gift_item_id: gift_item.id}, class: "btn btn-accent mt-4" } %>
+<% confirmed = @gift_items.any?(&:confirmed?) %>
+<%= button_to "このギフトを選ぶ", { controller: "shared_gift_lists", action: "choose" }, { params: {gift_item_id: gift_item.id}, class: "btn btn-accent mt-4", disabled: confirmed } %>

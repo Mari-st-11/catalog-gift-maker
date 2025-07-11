@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :shared_gift_lists, only: %i[ show ] do
     member do
       post :choose
+      post :confirm
     end
     resources :shared_gift_items, only: %i[ show ], shallow: false
   end
