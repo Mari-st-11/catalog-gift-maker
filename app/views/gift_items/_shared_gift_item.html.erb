@@ -1,4 +1,3 @@
-
 <div class="flex items-stretch h-full">
   <div class="card w-96 bg-base-100 card-sm shadow-sm">
     <figure>
@@ -11,7 +10,7 @@
       <div class="card-actions justify-end text-right">
         <%= link_to shared_gift_list_shared_gift_item_path(@gift_list.uuid, gift_item) do %><p class="underline">ギフトの詳細を見る ></p><% end %>
         <div id="select_button_<%= gift_item.id %>">
-          <%= render(gift_item.selected? ? "gift_items/selected_button" : "gift_items/unselected_button", gift_item: gift_item) %>
+          <%= render(gift_item.selected? || gift_item.confirmed? ? "gift_items/selected_button" : "gift_items/unselected_button", gift_item: gift_item) %>
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ class GiftListsController < ApplicationController
 
   def show
     @gift_items = @gift_list.gift_items.includes(:user).order(:id)
-    @selected_gift_item = @gift_list.gift_items.where(status: [ :selected ]).first
+    @selected_gift_item = @gift_list.gift_items.where(status: [ :confirmed ]).first
   end
 
   def new

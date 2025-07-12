@@ -3,7 +3,6 @@
     <%= @gift_item.gift_list.recipient_name %>へ贈る<br>
     <%= @gift_item.gift_list.purpose.presence || "ギフトリスト" %>
   </h1>
-
   <div class="w-[90%] max-w-[500px] mx-auto bg-white p-4">
   <%= image_tag @gift_item.image.url.presence, class: "w-full h-auto mb-4" %>
   <h2 class="card-title mb-4"><%= @gift_item.name %></h2>
