@@ -2,23 +2,32 @@
   <h1 class="text-xl font-bold mb-5">
     <%= @gift_list.recipient_name %>へ贈る<br>
     <%= @gift_list.purpose.presence || "ギフトリスト" %>
-  </h2>
+  </h1>
   <div class="">
-  <p>ギフトリストが届きました！<br>ご希望のギフトを１つ選んでください</p>
+    <p><%= @gift_list.user.name %>さんからギフトリストが届きました！<br>ご希望のギフトを１つ選んでください</p>
   </div>
-  <div class="m-5 text-sm">
-    <% if @gift_items.any? { |gift_item| gift_item.confirmed? } %>
-    贈り主に通知済みです！ギフトが届くまでお待ちください
-    <% end %>
+  <% if @gift_list.message? %>
+  <div class="mt-5">
+    <p><%= @gift_list.user.name %>さんからのメッセージ</p>
+    <p><%= @gift_list.message %></p>
   </div>
+  <% end %>
+  </div>
+
+  <% if @gift_items.any? { |gift_item| gift_item.confirmed? } %>
+    <div role="alert" class="alert alert-outline alert-success text-xs m-2">
+      <i class="fa-solid fa-circle-info"></i>
+      <span><%= @gift_list.user.name %>さんに通知済みです！ギフトが届くまでお待ちください</span>
+    </div>
+  <% end %>
 
   <!-- ギフトアイテム確定ボタン -->
   <% if @gift_items.any? { |gift_item| gift_item.selected? } %>
-    <% confirm_message = "贈り主に伝えてもよいですか？" %>
+    <% confirm_message = "#{@gift_list.user.name}さんに伝えてもよいですか？" %>
     <div class="m-10">
     <p class="mb-5 text-sm">
     選んだギフトはまだ通知されていません。「通知する」ボタンを押しましょう！</p>
-        <%= button_to "贈り主に通知する",
+        <%= button_to "#{@gift_list.user.name}さんに通知する",
           { controller: "shared_gift_lists", action: "confirm" },
           { class: "btn btn-accent", data: { turbo_confirm: confirm_message } } %>
     </div>

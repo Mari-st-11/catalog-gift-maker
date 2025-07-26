@@ -22,7 +22,7 @@ class SharedGiftListsController < ApplicationController
     @selected_gift_item = @gift_list.gift_items.where(status: [ :selected ]).first
     @selected_gift_item.confirmed!
 
-    flash[:success] = '贈り主に通知を行いました'
+    flash[:success] = "#{@gift_list.user.name}さんに通知を行いました"
     redirect_to shared_gift_list_path(@gift_list)
   end
 
