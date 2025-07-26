@@ -12,6 +12,11 @@
       <%= f.text_field :purpose, autocomplete: "purpose", placeholder: "例：誕生日祝い" %>
     </div>
 
+    <label class="label">メッセージ</label>
+    <div class="textarea textarea-border max-w-none resize-none">
+      <%= f.text_area :message, autocomplete: "message", placeholder: "例：お誕生びおめでとう！", size: "34x3" %>
+    </div>
+
     <button class="btn btn-neutral mt-4">
       <%= f.submit "ギフトリストを登録" %>
     </button>
