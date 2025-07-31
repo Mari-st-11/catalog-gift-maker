@@ -26,6 +26,8 @@ class GiftListsController < ApplicationController
   def update
     if @gift_list.update(gift_list_params)
       redirect_to gift_list_path(@gift_list)
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -41,6 +43,6 @@ class GiftListsController < ApplicationController
   end
 
   def gift_list_params
-    params.require(:gift_list).permit(:recipient_name, :purpose)
+    params.require(:gift_list).permit(:recipient_name, :purpose, :content)
   end
 end

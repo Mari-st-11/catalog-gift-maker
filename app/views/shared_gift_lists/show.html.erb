@@ -1,24 +1,49 @@
+<% if @gift_items.any? { |gift_item| gift_item.confirmed? } %>
+  <div role="alert" class="alert alert-outline alert-success text-xs m-2">
+    <i class="fa-solid fa-circle-info"></i>
+    <span><%= @gift_list.user.name %>さんに選んだギフトをお知らせしました！ギフトが届くまでお待ちください<br>選び直したい場合は直接<%= @gift_list.user.name %>さんにご連絡ください</span>
+  </div>
+<% end %>
+
 <div class="container mx-auto px-5 py-10 text-center">
+
   <h1 class="text-xl font-bold mb-5">
     <%= @gift_list.recipient_name %>へ贈る<br>
     <%= @gift_list.purpose.presence || "ギフトリスト" %>
-  </h2>
+  </h1>
   <div class="">
-  <p>ギフトリストが届きました！<br>ご希望のギフトを１つ選んでください</p>
+    <p><%= @gift_list.user.name %>さんからギフトリストが届きました！<br>ご希望のギフトを１つ選んでください</p>
   </div>
-  <div class="m-5 text-sm">
-    <% if @gift_items.any? { |gift_item| gift_item.confirmed? } %>
-    贈り主に通知済みです！ギフトが届くまでお待ちください
-    <% end %>
+  <% if @gift_list.content? %>
+<div class="relative w-full max-w-md md:max-w-xl lg:max-w-2xl mx-auto mt-10">
+    <div class="rounded-xl p-6 border-4 border-[#ECDF96]">
+        <div class="absolute top-0 left- 1/2 transform -translate-y-1/2 
+                    bg-white px-2 text-sm font-semibold text-gray-700">
+            <i class="fa-regular fa-envelope mr-2"></i><%= @gift_list.user.name %>さんからのメッセージ
+        </div>
+        <div id="messageContent" class="text-sm leading-relaxed overflow-hidden" style="max-height: 4.5em;">
+          <%= safe_join(@gift_list.content.split("\n"), tag(:br)) %>
+        </div>
+    </div>
+</div>
+
+  <div class="mt-5">
+    <p></p>
+    
+    <p></p>
   </div>
+  <% end %>
+  </div>
+
+
 
   <!-- ギフトアイテム確定ボタン -->
   <% if @gift_items.any? { |gift_item| gift_item.selected? } %>
-    <% confirm_message = "贈り主に伝えてもよいですか？" %>
+    <% confirm_message = "#{@gift_list.user.name}さんに伝えても良いですか？" %>
     <div class="m-10">
     <p class="mb-5 text-sm">
     選んだギフトはまだ通知されていません。「通知する」ボタンを押しましょう！</p>
-        <%= button_to "贈り主に通知する",
+        <%= button_to "#{@gift_list.user.name}さんに通知する",
           { controller: "shared_gift_lists", action: "confirm" },
           { class: "btn btn-accent", data: { turbo_confirm: confirm_message } } %>
     </div>

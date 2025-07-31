@@ -1,6 +1,12 @@
 <div class="container mx-auto px-5 py-10">
 <%= form_with model: gift_list do |f| %>
   <fieldset class="fieldset border-base-200 rounded-box w-xs border p-4 mx-auto">
+  <% if gift_list.errors.any? %>
+    <h3><i class="fa-solid fa-triangle-exclamation mr-2"></i>入力エラーがあります</h3>
+    <% gift_list.errors.full_messages.each do |message| %>
+      <li class="text-red-800"><%= message %></li>
+    <% end %>
+  <% end %>
 
     <label class="label">ギフトを贈る方の名前*</label>
     <div class="input">
@@ -10,6 +16,11 @@
     <label class="label">贈る用途</label>
     <div class="input">
       <%= f.text_field :purpose, autocomplete: "purpose", placeholder: "例：誕生日祝い" %>
+    </div>
+
+    <label class="label">メッセージ（80文字以内）</label>
+    <div class="textarea textarea-border max-w-none resize-none">
+      <%= f.text_area :content, autocomplete: "content", placeholder: "例：お誕生びおめでとう！", size: "34x3" %>
     </div>
 
     <button class="btn btn-neutral mt-4">

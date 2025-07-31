@@ -2,7 +2,7 @@
 <h1 class="text-xl font-bold">ギフトリスト一覧</h1>
   <div class="mt-2">
     <% if user_signed_in? %>
-    <%= link_to "ギフトリストを追加", new_gift_list_path, class:"btn btn-primary mt-3" %>
+    <%= link_to "ギフトリストを追加", new_gift_list_path, class:"btn btn-primary mt-3 mb-5" %>
       <% if @gift_lists.present? %>
         <%= render @gift_lists %>
       <% else %>
