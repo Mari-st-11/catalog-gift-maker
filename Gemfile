@@ -76,6 +76,6 @@ gem "rails-i18n", "~> 7.0"
 
 gem "devise-i18n"
 
-gem 'font-awesome-sass'
+gem "font-awesome-sass"
 
-gem 'mini_magick'
+gem "mini_magick"
