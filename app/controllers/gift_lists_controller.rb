@@ -41,6 +41,6 @@ class GiftListsController < ApplicationController
   end
 
   def gift_list_params
-    params.require(:gift_list).permit(:recipient_name, :purpose, :message)
+    params.require(:gift_list).permit(:recipient_name, :purpose, :content)
   end
 end
