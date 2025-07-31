@@ -6,7 +6,7 @@
   <div class="">
     <p><%= @gift_list.user.name %>さんからギフトリストが届きました！<br>ご希望のギフトを１つ選んでください</p>
   </div>
-  <% if @gift_list.message? %>
+  <% if @gift_list.content? %>
 <div class="relative w-full max-w-md md:max-w-xl lg:max-w-2xl mx-auto mt-10">
     <div class="rounded-xl p-6 pt-10 border-4 border-[#ECDF96]">
         <div class="absolute top-0 left- 1/2 transform -translate-y-1/2 
@@ -15,7 +15,7 @@
         </div>
 
         <div id="messageContent" class="text-sm leading-relaxed overflow-hidden" style="max-height: 4.5em;">
-          <%= @gift_list.message %>
+          <%= @gift_list.content %>
         </div>
 
         <div id="readMoreContainer" class="text-right mt-2">
