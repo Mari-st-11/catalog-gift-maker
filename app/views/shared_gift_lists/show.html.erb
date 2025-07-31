@@ -1,4 +1,12 @@
+<% if @gift_items.any? { |gift_item| gift_item.confirmed? } %>
+  <div role="alert" class="alert alert-outline alert-success text-xs m-2">
+    <i class="fa-solid fa-circle-info"></i>
+    <span><%= @gift_list.user.name %>さんに選んだギフトをお知らせしました！ギフトが届くまでお待ちください<br>選び直したい場合は直接<%= @gift_list.user.name %>さんにご連絡ください</span>
+  </div>
+<% end %>
+
 <div class="container mx-auto px-5 py-10 text-center">
+
   <h1 class="text-xl font-bold mb-5">
     <%= @gift_list.recipient_name %>へ贈る<br>
     <%= @gift_list.purpose.presence || "ギフトリスト" %>
@@ -8,20 +16,13 @@
   </div>
   <% if @gift_list.content? %>
 <div class="relative w-full max-w-md md:max-w-xl lg:max-w-2xl mx-auto mt-10">
-    <div class="rounded-xl p-6 pt-10 border-4 border-[#ECDF96]">
+    <div class="rounded-xl p-6 border-4 border-[#ECDF96]">
         <div class="absolute top-0 left- 1/2 transform -translate-y-1/2 
                     bg-white px-2 text-sm font-semibold text-gray-700">
             <i class="fa-regular fa-envelope mr-2"></i><%= @gift_list.user.name %>さんからのメッセージ
         </div>
-
         <div id="messageContent" class="text-sm leading-relaxed overflow-hidden" style="max-height: 4.5em;">
-          <%= @gift_list.content %>
-        </div>
-
-        <div id="readMoreContainer" class="text-right mt-2">
-            <button id="readMoreBtn" class="text-sm focus:outline-none link">
-                続きを読む
-            </button>
+          <%= safe_join(@gift_list.content.split("\n"), tag(:br)) %>
         </div>
     </div>
 </div>
@@ -34,12 +35,7 @@
   <% end %>
   </div>
 
-  <% if @gift_items.any? { |gift_item| gift_item.confirmed? } %>
-    <div role="alert" class="alert alert-outline alert-success text-xs m-2">
-      <i class="fa-solid fa-circle-info"></i>
-      <span><%= @gift_list.user.name %>さんに選んだギフトをお知らせしました！ギフトが届くまでお待ちください<br>選び直したい場合は直接<%= @gift_list.user.name %>さんにご連絡ください</span>
-    </div>
-  <% end %>
+
 
   <!-- ギフトアイテム確定ボタン -->
   <% if @gift_items.any? { |gift_item| gift_item.selected? } %>
@@ -63,30 +59,3 @@
       </div>
     <% end %>
 </div>
-<script>
-    const messageContent = document.getElementById('messageContent');
-    const readMoreBtn = document.getElementById('readMoreBtn');
-    const readMoreContainer = document.getElementById('readMoreContainer');
-
-    // 初期状態でメッセージが2行以上かチェックし、「続きを読む」を表示するかどうか決める
-    // 注意: この判定はあくまで簡易的なものです。正確な行数判定にはより複雑なロジックが必要です。
-    // ここでは、要素のスクロール高さを利用してオーバーフローを検出します。
-    if (messageContent.scrollHeight > messageContent.clientHeight) {
-        readMoreContainer.style.display = 'block'; // 続きを読むを表示
-        messageContent.classList.add('overflow-hidden'); // 初期状態で隠す
-    } else {
-        readMoreContainer.style.display = 'none'; // 続きを読むを非表示
-    }
-
-    readMoreBtn.addEventListener('click', () => {
-        if (messageContent.classList.contains('overflow-hidden')) {
-            messageContent.style.maxHeight = 'none'; // 全てのコンテンツを表示
-            messageContent.classList.remove('overflow-hidden');
-            readMoreBtn.textContent = '折りたたむ';
-        } else {
-            messageContent.style.maxHeight = '4.5em'; // 元の高さに戻す（約2行分）
-            messageContent.classList.add('overflow-hidden');
-            readMoreBtn.textContent = '続きを読む';
-        }
-    });
-</script>
