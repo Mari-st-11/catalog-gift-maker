@@ -1,6 +1,12 @@
 <div class="container mx-auto px-5 py-10">
 <%= form_with model: gift_list do |f| %>
   <fieldset class="fieldset border-base-200 rounded-box w-xs border p-4 mx-auto">
+  <% if gift_list.errors.any? %>
+    <h3><i class="fa-solid fa-triangle-exclamation mr-2"></i>入力エラーがあります</h3>
+    <% gift_list.errors.full_messages.each do |message| %>
+      <li class="text-red-800"><%= message %></li>
+    <% end %>
+  <% end %>
 
     <label class="label">ギフトを贈る方の名前*</label>
     <div class="input">
