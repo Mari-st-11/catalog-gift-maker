@@ -47,6 +47,7 @@ class GiftItemsController < ApplicationController
     if @gift_item.save
       if ogp_info_fetched && image_downloaded
         flash[:success] = "ギフト情報を追加しました！"
+      elsif ogp_info_fetched && !image_downloaded
         flash[:warning] = "ギフト情報は取得できましたが、画像の取得に失敗しました。"
       elsif !ogp_info_fetched && !image_downloaded
         flash[:warning] = "URLからギフト情報を自動で取得できませんでした。商品名・商品説明を入力してください。"
