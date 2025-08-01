@@ -6,7 +6,7 @@
   <div class="w-[90%] max-w-[500px] mx-auto bg-white p-4">
   <%= image_tag @gift_item.image.url.presence, class: "w-full h-auto mb-4" %>
   <h2 class="card-title mb-4"><%= @gift_item.name %></h2>
-  <p class="mb-4 text-left text-sm/6"><%= @gift_item.description %></p>
+  <p class="mb-4 text-left text-sm/6"><%= safe_join(@gift_item.description.split("\n"), tag(:br)) %></p>
 
   <div class="mb-5">
     <%= link_to edit_gift_item_path do %>
