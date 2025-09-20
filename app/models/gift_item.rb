@@ -6,4 +6,5 @@ class GiftItem < ApplicationRecord
 
   belongs_to :user
   belongs_to :gift_list, primary_key: :uuid, foreign_key: :gift_list_uuid
+  has_many :notifications, as: :notifiable, dependent: :destroy
 end
