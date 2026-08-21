@@ -1,12 +1,17 @@
 class GiftItemsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_gift_item, only: %i[ show edit update destroy ]
-  before_action :set_gift_list, only: %i[ new ]
+  before_action :set_gift_list, only: %i[ new create ]
 
   def new
+    return redirect_to gift_lists_path, alert: "対象のギフトリストが見つかりません" if @gift_list.nil?
+
     @gift_item = GiftItem.new
   end
 
   def create
+    return redirect_to gift_lists_path, alert: "対象のギフトリストが見つかりません" if @gift_list.nil?
+
     @gift_item = current_user.gift_items.build(gift_item_params)
 
     if @gift_item.url.present?
@@ -75,7 +80,7 @@ class GiftItemsController < ApplicationController
   private
 
   def gift_item_params
-    params.require(:gift_item).permit(:url, :name, :description, :image).merge(gift_list_uuid: params[:gift_list_uuid])
+    params.require(:gift_item).permit(:url, :name, :description, :image).merge(gift_list_uuid: @gift_list.uuid)
   end
 
   def gift_item_params_update
@@ -86,7 +91,9 @@ class GiftItemsController < ApplicationController
     @gift_item = current_user.gift_items.find(params[:id])
   end
 
+  # current_userが所有するgift_listに限定する。ここをスコープしないと、
+  # 他人のgift_list_uuidを指定して勝手にギフトを追加できてしまう(IDOR)。
   def set_gift_list
-    @gift_list = GiftList.find_by(uuid: params[:gift_list_uuid])
+    @gift_list = current_user.gift_lists.find_by(uuid: params[:gift_list_uuid])
   end
 end

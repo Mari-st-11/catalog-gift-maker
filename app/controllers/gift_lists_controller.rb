@@ -1,4 +1,5 @@
 class GiftListsController < ApplicationController
+  before_action :authenticate_user!, except: %i[ index ]
   before_action :set_gift_list, only: %i[ show edit update destroy regenerate_public_token ]
   def index
     @gift_lists = current_user.gift_lists.includes(:user).order(:created_at) if user_signed_in?
@@ -44,7 +45,7 @@ class GiftListsController < ApplicationController
   private
 
   def set_gift_list
-    @gift_list = current_user.gift_lists.find_by(uuid: params[:uuid])
+    @gift_list = current_user.gift_lists.find_by!(uuid: params[:uuid])
   end
 
   def gift_list_params

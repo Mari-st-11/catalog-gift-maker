@@ -14,10 +14,20 @@
       `choose`の排他チェック、`cancel`の所有者限定チェック）
 - [x] 上記に対するテスト追加（`GiftList`/`GiftItem`/`User`のモデルテスト、
       公開リンクの排他制御・認可チェックの統合テスト）
+- [x] 既存コントローラのテスト追加（`GiftListsController`/`GiftItemsController`/
+      `SharedGiftItemsController`/`StaticPagesController`）。テストを書く過程で以下の
+      未発見だったバグを3件見つけ、その場で修正済み:
+      - `GiftListsController`/`GiftItemsController`に`authenticate_user!`が無く、
+        未ログインでアクセスすると500エラーになっていた（ビューではログイン導線を
+        出していたが、コントローラ自体は無防備だった）
+      - `GiftItemsController#create`が`gift_list_uuid`をURLパラメータからそのまま
+        信用しており、ログインユーザーが他人のギフトリストにギフトを追加できる
+        IDOR（認可不備）があった → `current_user.gift_lists`にスコープするよう修正
+      - `SharedGiftItemsController#show`が`gift_item.id`だけで検索しており、連番IDを
+        総当たりすれば他人の（共有されていない）ギフトの詳細まで閲覧できてしまう
+        情報漏洩があった → ネストされた`public_token`経由でしか辿れないよう修正
 
 ## 未着手（次にやること）
-
-### 認証まわり
 
 ### 認証まわり
 - [ ] Google Cloud Console / LINE Developers Console でクライアントID・シークレットを発行（ユーザー側作業）
