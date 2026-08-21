@@ -78,11 +78,23 @@
 ### 漏洩経路（リファラー・検索エンジン）への対策は実装する
 - `Referrer-Policy: strict-origin-when-cross-origin` を設定し、外部サイトへの遷移時にトークン付きURLが
   リファラーとして漏れないようにする。
-- `/c/:token` ページに `noindex, nofollow` メタタグ + `robots.txt` での除外を設定し、
-  検索エンジンにインデックスされないようにする。
-- 決定日: 2026-08-22（実装は未着手、実装計画参照）
+- `/shared_gift_lists/:token` `/shared_gift_items/:id` ページに `noindex, nofollow` メタタグ +
+  `robots.txt` での除外を設定し、検索エンジンにインデックスされないようにする。
+- 決定日: 2026-08-22（実装済み）
 
 ### 公開URLのトークンは主キー(id)と分離する（`public_token`カラムを新設）
 - 現状は`gift_lists.uuid`が主キーそのものになっており、リンクが漏れても再発行（無効化）できない。
-- 主キーとは別に`public_token`カラムを持たせ、不安になったら`public_token`だけ再発行できる設計にする。
-- 決定日: 2026-08-22（実装は未着手、実装計画参照）
+- 主キーとは別に`public_token`カラムを持たせ、不安になったら`public_token`だけ再発行できる設計にした。
+- `GiftList#regenerate_public_token!`で再発行可能。オーナーの私有ダッシュボードに
+  「共有リンクを再発行する」ボタンを設置（`gift_lists#regenerate_public_token`）。
+- 決定日: 2026-08-22（実装済み）
+
+### `choose`/`cancel`の実装漏れも同じタイミングで修正
+- `SharedGiftListsController#choose`に`GiftList#try_mark_selected!`を使った排他チェックを追加。
+  ただし既存の公開済みカタログは`status`がまだ`draft`のままのものが大半だったため、
+  `try_mark_selected!`は`draft`/`shared`どちらからでも`selected`に遷移できるよう緩めた
+  （厳密に`shared`のみに絞ると、既存データの選択フローが即座に壊れるため）。
+- `SharedGiftListsController#cancel`に`current_user == @gift_list.user`の認可チェックを追加。
+  未ログイン・所有者以外からの`cancel`は拒否し、リダイレクト先で警告メッセージを表示する。
+- `cancel`成功時は`gift_list.status`を`shared`に戻し、受け取り主が再度選べる状態にする。
+- 決定日: 2026-08-22（実装済み、統合テストで排他制御・認可チェックの両方を確認済み）

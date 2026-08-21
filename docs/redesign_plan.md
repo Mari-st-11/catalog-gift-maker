@@ -9,20 +9,15 @@
 - [x] ローカル/ステージングでのマイグレーション動作確認（既存データ無事なことを確認済み）
 - [x] `notifications`テーブルの polymorphic不整合バグ修正
 - [x] OmniAuth（Google/LINE）実装 フェーズ1（既存パスワード認証と共存）
+- [x] 公開リンク(`/shared_gift_lists/:token`)のセキュリティ強化一式
+      （Referrer-Policy設定、noindexメタタグ、robots.txt除外、`public_token`分離＋再発行機能、
+      `choose`の排他チェック、`cancel`の所有者限定チェック）
+- [x] 上記に対するテスト追加（`GiftList`/`GiftItem`/`User`のモデルテスト、
+      公開リンクの排他制御・認可チェックの統合テスト）
 
 ## 未着手（次にやること）
 
-### 公開リンク(`/c/:token`)のセキュリティ強化
-- [ ] `Referrer-Policy: strict-origin-when-cross-origin` の設定
-- [ ] `/c/:token` ページへの `noindex, nofollow` メタタグ追加
-- [ ] `robots.txt` で `/c/` 配下を除外
-- [ ] `gift_lists`に`public_token`カラムを追加し、公開URLを`uuid`(主キー)ではなく`public_token`経由にする
-- [ ] マイページから`public_token`を再発行（リンク無効化）できる機能
-- [ ] `SharedGiftListsController#choose`に`GiftList#try_mark_selected!`を使った排他チェックを追加
-      （現状は`GiftList`の状態を見ずに何度でも選び直せてしまう）
-- [ ] `SharedGiftListsController#cancel`（選択解除）に認可チェックを追加
-      （現状ログイン不要な公開ルートに置かれており、送り主でなくても`cancel`を呼べてしまう。
-      「選び直しは送り主に依頼する」という仕様が実際には強制されていない）
+### 認証まわり
 
 ### 認証まわり
 - [ ] Google Cloud Console / LINE Developers Console でクライアントID・シークレットを発行（ユーザー側作業）

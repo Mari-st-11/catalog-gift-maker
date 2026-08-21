@@ -1,5 +1,5 @@
 class GiftListsController < ApplicationController
-  before_action :set_gift_list, only: %i[ show edit update destroy ]
+  before_action :set_gift_list, only: %i[ show edit update destroy regenerate_public_token ]
   def index
     @gift_lists = current_user.gift_lists.includes(:user).order(:created_at) if user_signed_in?
   end
@@ -34,6 +34,11 @@ class GiftListsController < ApplicationController
   def destroy
     @gift_list.destroy!
     redirect_to gift_lists_path
+  end
+
+  def regenerate_public_token
+    @gift_list.regenerate_public_token!
+    redirect_to gift_list_path(@gift_list), notice: "共有リンクを再発行しました。今までのリンクは使えなくなります"
   end
 
   private

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_08_21_100004) do
+ActiveRecord::Schema[7.2].define(version: 2026_08_22_090001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -72,6 +72,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_08_21_100004) do
     t.string "content"
     t.integer "theme", default: 0, null: false
     t.integer "status", default: 0, null: false
+    t.string "public_token", null: false
+    t.index ["public_token"], name: "index_gift_lists_on_public_token", unique: true
     t.index ["status"], name: "index_gift_lists_on_status"
     t.index ["user_id"], name: "index_gift_lists_on_user_id"
   end

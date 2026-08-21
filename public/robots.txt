@@ -1,1 +1,6 @@
 # See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
+
+# 受け取り主向けの共有ページは個人向けの非公開リンクのため、クロール対象から除外する
+User-agent: *
+Disallow: /shared_gift_lists/
+Disallow: /shared_gift_items/
