@@ -28,6 +28,18 @@ class GiftItemsControllerTest < ActionDispatch::IntegrationTest
     assert_equal @user.id, gift_item.user_id
   end
 
+  test "商品URLに内部アドレスを指定しても500エラーにならず、手動入力扱いにフォールバックする(SSRF対策)" do
+    sign_in @user
+
+    assert_difference -> { @gift_list.gift_items.count }, 1 do
+      post gift_list_gift_items_path(@gift_list), params: { gift_item: { url: "http://169.254.169.254/latest/meta-data/" } }
+    end
+
+    gift_item = @gift_list.gift_items.last
+    assert_equal "商品名を入力してください", gift_item.name
+    assert_response :redirect
+  end
+
   test "他人のギフトリストのuuidを指定してもギフトを追加できない(IDOR対策)" do
     sign_in @user
 

@@ -26,6 +26,10 @@
       - `SharedGiftItemsController#show`が`gift_item.id`だけで検索しており、連番IDを
         総当たりすれば他人の（共有されていない）ギフトの詳細まで閲覧できてしまう
         情報漏洩があった → ネストされた`public_token`経由でしか辿れないよう修正
+- [x] URL入力→OGP取得のSSRF対策（`ssrf_filter`導入、プライベートIP/メタデータIPガード、
+      redirect先チェック、タイムアウト2秒/1MB制限）。`app/services/safe_html_fetcher.rb`として実装。
+      あわせて、これまでOGP取得失敗時に例外処理が一切なく500エラーになっていたバグも修正
+      （失敗時は手動入力画面へのフォールバック文言を表示するよう変更）
 
 ## 未着手（次にやること）
 
@@ -39,7 +43,6 @@
 - [ ] `.env`への設定と実際のログイン動作確認
 
 ### 公開ページ本体の実装
-- [ ] URL入力→OGP取得のSSRF対策（`ssrf_filter`導入、プライベートIP/メタデータIPガード、redirect先チェック、タイムアウト2秒/1MB制限）
 - [ ] 楽天/Yahoo API横断検索の実装（並列リクエスト、フォールバック）
 - [ ] デザインテーマ（mode/botanical/nuance）に応じた画面デザインの作り直し
 

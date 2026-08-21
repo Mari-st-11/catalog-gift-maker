@@ -70,6 +70,8 @@ gem "draper", "4.0.2"
 
 gem "nokogiri"
 
+gem "ssrf_filter"
+
 gem "pry-rails"
 
 gem "carrierwave"

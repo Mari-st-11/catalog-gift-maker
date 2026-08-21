@@ -14,35 +14,32 @@ class GiftItemsController < ApplicationController
 
     @gift_item = current_user.gift_items.build(gift_item_params)
 
-    if @gift_item.url.present?
-    require "open-uri"
-    require "nokogiri"
-
     ogp_info_fetched = false
     image_downloaded = false
 
-    user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/555.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/555.36"
+    if @gift_item.url.present?
+      begin
+        html = SafeHtmlFetcher.fetch(@gift_item.url)
+        doc = Nokogiri::HTML.parse(html)
 
-    # HTMLの内容を取得
-    html = URI.open(@gift_item.url, "User-Agent" => user_agent, read_timeout: 60, open_timeout: 10).read
-    doc = Nokogiri::HTML.parse(html)
+        # OGP情報を取得
+        @gift_item.name = doc.at('meta[property="og:title"]')&.[]("content") || doc.at("title")&.text
+        @gift_item.description = doc.css('meta[property="og:description"], meta[name="description"]').first&.[]("content") || ""
+        ogp_info_fetched = @gift_item.name.present? || @gift_item.description.present?
 
-    # OGP情報を取得
-    @gift_item.name = doc.at('meta[property="og:title"]')&.[]("content") || doc.at("title")&.text
-    @gift_item.description = doc.css('meta[property="og:description"], meta[name="description"]').first&.[]("content") || ""
+        og_image_meta = doc.css('meta[property="og:image"], meta[name="og:image"]').first # meta nameの場合も取得
+        if og_image_meta.present?
+          @gift_item.image = SafeHtmlFetcher.fetch_as_io(og_image_meta["content"].to_s)
+          image_downloaded = true
+        end
+      rescue SafeHtmlFetcher::FetchError => e
+        Rails.logger.warn("OGP fetch failed for #{@gift_item.url}: #{e.message}")
+      end
 
-    if @gift_item.name.present? || @gift_item.description.present?
-      ogp_info_fetched = true
-    end
-
-    og_image_meta = doc.css('meta[property="og:image"], meta[name="og:image"]').first # meta nameの場合も取得
-    if og_image_meta.present?
-      image_url = og_image_meta["content"].to_s
-      file = URI.open(image_url, read_timeout: 60, open_timeout: 10) # 画像をオブジェクトに
-      @gift_item.image = file
-      image_downloaded = true
-    end
-
+      unless ogp_info_fetched
+        @gift_item.name = "商品名を入力してください"
+        @gift_item.description = "説明文を入力してください"
+      end
     else
       @gift_item.name = "商品名を入力してください"
       @gift_item.description = "説明文を入力してください"
