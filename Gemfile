@@ -60,6 +60,12 @@ gem "tailwindcss-rails", "~> 4.2.3", github: "rails/tailwindcss-rails", branch: 
 
 gem "devise"
 
+gem "omniauth-google-oauth2"
+
+gem "omniauth-line"
+
+gem "omniauth-rails_csrf_protection"
+
 gem "draper", "4.0.2"
 
 gem "nokogiri"

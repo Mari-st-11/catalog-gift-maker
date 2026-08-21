@@ -20,6 +20,11 @@
   </fieldset>
 <% end %>
 
+<div class="w-xs mx-auto mt-6 flex flex-col gap-3">
+  <%= button_to "Googleでログイン", user_google_oauth2_omniauth_authorize_path, method: :post, class: "btn btn-outline w-full" %>
+  <%= button_to "LINEでログイン", user_line_omniauth_authorize_path, method: :post, class: "btn btn-outline w-full" %>
+</div>
+
 <div class="mt-10">
   <%= render "devise/shared/links" %>
 </div>
