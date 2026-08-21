@@ -29,6 +29,11 @@
 
 ## 未着手（次にやること）
 
+### データ設計の整理
+- [ ] `gift_lists`の`is_public`(boolean)と`status`(enum: draft/shared/selected/completed)が
+      同じ「公開状態」を別々に表しており、今後食い違って矛盾したデータになるリスクがある。
+      `status`に一本化し、`is_public`は廃止する方向で整理する
+
 ### 認証まわり
 - [ ] Google Cloud Console / LINE Developers Console でクライアントID・シークレットを発行（ユーザー側作業）
 - [ ] `.env`への設定と実際のログイン動作確認
