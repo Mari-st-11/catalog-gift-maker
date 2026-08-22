@@ -1,25 +1,40 @@
-<div class="container mx-auto px-5 py-10 text-center">
-<h1 class="text-xl font-bold mb-5">ログイン</h1>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <fieldset class="fieldset border-base-200 rounded-box w-xs border p-4 mx-auto">
-
-    <label class="label">メールアドレス</label>
-    <div class="input">
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "@が含まれたアドレス" %>
+<div class="bg-ash-bg min-h-[calc(100vh-200px)] py-12 px-6">
+  <div class="max-w-sm mx-auto space-y-8">
+    <div class="text-center space-y-3">
+      <h1 class="font-serif text-lg font-bold text-ash-text">ログイン</h1>
+      <p class="text-xs text-ash-sub font-light">お使いのアカウントで始めましょう</p>
     </div>
 
-    <label class="label">パスワード</label>
-    <div class="input">
-      <%= f.password_field :password, autocomplete: "current-password", placeholder: "6文字以上入力してください" %>
+    <%= render "devise/shared/omniauth_buttons" %>
+
+    <div class="flex items-center space-x-3 text-[10px] text-ash-sub font-light">
+      <div class="h-px flex-1 bg-ash-border"></div>
+      <span>または</span>
+      <div class="h-px flex-1 bg-ash-border"></div>
     </div>
 
-    <button class="btn btn-neutral mt-4">
-      <%= f.submit "ログイン" %>
-    </button>
-  </fieldset>
-<% end %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="space-y-3 text-xs">
+        <div class="space-y-1.5">
+          <label class="text-ash-sub font-light block">メールアドレス</label>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "you@example.com",
+              class: "w-full p-3 bg-white border border-ash-border text-ash-text focus:outline-none focus:border-gold" %>
+        </div>
+        <div class="space-y-1.5">
+          <label class="text-ash-sub font-light block">パスワード</label>
+          <%= f.password_field :password, autocomplete: "current-password", placeholder: "6文字以上",
+              class: "w-full p-3 bg-white border border-ash-border text-ash-text focus:outline-none focus:border-gold" %>
+        </div>
+        <button class="w-full py-2.5 bg-ink hover:bg-ink-hover text-white font-serif text-xs tracking-wider transition">
+          <%= f.submit "ログイン" %>
+        </button>
+      </div>
+    <% end %>
 
-<div class="mt-10">
-  <%= render "devise/shared/links" %>
+    <p class="text-[11px] text-ash-sub font-light text-center leading-relaxed pt-2 border-t border-ash-border/70">
+      初めての方は、GoogleまたはLINEでログインすると<br>自動的にアカウントが作成されます。
+    </p>
+
+    <%= render "devise/shared/links" %>
+  </div>
 </div>

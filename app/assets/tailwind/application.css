@@ -1,5 +1,54 @@
 @import "tailwindcss";
 
+/* デザインテーマ「mode」(淡いアッシュグレー×シャンパンゴールド) 用のカラー・フォント定義。
+   ゴシック体バリエーション(ui_gothic.html)を実装のベースにしている。 */
+@theme {
+  --font-sans: "Noto Sans JP", sans-serif;
+  --font-serif: "Noto Sans JP", sans-serif;
+  --font-en: "Syne", sans-serif;
+
+  --color-ash-bg: #F2F3F5;
+  --color-ash-card: #FFFFFF;
+  --color-ash-text: #1F1F21;
+  --color-ash-sub: #5B5B60;
+  --color-ash-border: #E1E2E6;
+
+  --color-gold: #C5A059;
+  --color-gold-dark: #8C6A2E;
+  --color-gold-light: #F8F5EE;
+  --color-gold-border: #E2D5BD;
+
+  --color-ink: #332A22;
+  --color-ink-hover: #463A2E;
+
+  --color-clay: #B0603F;
+  --color-clay-dark: #8F4C31;
+  --color-clay-light: #F7EAE3;
+}
+
+.btn-gold-subtle {
+  background: linear-gradient(135deg, #CFAF69 0%, #C5A059 50%, #B58F47 100%);
+}
+.btn-gold-subtle:hover {
+  background: linear-gradient(135deg, #C5A059 0%, #B58F47 50%, #A37E36 100%);
+}
+
+.fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 @plugin "daisyui" {
   themes: ["light", "dark"] /* デフォルトをlightにする */
 }

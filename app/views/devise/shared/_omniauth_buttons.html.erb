@@ -1,9 +1,22 @@
 <% if devise_mapping.omniauthable? %>
-  <% provider_labels = { "google_oauth2" => "Googleでログイン", "line" => "LINEでログイン" } %>
-  <div class="w-xs mx-auto mt-6 flex flex-col gap-3">
+  <div class="w-full max-w-sm mx-auto flex flex-col gap-3">
     <% resource_class.omniauth_providers.each do |provider| %>
-      <%= button_to provider_labels.fetch(provider.to_s, "#{OmniAuth::Utils.camelize(provider)}でログイン"),
-          omniauth_authorize_path(resource_name, provider), method: :post, class: "btn btn-outline w-full", data: { turbo: false } %>
+      <% if provider.to_s == "google_oauth2" %>
+        <%= button_to omniauth_authorize_path(resource_name, provider), method: :post, data: { turbo: false },
+            class: "w-full py-3 bg-white border border-ash-border hover:border-ash-text text-ash-text text-xs font-serif tracking-wide transition flex items-center justify-center space-x-2.5" do %>
+          <%= render "shared/google_icon" %>
+          <span>Googleでログイン</span>
+        <% end %>
+      <% elsif provider.to_s == "line" %>
+        <%= button_to omniauth_authorize_path(resource_name, provider), method: :post, data: { turbo: false },
+            class: "w-full py-3 bg-[#06C755] hover:bg-[#05b34c] text-white text-xs font-serif tracking-wide transition flex items-center justify-center space-x-2.5" do %>
+          <%= render "shared/line_icon" %>
+          <span>LINEでログイン</span>
+        <% end %>
+      <% else %>
+        <%= button_to "#{OmniAuth::Utils.camelize(provider)}でログイン", omniauth_authorize_path(resource_name, provider),
+            method: :post, data: { turbo: false }, class: "btn btn-outline w-full" %>
+      <% end %>
     <% end %>
   </div>
 <% end %>

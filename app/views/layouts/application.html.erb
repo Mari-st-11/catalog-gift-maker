@@ -14,6 +14,10 @@
 
     <%= yield :head %>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Syne:wght@400;500;600&display=swap" rel="stylesheet">
+
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
@@ -33,7 +37,7 @@
     <%= favicon_link_tag('https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/favicon.ico') %>
   </head>
 
-  <body class="flex flex-col min-h-screen">
+  <body class="flex flex-col min-h-screen" data-controller="icons">
     <%= render 'shared/header' %>
     <div class="flex-grow mb-10">
       <%= render 'shared/flash_message' %>
