@@ -30,13 +30,10 @@
       redirect先チェック、タイムアウト2秒/1MB制限）。`app/services/safe_html_fetcher.rb`として実装。
       あわせて、これまでOGP取得失敗時に例外処理が一切なく500エラーになっていたバグも修正
       （失敗時は手動入力画面へのフォールバック文言を表示するよう変更）
+- [x] `gift_lists.is_public`を削除し、`status`に一本化。バリデーション以外に
+      参照箇所が無かったため、素直に`remove_column`で削除できた
 
 ## 未着手（次にやること）
-
-### データ設計の整理
-- [ ] `gift_lists`の`is_public`(boolean)と`status`(enum: draft/shared/selected/completed)が
-      同じ「公開状態」を別々に表しており、今後食い違って矛盾したデータになるリスクがある。
-      `status`に一本化し、`is_public`は廃止する方向で整理する
 
 ### 認証まわり
 - [ ] Google Cloud Console / LINE Developers Console でクライアントID・シークレットを発行（ユーザー側作業）

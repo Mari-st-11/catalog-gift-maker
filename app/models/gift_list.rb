@@ -13,7 +13,6 @@ class GiftList < ApplicationRecord
   enum :status, { draft: 0, shared: 1, selected: 2, completed: 3 }
 
   validates :public_name, length: { maximum: 255 }
-  validates :is_public, inclusion: [ true, false ]
   validates :content, length: { maximum: 80 }
 
   belongs_to :user
