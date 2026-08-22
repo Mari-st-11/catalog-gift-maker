@@ -40,9 +40,12 @@
 - [x] `.env`への設定、およびサーバーサイドでのリダイレクトURL生成確認
       （`compose.yml`に`env_file: .env`が無く、`.env`の値が一切コンテナに読み込まれていなかった
       バグを発見・修正。修正前は`client_id`が空のままGoogle/LINEに送られていた）
-- [ ] 実際にGoogle/LINEの同意画面まで進んでログインできるか、ユーザー自身のブラウザで最終確認
-      （このセッションのサンドボックス化されたブラウザでは、Googleが自動化ブラウザを検知して
-      画面を進めない可能性が高く確認できなかった。curlでのリダイレクトURL確認までは完了）
+- [x] ログイン画面のGoogle/LINEボタンがTurbo(Hotwire)に横取りされ、外部ドメインへの
+      リダイレクトが処理できず「押しても何も起きない」状態になっていたバグを修正。
+      `button_to`に`data: { turbo: false }`を追加し、通常のフルページ遷移にした。
+      修正後、実際にaccounts.google.comの同意画面まで遷移することを確認済み
+- [ ] 実際にGoogle/LINEでログインが完了し、アプリ側にユーザーが作成される（`from_omniauth`が
+      正しく動く）ところまでをユーザー自身のブラウザで最終確認
 - [ ] （優先度低・将来対応）パスワード認証を完全廃止し、SNS認証のみにする
       （`database_authenticatable`/`registerable`を外す。理由は
       [redesign_decisions.md](redesign_decisions.md)参照）
