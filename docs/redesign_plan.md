@@ -75,3 +75,6 @@
 - `price`カラムの非表示対応・入力フォーム整備 — 「セットで贈る」機能（複数選択・合計金額ベース）
   とセットで検討する可能性が高いため、今回は着手しない。詳細は
   [redesign_decisions.md](redesign_decisions.md)の「将来検討」を参照。
+- Ruby 3.2.3 / Rails 7.2.2.1 のアップグレード — Brakemanが「サポート終了(EOL)」を警告している。
+  脆弱性ではないが、いずれ計画的にアップグレードする必要がある。今回のPRではCIのBrakeman実行から
+  `EOLRuby`/`EOLRails`チェックを除外して切り分けた（`.github/workflows/ci.yml`）。
