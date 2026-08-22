@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+  # メール/パスワードでの新規登録は停止し、Google/LINEログインに一本化する。
+  # 既存のパスワードユーザーのログイン・アカウント編集には影響しない。
+  before_action :disable_new_registration, only: %i[ new create ]
   before_action :configure_sign_up_params, only: [ :create ]
   before_action :configure_account_update_params, only: [ :update ]
 
@@ -39,6 +42,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   protected
+
+  def disable_new_registration
+    redirect_to new_user_session_path, alert: "新規登録はGoogle/LINEログインをご利用ください"
+  end
 
   # 新規登録にnameカラムを追加
   def configure_sign_up_params

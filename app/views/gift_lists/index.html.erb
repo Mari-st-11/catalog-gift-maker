@@ -12,8 +12,7 @@
         </div>
       <% end %>
     <% else %>
-      <div>ギフトリストの作成にはユーザー登録が必要です</div>
-      <%= link_to "ユーザー新規登録", new_user_registration_path, class:"btn btn-info mt-3 mr-3" %>
+      <div>ギフトリストの作成にはログインが必要です</div>
       <%= link_to "ログイン", new_user_session_path, class:"btn btn-info mt-3" %>
     <% end %>
   </div>

@@ -18,4 +18,24 @@ class UserProfileEditTest < ActionDispatch::IntegrationTest
     get edit_user_registration_path
     assert_redirected_to new_user_session_path
   end
+
+  test "メール/パスワードでの新規登録画面は表示されず、ログイン画面へ誘導される" do
+    get new_user_registration_path
+    assert_redirected_to new_user_session_path
+  end
+
+  test "メール/パスワードでの新規登録は作成されない" do
+    assert_no_difference -> { User.count } do
+      post user_registration_path, params: { user: { name: "不正登録", email: "blocked@example.com", password: "password123", password_confirmation: "password123" } }
+    end
+    assert_redirected_to new_user_session_path
+  end
+
+  test "既存のパスワードユーザーはブロックの影響を受けずログインできる" do
+    @user.update!(password: "password123")
+
+    post user_session_path, params: { user: { email: @user.email, password: "password123" } }
+
+    assert_redirected_to gift_lists_path
+  end
 end
