@@ -38,6 +38,9 @@
 ### 認証まわり
 - [ ] Google Cloud Console / LINE Developers Console でクライアントID・シークレットを発行（ユーザー側作業）
 - [ ] `.env`への設定と実際のログイン動作確認
+- [ ] （優先度低・将来対応）パスワード認証を完全廃止し、SNS認証のみにする
+      （`database_authenticatable`/`registerable`を外す。理由は
+      [redesign_decisions.md](redesign_decisions.md)参照）
 
 ### 公開ページ本体の実装
 - [ ] 楽天/Yahoo API横断検索の実装（並列リクエスト、フォールバック）
