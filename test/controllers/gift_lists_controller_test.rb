@@ -12,6 +12,21 @@ class GiftListsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "indexはステータスごとに正しいバッジ文言を表示する" do
+    sign_in @user
+
+    shared_list = @user.gift_lists.create!(recipient_name: "友人", status: :shared)
+    selected_list = @user.gift_lists.create!(recipient_name: "同僚", status: :selected)
+    completed_list = @user.gift_lists.create!(recipient_name: "家族", status: :completed)
+
+    get gift_lists_path
+
+    assert_response :success
+    assert_match "相手の選択待ち", response.body
+    assert_match "贈りものが決まりました", response.body
+    assert_match "プレゼント完了", response.body
+  end
+
   test "未ログインでnewにアクセスするとログイン画面にリダイレクトされる" do
     get new_gift_list_path
     assert_redirected_to new_user_session_path

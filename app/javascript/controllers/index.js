@@ -9,3 +9,6 @@ application.register("hello", HelloController)
 
 import IconsController from "./icons_controller"
 application.register("icons", IconsController)
+
+import ClipboardController from "./clipboard_controller"
+application.register("clipboard", ClipboardController)

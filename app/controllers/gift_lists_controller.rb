@@ -2,7 +2,7 @@ class GiftListsController < ApplicationController
   before_action :authenticate_user!, except: %i[ index ]
   before_action :set_gift_list, only: %i[ show edit update destroy regenerate_public_token ]
   def index
-    @gift_lists = current_user.gift_lists.includes(:user).order(:created_at) if user_signed_in?
+    @gift_lists = current_user.gift_lists.includes(:user, :gift_items).order(created_at: :desc) if user_signed_in?
   end
 
   def show

@@ -1,19 +1,31 @@
-<div class="container mx-auto px-5 py-10 text-center">
-<h1 class="text-xl font-bold">ギフトリスト一覧</h1>
-  <div class="mt-2">
+<div class="bg-ash-bg min-h-[calc(100vh-200px)] py-10 px-6">
+  <div class="max-w-xl mx-auto space-y-7">
     <% if user_signed_in? %>
-    <%= link_to "ギフトリストを追加", new_gift_list_path, class:"btn btn-primary mt-3 mb-5" %>
+      <div class="flex justify-between items-end border-b border-ash-border/60 pb-5">
+        <div>
+          <span class="text-[11px] font-serif tracking-widest text-gold-dark block">おかえりなさい</span>
+          <h1 class="font-serif text-lg font-bold text-ash-text"><%= current_user.name %>さんのカタログ</h1>
+        </div>
+        <%= link_to new_gift_list_path, class: "px-4 py-2 text-white font-serif text-xs tracking-wider shadow-sm btn-gold-subtle flex items-center space-x-1.5 transition" do %>
+          <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+          <span>新しく作る</span>
+        <% end %>
+      </div>
+
       <% if @gift_lists.present? %>
-        <%= render @gift_lists %>
+        <div class="space-y-5">
+          <%= render @gift_lists %>
+        </div>
       <% else %>
-        <div class="">
-          ギフトリストはまだありません<br>
-          追加ボタンから作ってみましょう！
+        <div class="text-center text-ash-sub text-sm font-light py-10">
+          ギフトリストはまだありません<br>「新しく作る」から始めましょう
         </div>
       <% end %>
     <% else %>
-      <div>ギフトリストの作成にはログインが必要です</div>
-      <%= link_to "ログイン", new_user_session_path, class:"btn btn-info mt-3" %>
+      <div class="text-center space-y-4 py-10">
+        <p class="text-sm text-ash-sub font-light">ギフトリストの作成にはログインが必要です</p>
+        <%= link_to "ログイン", new_user_session_path, class: "px-6 py-2.5 text-white font-serif text-xs tracking-wider btn-gold-subtle inline-block" %>
+      </div>
     <% end %>
   </div>
 </div>
