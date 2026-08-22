@@ -1,36 +1,50 @@
-<div class="container mx-auto px-5 py-10 text-center">
-  <h1 class="text-xl font-bold mb-5">アカウント編集</h1>
+<div class="bg-ash-bg min-h-[calc(100vh-200px)]">
+  <header class="px-7 py-6 flex justify-between items-center border-b border-ash-border bg-white sticky top-0 z-30">
+    <%= link_to gift_lists_path, class: "text-xs text-ash-sub hover:text-ash-text flex items-center space-x-1 font-serif" do %>
+      <i data-lucide="chevron-left" class="w-4 h-4"></i>
+      <span>カタログ一覧へ戻る</span>
+    <% end %>
+    <span class="font-serif text-base font-semibold text-ash-text">アカウント設定</span>
+    <span class="w-24"></span>
+  </header>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-    <fieldset class="fieldset border-base-200 rounded-box w-xs border p-4 mx-auto">
-      <% if resource.errors.any? %>
-        <h3><i class="fa-solid fa-triangle-exclamation mr-2"></i>入力エラーがあります</h3>
-        <% resource.errors.full_messages.each do |message| %>
-          <li class="text-red-800"><%= message %></li>
+  <div class="p-6 sm:p-7 max-w-md mx-auto space-y-6">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <div class="bg-white p-6 border border-ash-border space-y-4">
+        <% if resource.errors.any? %>
+          <div class="text-red-800 text-xs space-y-1">
+            <% resource.errors.full_messages.each do |message| %>
+              <p><%= message %></p>
+            <% end %>
+          </div>
         <% end %>
-      <% end %>
 
-      <label class="label">表示名</label>
-      <div class="input">
-        <%= f.text_field :name, autofocus: true %>
+        <div class="space-y-1.5 text-xs">
+          <label class="text-ash-text font-serif block">表示名</label>
+          <%= f.text_field :name, autofocus: true,
+              class: "w-full p-3 bg-ash-bg border border-ash-border text-ash-text focus:outline-none focus:border-gold" %>
+        </div>
+
+        <div class="space-y-1.5 text-xs">
+          <label class="text-ash-text font-serif block">メールアドレス</label>
+          <%= f.email_field :email, autocomplete: "email",
+              class: "w-full p-3 bg-ash-bg border border-ash-border text-ash-text focus:outline-none focus:border-gold" %>
+        </div>
+
+        <button class="w-full py-2.5 text-white font-serif text-xs tracking-wider shadow-sm btn-gold-subtle transition">
+          <%= f.submit "保存する" %>
+        </button>
       </div>
+    <% end %>
 
-      <label class="label">メールアドレス</label>
-      <div class="input">
-        <%= f.email_field :email, autocomplete: "email" %>
-      </div>
-
-      <button class="btn btn-neutral mt-4">
-        <%= f.submit "更新する" %>
-      </button>
-    </fieldset>
-  <% end %>
-
-  <div class="mt-10 text-sm">
-    <%= button_to "アカウントを削除する", registration_path(resource_name), data: { turbo_confirm: "本当に削除しますか？" }, method: :delete, class: "btn btn-outline btn-error btn-sm" %>
-  </div>
-
-  <div class="mt-6">
-    <%= link_to "< 戻る", gift_lists_path, class: "link" %>
+    <div class="border border-clay/40 p-6 space-y-3">
+      <h2 class="font-serif text-xs text-clay-dark tracking-wide">アカウントを削除する</h2>
+      <p class="text-[11px] text-ash-sub font-light leading-relaxed">
+        削除すると、作成したすべてのカタログと共有リンクが使えなくなります。この操作は元に戻せません。
+      </p>
+      <%= button_to "アカウントを削除する", registration_path(resource_name), method: :delete,
+          data: { turbo_confirm: "本当に削除しますか？" },
+          class: "text-[11px] text-clay-dark border border-clay/50 px-4 py-2 hover:bg-clay-light transition font-serif" %>
+    </div>
   </div>
 </div>

@@ -1,77 +1,126 @@
-<div class="max-w-md mx-auto p-4 space-y-8 font-sans mt-10">
+<div class="bg-ash-bg">
 
-  <!-- タイトル -->
-  <header class="text-center space-y-2 mt-5 mb-20">
-    <div class="flex justify-center mb-5">
-    <%= image_tag "https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/cgm-logo.png", width:"200px" %>
+  <div class="px-7 pt-14 pb-10 text-center space-y-5 border-b border-ash-border">
+    <div class="w-24 h-[50px] mx-auto overflow-hidden flex items-start justify-center">
+      <%= image_tag "https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/cgm-logo.png", alt: "カタログギフトメーカーのロゴ", class: "w-24 flex-shrink-0" %>
     </div>
-    <h1 class="text-lg font-bold">自分でつくるWEBカタログギフト<br>
-    <span class="text-xl font-bold">カタログギフトメーカー</span></h1>
-    
-  </header>
-
-  <!-- プレゼント選びの悩み -->
-  <section class="text-center space-y-2 text-m mb-0.5">
-    <p class="mb-2">プレゼント選びの際、こんな悩みがありませんか？</p>
-    <%= image_tag "https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/cgm-img1.png", width:"480px" %>
-  </section>
-
-  <!-- 矢印 -->
-  <div class="text-center text-2xl text-zinc-400 mb-1"><i class="fa fa-angle-double-down"></i></div>
-
-  <section class="bg-[#ECDF96] p-5 rounded-lg space-y-1 text-center mb-10">
-  <h3 class="text-xl font-bold"><span class="bg-zinc-50">そんなプレゼント選びの悩みを</span><br><span class="bg-zinc-50">まとめて解決！</span></h3>
-  カタログギフトメーカーなら<br><span class="font-bold">贈りたいアイテムをまとめてリストにして、<br>相手に選んでもらえます。</span>
-  </section>
-
-  <!-- ベネフィット -->
-  <section class="text-center space-y-4">
-    <p class="mb-2">カタログギフトメーカーだからできること</p>
-    <div class="text-center">
-      <%= image_tag "https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/cgm-img2.png", width:"480px" %>
-      <p class="text-sm mt-2">特定のショップやブランドに縛られないから</p>
-      <p class="text-lg font-bold">組み合わせ自由</p>
+    <p class="text-xs font-serif text-gold-dark tracking-widest">自分でつくるWEBカタログギフト</p>
+    <h1 class="font-serif text-2xl font-bold text-ash-text leading-relaxed">
+      贈りものを、<br>選ぶ楽しさごと届けよう。
+    </h1>
+    <p class="text-xs text-ash-sub font-light leading-[2.2] max-w-xs mx-auto">
+      ブランドやお店にしばられず、自由に組み合わせて。<br>あなたが選んだものだけの、オリジナルカタログギフトです。
+    </p>
+    <div class="pt-3">
+      <% if user_signed_in? %>
+        <%= link_to gift_lists_path, class: "px-8 py-3.5 text-white font-serif text-xs tracking-widest shadow-md btn-gold-subtle transition inline-flex items-center space-x-2" do %>
+          <span>ギフトリストを作成</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        <% end %>
+      <% else %>
+        <%= link_to new_user_session_path, class: "px-8 py-3.5 text-white font-serif text-xs tracking-widest shadow-md btn-gold-subtle transition inline-flex items-center space-x-2" do %>
+          <span>はじめる</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        <% end %>
+      <% end %>
     </div>
-    <div class="text-center mt-7">
-      <%= image_tag "https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/cgm-img3.png", width:"480px" %>
-      <p class="text-sm mt-2">リストの中から欲しいものを選べるから</p>
-      <p class="text-lg font-bold">もらう側も嬉しい</p>
-    </div>
-  </section>
-
-  <!-- 新規作成ボタン -->
-  <div class="text-center pt-5 pb-5">
-    <p class="text-sm">＼ さっそく使ってみる ／</p>
-    <%= link_to "はじめる", new_user_session_path, class:"btn btn-accent mt-0.5 btn-xl" if !user_signed_in? %>
-    <%= link_to "ギフトリストを作成", gift_lists_path, class:"btn btn-accent mt-0.5 btn-xl" if user_signed_in? %>
   </div>
 
-  <!-- 使い方 -->
-  <section class="space-y-4">
-    <h3 class="text-lg font-bold text-center">カタログギフトメーカーの使い方</h3>
-    <ol class="space-y-2 font-bold">
-      <li class="flex items-start bg-zinc-100 p-4 rounded-lg">
-        <span class="font-bold text-primary mr-4">01</span>
-        <span class="text-sm">ギフトリストを作成<br><span class="font-normal">プレゼントしたい商品URLを入力で簡単に作成！</span></span>
-      </li>
-      <li class="flex items-start bg-zinc-100 p-4 rounded-lg">
-        <span class="font-bold text-primary mr-4">02</span>
-        <span class="text-sm">作成したギフトリストを相手にシェア<br><span class="font-normal">リストのURLをワンクリックでコピーできます</span></span>
-      </li>
-      <li class="flex items-start bg-zinc-100 p-4 rounded-lg">
-        <span class="font-bold text-primary mr-4">03</span>
-        <span class="text-sm">受け取った相手がギフトを選ぶ</span>
-      </li>
-      <li class="flex items-start bg-zinc-100 p-4 rounded-lg">
-        <span class="font-bold text-primary mr-4">04</span>
-        <span class="text-sm">選ばれたギフトを通知でお知らせ（未実装）</span>
-      </li>
-      <li class="flex items-start bg-zinc-100 p-4 rounded-lg">
-        <span class="font-bold text-primary mr-4">05</span>
-        <span class="text-sm">ギフトを購入してプレゼント！</span>
-      </li>
-    </ol>
-    <p class="text-sm text-center">※本アプリに購入機能はありません</p>
-  </section>
+  <div class="px-7 pt-9 pb-2 space-y-4 max-w-md mx-auto">
+    <div class="space-y-1.5 text-center">
+      <div class="flex items-center justify-center space-x-4">
+        <div class="h-px w-8 bg-gold/40"></div>
+        <span class="text-xs font-serif text-gold-dark tracking-widest">こんなお悩み、ありませんか？</span>
+        <div class="h-px w-8 bg-gold/40"></div>
+      </div>
+    </div>
 
+    <div class="bg-white p-3 border border-ash-border shadow-[0_2px_16px_-4px_rgba(0,0,0,0.03)]">
+      <%= image_tag "https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/cgm-img1.png", alt: "プレゼント選びに悩む人のイラスト", class: "w-full h-auto" %>
+    </div>
+
+    <div class="text-center px-6 pt-2 space-y-1.5">
+      <p class="font-serif text-base font-bold text-ash-text">その悩み、相手に選んでもらえば解決します。</p>
+      <p class="text-xs text-ash-sub font-light leading-relaxed">候補をいくつか並べておくだけ。あとは、相手が好きなものを選んでくれます。</p>
+    </div>
+  </div>
+
+  <div class="pt-9 pb-2 space-y-4">
+    <div class="space-y-1.5 text-center px-7">
+      <div class="flex items-center justify-center space-x-4">
+        <div class="h-px w-8 bg-gold/40"></div>
+        <span class="text-xs font-serif text-gold-dark tracking-widest">カタログギフトメーカーだからできること</span>
+        <div class="h-px w-8 bg-gold/40"></div>
+      </div>
+    </div>
+
+    <div class="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 px-7 pb-2 max-w-md mx-auto md:max-w-none md:justify-center">
+      <div class="snap-start flex-shrink-0 w-[85%] sm:w-80 bg-white border border-ash-border shadow-[0_2px_16px_-4px_rgba(0,0,0,0.03)]">
+        <%= image_tag "https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/cgm-img2.png", alt: "好きなブランドやショップを自由に組み合わせられるイラスト", class: "w-full h-auto" %>
+        <div class="p-4 space-y-1">
+          <h2 class="font-serif text-sm font-semibold text-ash-text">組み合わせ自由</h2>
+          <p class="text-xs text-ash-sub font-light leading-relaxed">特定のショップやブランドに縛られないから、あなたらしいセレクトができます。</p>
+        </div>
+      </div>
+      <div class="snap-start flex-shrink-0 w-[85%] sm:w-80 bg-white border border-ash-border shadow-[0_2px_16px_-4px_rgba(0,0,0,0.03)]">
+        <%= image_tag "https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/cgm-img3.png", alt: "受け取った相手が嬉しそうに商品を選ぶイラスト", class: "w-full h-auto" %>
+        <div class="p-4 space-y-1">
+          <h2 class="font-serif text-sm font-semibold text-ash-text">もらう側も嬉しい</h2>
+          <p class="text-xs text-ash-sub font-light leading-relaxed">リストの中から欲しいものを選べるから、贈られる側の満足度も上がります。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pt-9 pb-2 space-y-4" data-controller="carousel">
+    <div class="space-y-1.5 text-center px-7">
+      <div class="flex items-center justify-center space-x-4">
+        <div class="h-px w-8 bg-gold/40"></div>
+        <span class="text-xs font-serif text-gold-dark tracking-widest">使い方</span>
+        <div class="h-px w-8 bg-gold/40"></div>
+      </div>
+    </div>
+
+    <div data-carousel-target="scroller" class="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 px-7 pb-1 max-w-md mx-auto md:max-w-none md:justify-center">
+      <div class="snap-start flex-shrink-0 w-[72%] sm:w-64 bg-white border border-ash-border p-6 space-y-2.5">
+        <span class="font-en text-2xl text-gold/50 font-medium">01</span>
+        <h3 class="font-serif text-sm font-semibold text-ash-text">贈りものの候補を集める</h3>
+        <p class="text-xs text-ash-sub font-light leading-relaxed">気になった商品を、いくつでも自由に追加できます。URLを貼るだけで簡単に登録できます。</p>
+      </div>
+      <div class="snap-start flex-shrink-0 w-[72%] sm:w-64 bg-white border border-ash-border p-6 space-y-2.5">
+        <span class="font-en text-2xl text-gold/50 font-medium">02</span>
+        <h3 class="font-serif text-sm font-semibold text-ash-text">カタログギフトを送る</h3>
+        <p class="text-xs text-ash-sub font-light leading-relaxed">できあがったカタログのURLを、LINEなどで送るだけ。受け取る相手はログイン不要です。</p>
+      </div>
+      <div class="snap-start flex-shrink-0 w-[72%] sm:w-64 bg-white border border-ash-border p-6 space-y-2.5">
+        <span class="font-en text-2xl text-gold/50 font-medium">03</span>
+        <h3 class="font-serif text-sm font-semibold text-ash-text">相手がギフトを選ぶ</h3>
+        <p class="text-xs text-ash-sub font-light leading-relaxed">受け取った相手が、カタログの中から気に入った一つを選びます。</p>
+      </div>
+      <div class="snap-start flex-shrink-0 w-[72%] sm:w-64 bg-white border border-ash-border p-6 space-y-2.5">
+        <span class="font-en text-2xl text-gold/50 font-medium">04</span>
+        <h3 class="font-serif text-sm font-semibold text-ash-text">贈り主に通知が届く</h3>
+        <p class="text-xs text-ash-sub font-light leading-relaxed">選ばれると贈り主に通知が届くので、選び終わるまで待つだけです。</p>
+      </div>
+      <div class="snap-start flex-shrink-0 w-[72%] sm:w-64 bg-white border border-ash-border p-6 space-y-2.5">
+        <span class="font-en text-2xl text-gold/50 font-medium">05</span>
+        <h3 class="font-serif text-sm font-semibold text-ash-text">購入してプレゼント</h3>
+        <p class="text-xs text-ash-sub font-light leading-relaxed">選ばれた商品を、贈り主が購入・発送すれば完了です。</p>
+      </div>
+    </div>
+
+    <div class="flex justify-center gap-1.5 pt-1">
+      <span data-carousel-target="dot" class="w-1.5 h-1.5 rounded-full bg-gold"></span>
+      <span data-carousel-target="dot" class="w-1.5 h-1.5 rounded-full bg-ash-border"></span>
+      <span data-carousel-target="dot" class="w-1.5 h-1.5 rounded-full bg-ash-border"></span>
+      <span data-carousel-target="dot" class="w-1.5 h-1.5 rounded-full bg-ash-border"></span>
+      <span data-carousel-target="dot" class="w-1.5 h-1.5 rounded-full bg-ash-border"></span>
+    </div>
+
+    <p class="text-[10px] text-ash-sub font-light text-center px-7">※本サービスに購入機能はありません</p>
+  </div>
+
+  <footer class="px-7 py-6 text-center border-t border-ash-border">
+    <p class="text-[10px] text-ash-sub font-light">© カタログギフトメーカー</p>
+  </footer>
 </div>

@@ -1,5 +1,50 @@
-<div class="container mx-auto px-5 py-10 text-center">
-  <h1 class="text-xl font-bold">ギフトリストを作成</h1>
-  <%= render "form", gift_list: @gift_list %>
-  <%= link_to "< ギフトリスト一覧へ戻る", gift_lists_path, class: "link" %>
+<div class="bg-ash-bg min-h-[calc(100vh-200px)]">
+  <header class="px-7 py-6 flex items-center border-b border-ash-border bg-white sticky top-0 z-30">
+    <%= link_to gift_lists_path, class: "text-xs text-ash-sub hover:text-ash-text flex items-center space-x-1 font-serif" do %>
+      <i data-lucide="chevron-left" class="w-4 h-4"></i>
+      <span>一覧へ戻る</span>
+    <% end %>
+  </header>
+
+  <%= render "step_indicator", current_step: 1 %>
+
+  <div class="p-6 sm:p-7 max-w-md mx-auto space-y-6">
+    <%= form_with model: @gift_list, url: gift_lists_path do |f| %>
+      <div class="bg-white p-6 border border-ash-border space-y-4 text-xs font-light" data-controller="chip-select">
+        <% if @gift_list.errors.any? %>
+          <div class="text-red-800 space-y-1">
+            <% @gift_list.errors.full_messages.each do |message| %>
+              <p><%= message %></p>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="space-y-1.5">
+          <label class="text-ash-text font-serif block">贈る相手のお名前</label>
+          <%= f.text_field :recipient_name, autofocus: true, placeholder: "例：お母さん",
+              class: "w-full p-3 bg-ash-bg border border-ash-border text-ash-text focus:outline-none focus:border-gold" %>
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="text-ash-text font-serif block">どんなお祝いですか？</label>
+          <div class="grid grid-cols-3 gap-2 text-[11px]">
+            <% [ "母の日・感謝", "結婚祝い", "誕生日" ].each do |preset| %>
+              <button type="button" data-action="chip-select#select" data-chip-select-target="chip"
+                data-chip-select-value-param="<%= preset %>"
+                class="p-2.5 border border-ash-border text-ash-sub text-center font-serif hover:border-gold/60 transition-colors">
+                <%= preset %>
+              </button>
+            <% end %>
+          </div>
+          <%= f.text_field :purpose, data: { "chip-select-target": "input" }, placeholder: "自由に入力もできます",
+              class: "w-full p-3 bg-ash-bg border border-ash-border text-ash-text focus:outline-none focus:border-gold mt-2" %>
+        </div>
+      </div>
+
+      <button class="w-full py-3.5 mt-6 text-white font-serif text-xs tracking-widest shadow-sm btn-gold-subtle transition flex items-center justify-center space-x-1.5">
+        <%= f.submit "次へ：贈りものを選ぶ" %>
+        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+      </button>
+    <% end %>
+  </div>
 </div>

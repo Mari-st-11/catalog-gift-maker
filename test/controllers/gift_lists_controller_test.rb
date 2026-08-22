@@ -46,7 +46,7 @@ class GiftListsControllerTest < ActionDispatch::IntegrationTest
       post gift_lists_path, params: { gift_list: { recipient_name: "お父さん", purpose: "誕生日" } }
     end
     created = @user.gift_lists.find_by!(recipient_name: "お父さん")
-    assert_redirected_to gift_list_path(created)
+    assert_redirected_to new_gift_list_gift_item_path(created)
   end
 
   test "所有者本人は自分のギフトリストを閲覧・編集・削除できる" do

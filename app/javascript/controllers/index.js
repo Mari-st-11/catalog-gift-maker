@@ -12,3 +12,9 @@ application.register("icons", IconsController)
 
 import ClipboardController from "./clipboard_controller"
 application.register("clipboard", ClipboardController)
+
+import CarouselController from "./carousel_controller"
+application.register("carousel", CarouselController)
+
+import ChipSelectController from "./chip_select_controller"
+application.register("chip-select", ChipSelectController)

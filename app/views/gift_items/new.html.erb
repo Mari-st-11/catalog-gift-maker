@@ -1,7 +1,14 @@
-<div class="container mx-auto px-5 py-10 text-center">
-  <h1 class="text-xl font-bold mb-5">ギフトを登録</h1>
-  <%= render "new_form", gift_item: @gift_item %>
-  <div class="mt-10">
-    <%= link_to "< ギフト一覧へ戻る", gift_list_path(@gift_list), class: "link" %>
+<div class="bg-ash-bg min-h-[calc(100vh-200px)]">
+  <header class="px-7 py-6 flex items-center border-b border-ash-border bg-white sticky top-0 z-30">
+    <%= link_to gift_list_path(@gift_list), class: "text-xs text-ash-sub hover:text-ash-text flex items-center space-x-1 font-serif" do %>
+      <i data-lucide="chevron-left" class="w-4 h-4"></i>
+      <span>一覧へ戻る</span>
+    <% end %>
+  </header>
+
+  <%= render "gift_lists/step_indicator", current_step: 2 %>
+
+  <div class="p-6 sm:p-7 text-center">
+    <%= render "new_form", gift_item: @gift_item %>
   </div>
 </div>

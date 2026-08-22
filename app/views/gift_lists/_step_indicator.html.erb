@@ -1,0 +1,27 @@
+<%
+  steps = [
+    { number: 1, label: "相手を決める" },
+    { number: 2, label: "贈りものを選ぶ" },
+    { number: 3, label: "メッセージを書く" }
+  ]
+%>
+<div class="px-7 py-5 bg-white border-b border-ash-border">
+  <div class="flex items-start max-w-md mx-auto">
+    <% steps.each_with_index do |step, index| %>
+      <% state = step[:number] < current_step ? :done : (step[:number] == current_step ? :current : :upcoming) %>
+      <div class="flex flex-col items-center gap-1.5 w-24">
+        <span class="w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-serif transition-colors
+          <%= case state
+              when :done then "border border-gold bg-gold-light text-gold-dark"
+              when :current then "bg-gold text-white shadow-[0_2px_8px_-2px_rgba(197,160,89,0.6)]"
+              else "border border-ash-border text-ash-sub bg-white"
+              end %>"><%= step[:number] %></span>
+        <span class="text-[10px] font-serif tracking-wide transition-colors
+          <%= state == :upcoming ? "text-ash-sub" : "text-ash-text font-medium" %>"><%= step[:label] %></span>
+      </div>
+      <% if index < steps.size - 1 %>
+        <div class="flex-1 h-px mt-3.5 transition-colors <%= step[:number] < current_step ? "bg-gold" : "bg-ash-border" %>"></div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
