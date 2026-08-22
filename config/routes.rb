@@ -18,7 +18,11 @@ Rails.application.routes.draw do
     member do
       post :regenerate_public_token
     end
-    resources :gift_items, only: %i[ new create show edit update destroy ], shallow: true
+    resources :gift_items, only: %i[ new create show edit update destroy ], shallow: true do
+      collection do
+        get :search
+      end
+    end
   end
 
   resources :shared_gift_lists, only: %i[ show ] do

@@ -1,12 +1,25 @@
 class GiftItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_gift_item, only: %i[ show edit update destroy ]
-  before_action :set_gift_list, only: %i[ new create ]
+  before_action :set_gift_list, only: %i[ new create search ]
 
   def new
     return redirect_to gift_lists_path, alert: "対象のギフトリストが見つかりません" if @gift_list.nil?
 
     @gift_item = GiftItem.new
+  end
+
+  # 楽天/Yahoo!ショッピングを横断検索する(APIキー未設定・片方の障害時は空配列を返すのみ)
+  def search
+    return redirect_to gift_lists_path, alert: "対象のギフトリストが見つかりません" if @gift_list.nil?
+
+    @keyword = params[:keyword].to_s
+    @results = ProductSearch.call(@keyword)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { render partial: "search_results", locals: { results: @results, keyword: @keyword, gift_list: @gift_list } }
+    end
   end
 
   def create
@@ -17,7 +30,21 @@ class GiftItemsController < ApplicationController
     ogp_info_fetched = false
     image_downloaded = false
 
-    if @gift_item.url.present?
+    if params[:image_url].present?
+      # API検索結果から選択された商品
+      @gift_item.source_type = :api_search
+      @gift_item.description ||= ""
+      ogp_info_fetched = true
+
+      begin
+        @gift_item.image = SafeHtmlFetcher.fetch_as_io(params[:image_url])
+        image_downloaded = true
+      rescue SafeHtmlFetcher::FetchError => e
+        Rails.logger.warn("API result image fetch failed: #{e.message}")
+      end
+    elsif @gift_item.url.present?
+      @gift_item.source_type = :url_ogp
+
       begin
         html = SafeHtmlFetcher.fetch(@gift_item.url)
         doc = Nokogiri::HTML.parse(html)
@@ -41,6 +68,7 @@ class GiftItemsController < ApplicationController
         @gift_item.description = "説明文を入力してください"
       end
     else
+      @gift_item.source_type = :manual
       @gift_item.name = "商品名を入力してください"
       @gift_item.description = "説明文を入力してください"
       @gift_item.image = nil
@@ -77,7 +105,7 @@ class GiftItemsController < ApplicationController
   private
 
   def gift_item_params
-    params.require(:gift_item).permit(:url, :name, :description, :image).merge(gift_list_uuid: @gift_list.uuid)
+    params.require(:gift_item).permit(:url, :name, :description, :image, :price).merge(gift_list_uuid: @gift_list.uuid)
   end
 
   def gift_item_params_update
