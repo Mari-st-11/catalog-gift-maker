@@ -73,6 +73,10 @@
 - [ ] 通知フェーズ2: LINE Messaging APIでのプッシュ通知、Google/メール認証ユーザーへのメール通知
       （詳細は[redesign_decisions.md](redesign_decisions.md)参照）
 - [ ] デザインテーマ（mode/botanical/nuance）に応じた画面デザインの作り直し
+      `tmp/design_preview/ui_gothic.html`をベースに使えることを確認済み。カタログ作成・編集は
+      「別ページのまま、見た目だけウィザード風」の方式Aで実装する（詳細は
+      [redesign_decisions.md](redesign_decisions.md)参照）。UIデザイン自体は別セッションで
+      並行して作成中。
       対象画面は以下の14画面（2026-08-22時点で洗い出し済み）:
       **認証まわり**
       1. ログイン画面 (`/users/sign_in`) — メール/パスワード + Google/LINEログインボタン
