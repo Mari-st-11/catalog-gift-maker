@@ -26,6 +26,39 @@ class GiftItemsControllerTest < ActionDispatch::IntegrationTest
 
     gift_item = @gift_list.gift_items.last
     assert_equal @user.id, gift_item.user_id
+    assert gift_item.manual?
+  end
+
+  test "商品名検索(楽天/Yahoo横断検索)の結果がturbo_streamで返る" do
+    sign_in @user
+    result = ProductSearchResult.new(name: "テスト商品", price: 1000, url: "https://example.com/item", image_url: "https://example.com/item.jpg", source: "rakuten")
+
+    ProductSearch.stub(:call, [ result ]) do
+      get search_gift_list_gift_items_path(@gift_list), params: { keyword: "テスト" }, as: :turbo_stream
+    end
+
+    assert_response :success
+    assert_match "テスト商品", response.body
+  end
+
+  test "API検索結果から選んだ商品はsource_type: api_searchとして登録される" do
+    sign_in @user
+
+    fake_io = StringIO.new("fake image body")
+    fake_io.define_singleton_method(:original_filename) { "item.jpg" }
+
+    SafeHtmlFetcher.stub(:fetch_as_io, fake_io) do
+      assert_difference -> { @gift_list.gift_items.count }, 1 do
+        post gift_list_gift_items_path(@gift_list), params: {
+          gift_item: { name: "コーヒーメーカー", url: "https://example.com/item", price: 3980 },
+          image_url: "https://example.com/item.jpg"
+        }
+      end
+    end
+
+    gift_item = @gift_list.gift_items.last
+    assert gift_item.api_search?
+    assert_equal 3980, gift_item.price
   end
 
   test "商品URLに内部アドレスを指定しても500エラーにならず、手動入力扱いにフォールバックする(SSRF対策)" do
@@ -37,6 +70,7 @@ class GiftItemsControllerTest < ActionDispatch::IntegrationTest
 
     gift_item = @gift_list.gift_items.last
     assert_equal "商品名を入力してください", gift_item.name
+    assert gift_item.url_ogp?
     assert_response :redirect
   end
 

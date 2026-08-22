@@ -58,7 +58,15 @@
       [redesign_decisions.md](redesign_decisions.md)参照）
 
 ### 公開ページ本体の実装
-- [ ] **（次にやる）** 楽天/Yahoo API横断検索の実装（並列リクエスト、フォールバック）
+- [x] 楽天/Yahoo API横断検索の実装（並列リクエスト、フォールバック）
+      - `RakutenProductSearch`/`YahooProductSearch`/`ProductSearch`（並列実行の窓口）として実装
+      - 片方のAPIキー未設定・障害時は空配列を返すのみで、もう片方の結果はそのまま表示される
+      - ギフト新規登録画面にキーワード検索欄を追加、Turbo Streamで結果を差し込み表示
+      - 検索結果から選んだ場合は`source_type: api_search`として登録。あわせて、これまで
+        `source_type`がどの経路でも一度も設定されておらず常にDBのデフォルト値`manual`のままだった
+        バグも修正（`url_ogp`/`manual`もそれぞれ正しく設定するようにした）
+      - `RAKUTEN_APPLICATION_ID`・`YAHOO_CLIENT_ID`はユーザー側で取得・設定が必要
+        （`.env`にプレースホルダーを追加済み、本番はRenderの環境変数への追加も別途必要）
 - [ ] デザインテーマ（mode/botanical/nuance）に応じた画面デザインの作り直し
       対象画面は以下の14画面（2026-08-22時点で洗い出し済み）:
       **認証まわり**

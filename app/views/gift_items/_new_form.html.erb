@@ -1,10 +1,21 @@
+<div class="fieldset border-base-200 rounded-box w-full max-w-xl border p-4 mb-5 mx-auto">
+  <p>楽天市場・Yahoo!ショッピングから探す</p>
+  <%= form_with url: search_gift_list_gift_items_path, method: :get, data: { turbo_stream: true } do |f| %>
+    <div class="join w-full mt-2">
+      <%= f.text_field :keyword, placeholder: "商品名で検索(例: コーヒーメーカー)", class: "input join-item w-full" %>
+      <button class="btn btn-neutral join-item">検索</button>
+    </div>
+  <% end %>
+  <div id="search_results"></div>
+</div>
+
 <div class="fieldset border-base-200 rounded-box w-xs border p-4 mb-5 mx-auto">
   <p>step1</p>
   <p>贈りたいアイテムの商品ページURLをコピー</p>
   <%= link_to "https://www.google.com/", target: "_blank", rel: "noopener", class: "link" do %>
   贈りたいアイテムを探す(Google)<i class="fa-solid fa-arrow-up-right-from-square ml-1" style="color: #373735;"></i>
   <% end %>
-  <p>※現在、楽天市場、Amazonは商品データを取得できません</p>
+  <p>※現在、Amazonは商品データを取得できません</p>
 </div>
 
 <%= form_with model:gift_item, url: gift_list_gift_items_path do |f| %>
