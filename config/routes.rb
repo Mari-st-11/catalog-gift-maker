@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :notifications, only: %i[ index ]
+
   resources :shared_gift_lists, only: %i[ show ] do
     member do
       post :choose
