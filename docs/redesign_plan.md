@@ -36,8 +36,13 @@
 ## 未着手（次にやること）
 
 ### 認証まわり
-- [ ] Google Cloud Console / LINE Developers Console でクライアントID・シークレットを発行（ユーザー側作業）
-- [ ] `.env`への設定と実際のログイン動作確認
+- [x] Google Cloud Console / LINE Developers Console でクライアントID・シークレットを発行（ユーザー側作業）
+- [x] `.env`への設定、およびサーバーサイドでのリダイレクトURL生成確認
+      （`compose.yml`に`env_file: .env`が無く、`.env`の値が一切コンテナに読み込まれていなかった
+      バグを発見・修正。修正前は`client_id`が空のままGoogle/LINEに送られていた）
+- [ ] 実際にGoogle/LINEの同意画面まで進んでログインできるか、ユーザー自身のブラウザで最終確認
+      （このセッションのサンドボックス化されたブラウザでは、Googleが自動化ブラウザを検知して
+      画面を進めない可能性が高く確認できなかった。curlでのリダイレクトURL確認までは完了）
 - [ ] （優先度低・将来対応）パスワード認証を完全廃止し、SNS認証のみにする
       （`database_authenticatable`/`registerable`を外す。理由は
       [redesign_decisions.md](redesign_decisions.md)参照）
