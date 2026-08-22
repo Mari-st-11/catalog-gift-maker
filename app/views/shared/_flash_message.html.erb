@@ -1,10 +1,10 @@
 <% flash.each do |message_type, message| %>
   <% color = case message_type.to_s
-             when "success" then "bg-gold-light text-gold-dark border-gold-border"
-             when "warning", "alert" then "bg-clay-light text-clay-dark border-clay/40"
-             else "bg-white text-ash-text border-ash-border"
+             when "success" then "text-gold-dark"
+             when "warning", "alert" then "text-clay-dark"
+             else "text-ash-text"
              end %>
-  <div class="max-w-md mx-auto mt-3 px-4 py-3 border text-xs font-serif flex items-center space-x-2 <%= color %>">
+  <div class="max-w-md mx-auto mt-4 px-6 text-xs font-serif flex items-center justify-center space-x-1.5 <%= color %>">
     <% if message_type.to_s == "success" %><i data-lucide="check-circle" class="w-4 h-4 flex-shrink-0"></i><% end %>
     <% if [ "warning", "alert" ].include?(message_type.to_s) %><i data-lucide="triangle-alert" class="w-4 h-4 flex-shrink-0"></i><% end %>
     <span><%= message %></span>
