@@ -42,7 +42,7 @@
   <!-- 新規作成ボタン -->
   <div class="text-center pt-5 pb-5">
     <p class="text-sm">＼ さっそく使ってみる ／</p>
-    <%= link_to "ユーザー新規登録", new_user_registration_path, class:"btn btn-accent mt-0.5 btn-xl" if !user_signed_in? %>
+    <%= link_to "はじめる", new_user_session_path, class:"btn btn-accent mt-0.5 btn-xl" if !user_signed_in? %>
     <%= link_to "ギフトリストを作成", gift_lists_path, class:"btn btn-accent mt-0.5 btn-xl" if user_signed_in? %>
   </div>
 

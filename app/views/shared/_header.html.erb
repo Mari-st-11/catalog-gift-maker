@@ -5,7 +5,7 @@
     <li><%= link_to "ギフトリスト一覧", gift_lists_path, class:"mr-5" %></li>
     <li><%= link_to "ログイン", new_user_session_path, class:"mr-5" if !user_signed_in? %></li>
     <li><%= link_to "ログアウト", destroy_user_session_path, class:"mr-5", data: { turbo_method: :delete } if user_signed_in? %></li>
-    <li><%= current_user.name if user_signed_in? %></li>
+    <li><%= link_to current_user.name, edit_user_registration_path, class: "mr-5" if user_signed_in? %></li>
   </ul>
 </div>
 </header>

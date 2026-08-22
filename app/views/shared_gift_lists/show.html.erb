@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <meta name="robots" content="noindex, nofollow">
+<% end %>
+
 <% if @gift_items.any? { |gift_item| gift_item.confirmed? } %>
   <div role="alert" class="alert alert-outline alert-success text-xs m-2">
     <i class="fa-solid fa-circle-info"></i>

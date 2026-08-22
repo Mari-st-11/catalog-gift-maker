@@ -21,6 +21,10 @@ module Myapp
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
+    # 外部サイトへ遷移した際、共有リンクのトークン付きURLがリファラーとして
+    # 相手先のサーバーに漏れないようにする
+    config.action_dispatch.default_headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+
     config.time_zone = "Tokyo"
     config.active_record.default_timezone = :local
     config.i18n.default_locale = :ja

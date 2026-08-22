@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+  # メール/パスワードでの新規登録は停止し、Google/LINEログインに一本化する。
+  # 既存のパスワードユーザーのログイン・アカウント編集には影響しない。
+  before_action :disable_new_registration, only: %i[ new create ]
   before_action :configure_sign_up_params, only: [ :create ]
-  # before_action :configure_account_update_params, only: [ :update ]
+  before_action :configure_account_update_params, only: [ :update ]
 
   # GET /resource/sign_up
   # def new
@@ -40,15 +43,25 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
+  def disable_new_registration
+    redirect_to new_user_session_path, alert: "新規登録はGoogle/LINEログインをご利用ください"
+  end
+
   # 新規登録にnameカラムを追加
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [ :name ])
   end
 
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [ :attribute ])
-  # end
+  # プロフィール編集(名前変更)にnameカラムを追加
+  def configure_account_update_params
+    devise_parameter_sanitizer.permit(:account_update, keys: [ :name ])
+  end
+
+  # OmniAuthでログインしたユーザーはパスワードを知らない(ランダム生成のため)。
+  # current_passwordを要求すると名前すら変更できなくなるので、確認なしで更新する。
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
@@ -59,4 +72,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  # プロフィール更新後の遷移先
+  def after_update_path_for(resource)
+    gift_lists_path
+  end
 end

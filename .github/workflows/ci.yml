@@ -20,7 +20,9 @@ jobs:
           bundler-cache: true
 
       - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bin/brakeman --no-pager
+        # EOLRuby/EOLRailsはRuby/Railsのバージョンサポート終了を知らせるだけの警告で、
+        # コード自体の脆弱性ではないため除外する。Ruby/Railsのアップグレードは別タスクとして計画中。
+        run: bin/brakeman --no-pager --except EOLRuby,EOLRails
 
   lint:
     runs-on: ubuntu-latest

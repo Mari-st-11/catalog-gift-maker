@@ -17,6 +17,10 @@
   <div class="m-5">
     <div class="text-sm mb-1">ギフトリストが完成したら、共有URLをコピーしてリンクを<%= @gift_list.recipient_name %>に共有しましょう！</div>
     <button onclick="copyShareUrl()" class="btn btn-outline btn-neutral"><i class="fa-solid fa-copy" style="color: #D7B84A;"></i>共有URLをコピー</button>
+    <%= button_to "共有リンクを再発行する",
+        regenerate_public_token_gift_list_path(@gift_list),
+        method: :post, class: "btn btn-outline btn-error btn-sm mt-2",
+        data: { turbo_confirm: "リンクを再発行すると、今までのリンクは使えなくなります。よろしいですか？" } %>
   </div>
   <% end %>
 
@@ -34,7 +38,7 @@
             <%= link_to "ギフトを購入する", @selected_gift_item.url, target: "_blank", rel: "noopener", class: "btn btn-primary ml-3" %>
           <% end %>
           <%= button_to "選び直してもらう",
-              cancel_shared_gift_list_path(@gift_list),
+              cancel_shared_gift_list_path(@gift_list.public_token),
               method: :post, class: "btn", data: { turbo_confirm: "ギフトを未選択状態にします" } %>
         </div>
       </div>
@@ -55,7 +59,7 @@
 </div>
 <script>
   function copyShareUrl() {
-    const url = "https://catalog-gift-maker.onrender.com/shared_gift_lists/<%= @gift_list.id %>";
+    const url = "https://catalog-gift-maker.onrender.com/shared_gift_lists/<%= @gift_list.public_token %>";
 
     navigator.clipboard.writeText(url).then(() => {
       alert("シェア用URLをコピーしました！");
