@@ -3,6 +3,17 @@
   <h1 class="flex title-font font-bold items-center mb-4 md:mb-0"><%= link_to root_path do %><%= image_tag "https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/cgm-logo-w.png", width: "50px" %><% end %></h1>
   <ul class="md:ml-auto flex flex-wrap items-center text-sm justify-center">
     <li><%= link_to "ギフトリスト一覧", gift_lists_path, class:"mr-5" %></li>
+    <% if user_signed_in? %>
+      <li class="mr-5">
+        <%= link_to notifications_path, class: "relative" do %>
+          <i class="fa-solid fa-bell"></i>
+          <% unread_count = current_user.notifications.unread.count %>
+          <% if unread_count.positive? %>
+            <span class="badge badge-error badge-xs absolute -top-2 -right-2"><%= unread_count %></span>
+          <% end %>
+        <% end %>
+      </li>
+    <% end %>
     <li><%= link_to "ログイン", new_user_session_path, class:"mr-5" if !user_signed_in? %></li>
     <li><%= link_to "ログアウト", destroy_user_session_path, class:"mr-5", data: { turbo_method: :delete } if user_signed_in? %></li>
     <li><%= link_to current_user.name, edit_user_registration_path, class: "mr-5" if user_signed_in? %></li>
