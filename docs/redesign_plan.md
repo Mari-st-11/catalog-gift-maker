@@ -46,6 +46,11 @@
       修正後、実際にaccounts.google.comの同意画面まで遷移することを確認済み
 - [ ] 実際にGoogle/LINEでログインが完了し、アプリ側にユーザーが作成される（`from_omniauth`が
       正しく動く）ところまでをユーザー自身のブラウザで最終確認
+- [x] アカウント編集画面(`/users/edit`)で表示名を変更できるようにした。
+      OmniAuthユーザーはパスワードを知らないため、`update_without_password`を使い
+      現在のパスワード確認なしで名前・メールアドレスを変更できるようにした
+      （Deviseの仕様上、この方法だとパスワード自体の変更はできないため、
+      パスワード変更フィールドは編集画面から外した）
 - [ ] （優先度低・将来対応）パスワード認証を完全廃止し、SNS認証のみにする
       （`database_authenticatable`/`registerable`を外す。理由は
       [redesign_decisions.md](redesign_decisions.md)参照）
