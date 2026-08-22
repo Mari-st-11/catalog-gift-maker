@@ -1,70 +1,84 @@
-<div class="container mx-auto px-5 py-10 text-center">
-  <h1 class="text-xl font-bold mb-5">
-    <%= @gift_list.recipient_name %>へ贈る<br>
-    <%= @gift_list.purpose.presence || "ギフトリスト" %>
-  </h1>
-  <div>
-  <%= link_to edit_gift_list_path do %>
-    <i class="fa-solid fa-pen-to-square mr-1" style="color: #D7B84A;"></i><span class="text-sm mr-6">リスト名・メッセージを編集</span>
-  <% end %>
-  
-  <%= link_to gift_list_path, data: { turbo_method: :delete, turbo_confirm: '削除しますか？' }  do %>
-  <i class="fa-solid fa-trash-can mr-1" style="color: #D7B84A;"></i><span class="text-sm">リストを削除</span><% end %></div>
-  <%= link_to new_gift_list_gift_item_path(@gift_list.id) do %>
-  <button class="btn btn-neutral mt-4"><i class="fa-solid fa-plus" style="color: #ffffff;"></i>ギフトを追加</button><% end %>
-  <% if @gift_items.present? %>
+<div class="bg-ash-bg min-h-[calc(100vh-200px)]">
+  <header class="px-7 py-6 flex justify-between items-center border-b border-ash-border bg-white sticky top-0 z-30">
+    <%= link_to gift_lists_path, class: "text-xs text-ash-sub hover:text-ash-text flex items-center space-x-1 font-serif" do %>
+      <i data-lucide="chevron-left" class="w-4 h-4"></i>
+      <span>一覧へ戻る</span>
+    <% end %>
+    <span class="font-serif text-base font-semibold text-ash-text">カタログ管理</span>
+    <span class="w-16"></span>
+  </header>
 
-  <div class="m-5">
-    <div class="text-sm mb-1">ギフトリストが完成したら、共有URLをコピーしてリンクを<%= @gift_list.recipient_name %>に共有しましょう！</div>
-    <button onclick="copyShareUrl()" class="btn btn-outline btn-neutral"><i class="fa-solid fa-copy" style="color: #D7B84A;"></i>共有URLをコピー</button>
-    <%= button_to "共有リンクを再発行する",
-        regenerate_public_token_gift_list_path(@gift_list),
-        method: :post, class: "btn btn-outline btn-error btn-sm mt-2",
-        data: { turbo_confirm: "リンクを再発行すると、今までのリンクは使えなくなります。よろしいですか？" } %>
-  </div>
-  <% end %>
-
-    <% if @selected_gift_item.present? %>
-    <div class="w-full">
-    <div class="card card-side bg-natural shadow-sm mb-5">
-      <figure class="w-1/4 md:w-1/4 flex-shrink-0">
-        <%= image_tag @selected_gift_item.image.url.presence, class: "object-cover h-full w-full" %>
-      </figure>
-      <div class="card-body">
-        <h2 class="card-title"><%= @gift_list.recipient_name %>が選んだギフト</h2>
-        <p>早速購入して贈りましょう！</p>
-        <div class="card-actions justify-end">
-          <% if @selected_gift_item.url.present? %>
-            <%= link_to "ギフトを購入する", @selected_gift_item.url, target: "_blank", rel: "noopener", class: "btn btn-primary ml-3" %>
-          <% end %>
-          <%= button_to "選び直してもらう",
-              cancel_shared_gift_list_path(@gift_list.public_token),
-              method: :post, class: "btn", data: { turbo_confirm: "ギフトを未選択状態にします" } %>
-        </div>
+  <div class="p-6 sm:p-7 max-w-md mx-auto space-y-6">
+    <div class="flex justify-between items-start border-b border-ash-border/60 pb-4">
+      <div>
+        <span class="text-[11px] text-ash-sub font-light block">贈る相手: <%= @gift_list.recipient_name %></span>
+        <h1 class="font-serif text-lg font-bold text-ash-text"><%= @gift_list.purpose.presence || "ギフトリスト" %></h1>
+      </div>
+      <div class="flex gap-3 text-ash-sub">
+        <%= link_to edit_gift_list_path(@gift_list), class: "hover:text-ash-text" do %>
+          <i data-lucide="pencil" class="w-4 h-4"></i>
+        <% end %>
+        <%= link_to gift_list_path(@gift_list), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "hover:text-clay-dark" do %>
+          <i data-lucide="trash-2" class="w-4 h-4"></i>
+        <% end %>
       </div>
     </div>
-    </div>
+
+    <% if @selected_gift_item.present? %>
+      <div class="bg-white p-6 border border-gold/60 shadow-[0_2px_12px_-4px_rgba(197,160,89,0.1)] space-y-4">
+        <span class="font-en text-[10px] tracking-[0.2em] text-gold-dark uppercase block">SELECTED GIFT</span>
+        <div class="flex space-x-3 items-center">
+          <% if @selected_gift_item.image.url.presence %>
+            <%= image_tag @selected_gift_item.image.url, class: "w-16 h-16 object-cover border border-ash-border flex-shrink-0" %>
+          <% end %>
+          <p class="text-sm font-serif text-ash-text"><%= @selected_gift_item.name %></p>
+        </div>
+        <div class="flex flex-col gap-2">
+          <% if @selected_gift_item.url.present? %>
+            <%= link_to @selected_gift_item.url, target: "_blank", rel: "noopener",
+                class: "w-full py-2.5 text-white font-serif text-xs tracking-wider shadow-sm btn-gold-subtle transition flex items-center justify-center space-x-1.5" do %>
+              <span>ギフトを購入する</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            <% end %>
+          <% end %>
+          <%= button_to cancel_shared_gift_list_path(@gift_list.public_token), method: :post,
+              data: { turbo_confirm: "ギフトを未選択状態にします" },
+              class: "w-full py-2.5 border border-ash-border text-ash-text hover:border-ink hover:text-ink font-serif text-xs tracking-wider transition" do %>
+            選び直してもらう
+          <% end %>
+        </div>
+      </div>
     <% end %>
 
     <% if @gift_items.present? %>
-      <div class="grid grid-cols-2 grid-rows-2 gap-5 md:grid-cols-3">
-      <%= render @gift_items %>
-      </div>
-    <% else %>
-      <div class="p-5">
-        登録されたギフトがありません
+      <div class="bg-white p-5 border border-ash-border space-y-2">
+        <p class="text-xs text-ash-sub font-light">ギフトリストが完成したら、共有URLをコピーしてリンクを<%= @gift_list.recipient_name %>に共有しましょう！</p>
+        <button type="button" data-controller="clipboard"
+          data-clipboard-text-value="<%= shared_gift_list_url(@gift_list.public_token) %>"
+          data-action="clipboard#copy"
+          class="w-full py-2.5 border border-ash-border text-ash-text hover:border-gold hover:text-gold-dark font-serif text-xs tracking-wider transition flex items-center justify-center space-x-1.5">
+          <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+          <span>共有URLをコピー</span>
+        </button>
+        <%= button_to regenerate_public_token_gift_list_path(@gift_list), method: :post,
+            data: { turbo_confirm: "リンクを再発行すると、今までのリンクは使えなくなります。よろしいですか？" },
+            class: "w-full py-1.5 text-[11px] text-clay-dark hover:underline font-serif" do %>
+          共有リンクを再発行する
+        <% end %>
       </div>
     <% end %>
-  <%= link_to "< ギフトリスト一覧へ戻る", gift_lists_path, class: "link" %>
-</div>
-<script>
-  function copyShareUrl() {
-    const url = "https://catalog-gift-maker.onrender.com/shared_gift_lists/<%= @gift_list.public_token %>";
 
-    navigator.clipboard.writeText(url).then(() => {
-      alert("シェア用URLをコピーしました！");
-    }).catch(err => {
-      console.error('コピーに失敗しました: ', err);
-    });
-  }
-</script>
+    <%= link_to new_gift_list_gift_item_path(@gift_list), class: "w-full py-3 border border-dashed border-ash-border text-ash-sub hover:border-gold hover:text-gold-dark font-serif text-xs tracking-wider transition flex items-center justify-center space-x-1.5" do %>
+      <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+      <span>ギフトを追加</span>
+    <% end %>
+
+    <% if @gift_items.present? %>
+      <div class="grid grid-cols-2 gap-4">
+        <%= render @gift_items %>
+      </div>
+    <% else %>
+      <p class="text-center text-ash-sub text-sm font-light py-6">登録されたギフトがありません</p>
+    <% end %>
+  </div>
+</div>

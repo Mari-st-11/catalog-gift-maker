@@ -54,15 +54,16 @@
       </div>
     </div>
 
-    <div class="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 px-7 pb-2 max-w-md mx-auto md:max-w-none md:justify-center">
-      <div class="snap-start flex-shrink-0 w-[85%] sm:w-80 bg-white border border-ash-border shadow-[0_2px_16px_-4px_rgba(0,0,0,0.03)]">
+    <div class="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 px-7 pb-2 max-w-md mx-auto
+      md:max-w-2xl md:overflow-visible md:flex-wrap md:snap-none md:justify-center md:px-0">
+      <div class="snap-start flex-shrink-0 w-[85%] sm:w-80 md:w-72 bg-white border border-ash-border shadow-[0_2px_16px_-4px_rgba(0,0,0,0.03)]">
         <%= image_tag "https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/cgm-img2.png", alt: "好きなブランドやショップを自由に組み合わせられるイラスト", class: "w-full h-auto" %>
         <div class="p-4 space-y-1">
           <h2 class="font-serif text-sm font-semibold text-ash-text">組み合わせ自由</h2>
           <p class="text-xs text-ash-sub font-light leading-relaxed">特定のショップやブランドに縛られないから、あなたらしいセレクトができます。</p>
         </div>
       </div>
-      <div class="snap-start flex-shrink-0 w-[85%] sm:w-80 bg-white border border-ash-border shadow-[0_2px_16px_-4px_rgba(0,0,0,0.03)]">
+      <div class="snap-start flex-shrink-0 w-[85%] sm:w-80 md:w-72 bg-white border border-ash-border shadow-[0_2px_16px_-4px_rgba(0,0,0,0.03)]">
         <%= image_tag "https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/cgm-img3.png", alt: "受け取った相手が嬉しそうに商品を選ぶイラスト", class: "w-full h-auto" %>
         <div class="p-4 space-y-1">
           <h2 class="font-serif text-sm font-semibold text-ash-text">もらう側も嬉しい</h2>
@@ -81,7 +82,8 @@
       </div>
     </div>
 
-    <div data-carousel-target="scroller" class="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 px-7 pb-1 max-w-md mx-auto md:max-w-none md:justify-center">
+    <div data-carousel-target="scroller" class="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 px-7 pb-1 max-w-md mx-auto
+      md:max-w-4xl md:overflow-visible md:flex-wrap md:snap-none md:justify-center md:px-7">
       <div class="snap-start flex-shrink-0 w-[72%] sm:w-64 bg-white border border-ash-border p-6 space-y-2.5">
         <span class="font-en text-2xl text-gold/50 font-medium">01</span>
         <h3 class="font-serif text-sm font-semibold text-ash-text">贈りものの候補を集める</h3>
@@ -109,7 +111,7 @@
       </div>
     </div>
 
-    <div class="flex justify-center gap-1.5 pt-1">
+    <div class="flex justify-center gap-1.5 pt-1 md:hidden">
       <span data-carousel-target="dot" class="w-1.5 h-1.5 rounded-full bg-gold"></span>
       <span data-carousel-target="dot" class="w-1.5 h-1.5 rounded-full bg-ash-border"></span>
       <span data-carousel-target="dot" class="w-1.5 h-1.5 rounded-full bg-ash-border"></span>

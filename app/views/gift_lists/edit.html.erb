@@ -1,7 +1,46 @@
-<div class="container mx-auto px-5 py-10 text-center">
-  <h1 class="text-xl font-bold">ギフトリスト名を編集</h1>
-  <div class="mx-auto">
-  <%= render "form", gift_list: @gift_list %>
+<div class="bg-ash-bg min-h-[calc(100vh-200px)]">
+  <header class="px-7 py-6 flex items-center border-b border-ash-border bg-white sticky top-0 z-30">
+    <%= link_to gift_list_path(@gift_list), class: "text-xs text-ash-sub hover:text-ash-text flex items-center space-x-1 font-serif" do %>
+      <i data-lucide="chevron-left" class="w-4 h-4"></i>
+      <span>ギフトリストへ戻る</span>
+    <% end %>
+  </header>
+
+  <div class="p-6 sm:p-7 max-w-md mx-auto space-y-6">
+    <h1 class="font-serif text-lg font-bold text-ash-text text-center">リスト名・メッセージを編集</h1>
+
+    <%= form_with model: @gift_list do |f| %>
+      <div class="bg-white p-6 border border-ash-border space-y-4 text-xs font-light">
+        <% if @gift_list.errors.any? %>
+          <div class="text-red-800 space-y-1">
+            <% @gift_list.errors.full_messages.each do |message| %>
+              <p><%= message %></p>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="space-y-1.5">
+          <label class="text-ash-text font-serif block">贈る相手のお名前</label>
+          <%= f.text_field :recipient_name, autofocus: true,
+              class: "w-full p-3 bg-ash-bg border border-ash-border text-ash-text focus:outline-none focus:border-gold" %>
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="text-ash-text font-serif block">どんなお祝いですか？</label>
+          <%= f.text_field :purpose,
+              class: "w-full p-3 bg-ash-bg border border-ash-border text-ash-text focus:outline-none focus:border-gold" %>
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="text-ash-text font-serif block">メッセージ(80文字以内)</label>
+          <%= f.text_area :content, rows: 5,
+              class: "w-full p-3 bg-ash-bg border border-ash-border text-ash-text focus:outline-none focus:border-gold leading-relaxed" %>
+        </div>
+      </div>
+
+      <button class="w-full py-3.5 mt-6 text-white font-serif text-xs tracking-widest shadow-sm btn-gold-subtle transition">
+        <%= f.submit "更新する" %>
+      </button>
+    <% end %>
   </div>
-  <%= link_to "< ギフト一覧へ戻る", gift_list_path(@gift_list), class: "link" %>
 </div>

@@ -1,15 +1,11 @@
-<%= link_to gift_item_path(gift_item) do %>
-<div class="flex items-stretch h-full">
-  <div class="card w-96 bg-base-100 card-sm shadow-sm">
-    <figure>
-      <%= image_tag gift_item.image.url.presence %>
-    </figure>
-    <div class="card-body">
-      <h2 class="card-title self-stretch"><%= gift_item.name %></h2>
-      <div class="card-actions justify-end text-right">
-        <p class="underline">ギフトの詳細を見る ></p>
-      </div>
+<%= link_to gift_item_path(gift_item), class: "block bg-white border border-ash-border hover:border-gold/60 transition-colors" do %>
+  <% if gift_item.image.url.presence %>
+    <div class="aspect-square bg-ash-bg overflow-hidden">
+      <%= image_tag gift_item.image.url, class: "w-full h-full object-cover" %>
     </div>
+  <% end %>
+  <div class="p-3 space-y-1">
+    <h2 class="font-serif text-xs font-semibold text-ash-text line-clamp-2"><%= gift_item.name %></h2>
+    <p class="text-[11px] text-gold-dark">詳細を見る ></p>
   </div>
-</div>
 <% end %>

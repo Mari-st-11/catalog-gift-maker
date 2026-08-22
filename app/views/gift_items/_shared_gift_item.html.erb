@@ -1,18 +1,16 @@
-<div class="flex items-stretch h-full">
-  <div class="card w-96 bg-base-100 card-sm shadow-sm">
-    <figure>
-      <%= link_to shared_gift_list_shared_gift_item_path(@gift_list.public_token, gift_item) do %>
-        <%= image_tag gift_item.image.url.presence %>
-      <% end %>
-    </figure>
-    <div class="card-body">
-      <h2 class="card-title"><%= gift_item.name %></h2>
-      <div class="card-actions justify-end text-right">
-        <%= link_to shared_gift_list_shared_gift_item_path(@gift_list.public_token, gift_item) do %><p class="underline">ギフトの詳細を見る ></p><% end %>
-        <div id="select_button_<%= gift_item.id %>">
-          <%= render(gift_item.selected? || gift_item.confirmed? ? "gift_items/selected_button" : "gift_items/unselected_button", gift_item: gift_item) %>
-        </div>
-      </div>
+<div class="bg-white p-4 border border-ash-border shadow-[0_2px_12px_-4px_rgba(0,0,0,0.02)] space-y-3">
+  <%= link_to shared_gift_list_shared_gift_item_path(@gift_list.public_token, gift_item), class: "flex items-center space-x-4" do %>
+    <% if gift_item.image.url.presence %>
+      <%= image_tag gift_item.image.url, class: "w-24 h-24 object-cover flex-shrink-0 border border-ash-border" %>
+    <% end %>
+    <div class="flex-1 min-w-0 space-y-1.5">
+      <h2 class="font-serif text-sm font-semibold text-ash-text leading-snug line-clamp-2"><%= gift_item.name %></h2>
+      <p class="text-xs text-ash-sub font-light line-clamp-1 leading-relaxed"><%= gift_item.description %></p>
     </div>
+    <i data-lucide="chevron-right" class="w-4 h-4 text-gold-dark flex-shrink-0"></i>
+  <% end %>
+
+  <div id="select_button_<%= gift_item.id %>">
+    <%= render(gift_item.selected? || gift_item.confirmed? ? "gift_items/selected_button" : "gift_items/unselected_button", gift_item: gift_item) %>
   </div>
 </div>

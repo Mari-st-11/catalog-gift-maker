@@ -1,2 +1,4 @@
-<% confirmed = @gift_items.any?(&:confirmed?) || false  %>
-<%= button_to "このギフトを選ぶ", { controller: "shared_gift_lists", action: "choose" }, { params: {gift_item_id: gift_item.id}, class: "btn btn-accent mt-4", disabled: confirmed } %>
+<% confirmed = @gift_items.any?(&:confirmed?) || false %>
+<%= button_to "このギフトを選ぶ", { controller: "shared_gift_lists", action: "choose" },
+    { params: { gift_item_id: gift_item.id }, disabled: confirmed,
+      class: "w-full py-2.5 text-white font-serif text-xs tracking-wide shadow-sm btn-gold-subtle transition disabled:opacity-40" } %>

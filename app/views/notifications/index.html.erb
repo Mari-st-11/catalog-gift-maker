@@ -1,31 +1,32 @@
-<div class="container mx-auto px-5 py-10 text-center">
-  <h1 class="text-xl font-bold mb-5">通知</h1>
+<div class="bg-ash-bg min-h-[calc(100vh-200px)]">
+  <header class="px-7 py-6 flex items-center border-b border-ash-border bg-white sticky top-0 z-30">
+    <%= link_to gift_lists_path, class: "text-xs text-ash-sub hover:text-ash-text flex items-center space-x-1 font-serif" do %>
+      <i data-lucide="chevron-left" class="w-4 h-4"></i>
+      <span>一覧へ戻る</span>
+    <% end %>
+  </header>
 
-  <% if @notifications.present? %>
-    <div class="flex flex-col gap-3 w-full max-w-xl mx-auto">
+  <div class="p-6 sm:p-7 max-w-md mx-auto space-y-4">
+    <h1 class="font-serif text-lg font-bold text-ash-text text-center mb-2">通知</h1>
+
+    <% if @notifications.present? %>
       <% @notifications.each do |notification| %>
         <% gift_item = notification.gift_item %>
         <% gift_list = gift_item&.gift_list %>
-        <div class="card bg-base-100 card-sm shadow-sm text-left">
-          <div class="card-body">
-            <% if gift_item && gift_list %>
-              <p class="text-sm">
-                <%= gift_list.recipient_name %>さんが「<%= gift_item.name %>」を選びました
-              </p>
-              <%= link_to "ギフトリストを見る", gift_list_path(gift_list), class: "link text-sm" %>
-            <% else %>
-              <p class="text-sm text-gray-500">対象のギフトは削除されています</p>
-            <% end %>
-            <p class="text-xs text-gray-400 mt-1"><%= l notification.created_at, format: :long %></p>
-          </div>
+        <div class="bg-white p-5 border border-ash-border space-y-1.5">
+          <% if gift_item && gift_list %>
+            <p class="text-xs text-ash-text leading-relaxed">
+              <span class="font-serif font-semibold"><%= gift_list.recipient_name %></span>さんが「<%= gift_item.name %>」を選びました
+            </p>
+            <%= link_to "ギフトリストを見る", gift_list_path(gift_list), class: "text-xs text-gold-dark hover:underline" %>
+          <% else %>
+            <p class="text-xs text-ash-sub">対象のギフトは削除されています</p>
+          <% end %>
+          <p class="text-[10px] text-ash-sub font-light pt-1"><%= l notification.created_at, format: :long %></p>
         </div>
       <% end %>
-    </div>
-  <% else %>
-    <p>通知はまだありません</p>
-  <% end %>
-
-  <div class="mt-10">
-    <%= link_to "< ギフトリスト一覧へ戻る", gift_lists_path, class: "link" %>
+    <% else %>
+      <p class="text-center text-ash-sub text-sm font-light py-10">通知はまだありません</p>
+    <% end %>
   </div>
 </div>

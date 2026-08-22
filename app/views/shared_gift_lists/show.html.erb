@@ -2,55 +2,97 @@
   <meta name="robots" content="noindex, nofollow">
 <% end %>
 
-<% if @gift_items.any? { |gift_item| gift_item.confirmed? } %>
-  <div role="alert" class="alert alert-outline alert-success text-xs m-2">
-    <i class="fa-solid fa-circle-info"></i>
-    <span><%= @gift_list.user.name %>さんに選んだギフトをお知らせしました！ギフトが届くまでお待ちください<br>選び直したい場合は直接<%= @gift_list.user.name %>さんにご連絡ください</span>
-  </div>
-<% end %>
+<div class="bg-ash-bg min-h-screen">
+  <header class="px-7 py-6 flex justify-between items-center border-b border-gold-border/60 bg-gold-light/95 backdrop-blur-md sticky top-0 z-30">
+    <span class="font-serif text-base font-semibold tracking-wider text-ash-text">Webカタログギフト</span>
+    <span class="text-[11px] font-normal tracking-widest text-clay-dark font-serif">特別なおくりもの</span>
+  </header>
 
-<div class="container mx-auto px-5 py-10 text-center">
-
-  <h1 class="text-xl font-bold mb-5">
-    <%= @gift_list.recipient_name %>へ贈る<br>
-    <%= @gift_list.purpose.presence || "ギフトリスト" %>
-  </h1>
-  <div class="">
-    <p><%= @gift_list.user.name %>さんからギフトリストが届きました！<br>ご希望のギフトを１つ選んでください</p>
-  </div>
-  <% if @gift_list.content? %>
-    <div class="relative w-full max-w-md md:max-w-xl lg:max-w-2xl mx-auto mt-10 mb-10">
-        <div class="rounded-xl p-6 border-4 border-[#ECDF96]">
-            <div class="absolute top-0 left- 1/2 transform -translate-y-1/2 
-                        bg-white px-2 text-sm font-semibold text-gray-700">
-                <i class="fa-regular fa-envelope mr-2"></i><%= @gift_list.user.name %>さんからのメッセージ
-            </div>
-            <div id="messageContent" class="text-sm leading-relaxed overflow-hidden" style="max-height: 4.5em;">
-              <%= safe_join(@gift_list.content.split("\n"), tag(:br)) %>
-            </div>
+  <% if @gift_items.any?(&:confirmed?) %>
+    <div class="max-w-md mx-auto mt-4 px-6">
+      <div class="bg-gold-light/60 p-5 border border-gold-border space-y-2">
+        <div class="flex items-center space-x-2 text-gold-dark font-serif text-xs">
+          <i data-lucide="bell" class="w-4 h-4"></i>
+          <span>お知らせしました</span>
         </div>
-    </div>
-  <% end %>
-
-  <!-- ギフトアイテム確定ボタン -->
-  <% if @gift_items.any? { |gift_item| gift_item.selected? } %>
-    <% confirm_message = "#{@gift_list.user.name}さんに伝えても良いですか？" %>
-    <div class="m-10">
-    <p class="mb-5 text-sm">
-    選んだギフトはまだ通知されていません。「通知する」ボタンを押しましょう！</p>
-        <%= button_to "#{@gift_list.user.name}さんに通知する",
-          { controller: "shared_gift_lists", action: "confirm" },
-          { class: "btn btn-accent", data: { turbo_confirm: confirm_message } } %>
-    </div>
-  <% end %>
-
-    <% if @gift_items.present? %>
-      <div class="grid grid-cols-2 grid-rows-2 gap-5 md:grid-cols-3">
-        <%= render partial: "gift_items/shared_gift_item", collection: @gift_items, as: "gift_item" %>
+        <p class="text-xs text-ash-sub font-light leading-relaxed">
+          <%= @gift_list.user.name %>さんに選んだギフトをお知らせしました！ギフトが届くまでお待ちください。<br>
+          選び直したい場合は直接<%= @gift_list.user.name %>さんにご連絡ください。
+        </p>
       </div>
-    <% else %>
-      <div>
-        登録されたギフトがありません
+    </div>
+  <% end %>
+
+  <div class="bg-gradient-to-b from-gold-light via-gold-light/40 to-transparent pb-2">
+    <div class="px-6 sm:px-7 pt-9 pb-3 space-y-9 max-w-md mx-auto">
+      <article class="bg-white p-7 sm:p-8 pt-9 relative border border-ash-border shadow-[0_8px_28px_-8px_rgba(197,160,89,0.25)]">
+        <div class="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t border-l border-gold"></div>
+        <div class="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t border-r border-gold"></div>
+        <div class="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b border-l border-gold"></div>
+        <div class="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b border-r border-gold"></div>
+
+        <div class="absolute -top-5 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-white border border-gold flex items-center justify-center shadow-[0_2px_10px_-2px_rgba(197,160,89,0.5)]">
+          <i data-lucide="gift" class="w-4 h-4 text-gold-dark"></i>
+        </div>
+
+        <div class="space-y-6 relative z-10">
+          <div class="flex justify-between items-center pb-4 border-b border-ash-border/70 text-xs text-ash-sub">
+            <span class="flex items-center space-x-1.5 text-clay-dark font-normal">
+              <i data-lucide="heart" class="w-3.5 h-3.5"></i>
+              <span><%= @gift_list.purpose.presence || "ギフト" %></span>
+            </span>
+            <span class="font-serif text-ash-text font-normal">贈り主：<%= @gift_list.user.name %>より</span>
+          </div>
+
+          <h1 class="font-serif text-lg sm:text-xl font-bold leading-[1.8] text-ash-text tracking-wide pt-1">
+            <%= @gift_list.recipient_name %>へ<br>心を込めて。
+          </h1>
+
+          <% if @gift_list.content? %>
+            <p class="text-xs leading-[2.2] text-ash-sub font-light border-t border-ash-border/50 pt-4">
+              <%= safe_join(@gift_list.content.split("\n"), tag(:br)) %>
+            </p>
+          <% end %>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div class="px-6 sm:px-7 pb-7 space-y-9 max-w-md mx-auto">
+    <div class="space-y-1.5 text-center pt-2">
+      <div class="flex items-center justify-center space-x-4">
+        <div class="h-px w-8 bg-clay/40"></div>
+        <span class="text-sm font-serif text-clay-dark tracking-widest">あなたへの贈りもの</span>
+        <div class="h-px w-8 bg-clay/40"></div>
+      </div>
+      <p class="text-[11px] text-ash-sub font-light tracking-wide">お好きな商品を1つお選びいただけます</p>
+    </div>
+
+    <% if @gift_items.any?(&:selected?) %>
+      <% selected_item = @gift_items.find(&:selected?) %>
+      <div class="bg-white p-5 border border-gold-border text-center space-y-3">
+        <p class="text-xs text-ash-sub font-light">選んだギフトはまだお知らせしていません。ボタンを押して伝えましょう。</p>
+        <%= button_to "#{@gift_list.user.name}さんに伝える", confirm_shared_gift_list_path(@gift_list.public_token),
+            method: :post, data: { turbo_confirm: "#{@gift_list.user.name}さんに伝えても良いですか？" },
+            class: "w-full py-3 text-white font-serif text-xs tracking-widest shadow-md btn-gold-subtle transition" %>
       </div>
     <% end %>
+
+    <% if @gift_items.present? %>
+      <div class="space-y-5">
+        <% @gift_items.each do |gift_item| %>
+          <%= render "gift_items/shared_gift_item", gift_item: gift_item %>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-center text-ash-sub text-sm font-light py-6">登録されたギフトがありません</p>
+    <% end %>
+
+    <footer class="pt-8 pb-4 text-center border-t border-ash-border/70 space-y-3">
+      <p class="text-[11px] text-ash-sub font-light leading-relaxed">
+        ※選ぶと、贈り主様へお知らせが届きます。<br>当サービスでお名前やご住所を入力する必要はございません。
+      </p>
+      <p class="text-[10px] text-ash-sub/70 font-light">カタログギフトメーカー</p>
+    </footer>
+  </div>
 </div>

@@ -1,27 +1,44 @@
-<div class="container mx-auto px-5 py-10 text-center">
-  <h1 class="text-xl font-bold mb-5">ギフトアイテムの編集</h1>
-  <%= form_with model: @gift_item do |f| %>
-    <fieldset class="fieldset border-base-200 rounded-box w-xs border p-4 mx-auto">
-      <%= image_tag @gift_item.image.url.presence, class: "w-full h-auto mb-4" %>
-      <label class="label">商品画像の差し替え</label>
-          <%= f.file_field :image, class: "file-input file-input-sm", accept: 'image/*' %>
+<div class="bg-ash-bg min-h-[calc(100vh-200px)]">
+  <header class="px-7 py-6 flex items-center border-b border-ash-border bg-white sticky top-0 z-30">
+    <%= link_to gift_list_path(@gift_item.gift_list), class: "text-xs text-ash-sub hover:text-ash-text flex items-center space-x-1 font-serif" do %>
+      <i data-lucide="chevron-left" class="w-4 h-4"></i>
+      <span>一覧へ戻る</span>
+    <% end %>
+  </header>
+
+  <div class="p-6 sm:p-7 max-w-md mx-auto space-y-6">
+    <h1 class="font-serif text-lg font-bold text-ash-text text-center">ギフトの編集</h1>
+
+    <%= form_with model: @gift_item do |f| %>
+      <div class="bg-white p-6 border border-ash-border space-y-4 text-xs font-light">
+        <% if @gift_item.image.url.presence %>
+          <div class="aspect-[4/3] bg-ash-bg overflow-hidden border border-ash-border">
+            <%= image_tag @gift_item.image.url, class: "w-full h-full object-cover" %>
+          </div>
+        <% end %>
+
+        <div class="space-y-1.5">
+          <label class="text-ash-text font-serif block">商品画像の差し替え</label>
+          <%= f.file_field :image, accept: "image/*", class: "text-xs" %>
           <%= f.hidden_field :image_cache %>
+        </div>
 
-      <label class="label">商品名</label>
-      <div class="textarea textarea-border max-w-none resize-none">
-        <%= f.text_area :name, autocomplete: "name", size: "34x3", placeholder: "コーヒーメーカー" %>
-      </div>
-      
-      <label class="label">商品説明</label>
-      <div class="textarea textarea-border max-w-none resize-none">
-        <%= f.text_area :description, autocomplete: "description", placeholder: "電動ミル付きのコーヒーメーカーです", size: "34x10"%>
+        <div class="space-y-1.5">
+          <label class="text-ash-text font-serif block">商品名</label>
+          <%= f.text_area :name, rows: 2,
+              class: "w-full p-3 bg-ash-bg border border-ash-border text-ash-text focus:outline-none focus:border-gold" %>
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="text-ash-text font-serif block">商品説明</label>
+          <%= f.text_area :description, rows: 5,
+              class: "w-full p-3 bg-ash-bg border border-ash-border text-ash-text focus:outline-none focus:border-gold leading-relaxed" %>
+        </div>
       </div>
 
-      <button class="btn btn-neutral mt-4">
+      <button class="w-full py-3.5 mt-6 text-white font-serif text-xs tracking-widest shadow-sm btn-gold-subtle transition">
         <%= f.submit "編集を完了" %>
       </button>
-
-    </fieldset>
-  <% end %>
-
+    <% end %>
+  </div>
 </div>
