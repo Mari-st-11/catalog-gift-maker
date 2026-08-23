@@ -8,7 +8,8 @@ class RakutenProductSearchTest < ActiveSupport::TestCase
           itemName: "コーヒーメーカー",
           itemPrice: 3980,
           itemUrl: "https://item.rakuten.co.jp/shop/coffee-maker/",
-          mediumImageUrls: [ { imageUrl: "https://thumbnail.image.rakuten.co.jp/coffee.jpg" } ]
+          mediumImageUrls: [ { imageUrl: "https://thumbnail.image.rakuten.co.jp/coffee.jpg" } ],
+          shopName: "珈琲専門店"
         }
       }
     ]
@@ -40,6 +41,7 @@ class RakutenProductSearchTest < ActiveSupport::TestCase
       assert_equal 3980, result.price
       assert_equal "https://item.rakuten.co.jp/shop/coffee-maker/", result.url
       assert_equal "https://thumbnail.image.rakuten.co.jp/coffee.jpg", result.image_url
+      assert_equal "珈琲専門店", result.shop_name
       assert_equal "rakuten", result.source
     end
   ensure

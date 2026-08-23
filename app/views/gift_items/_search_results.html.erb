@@ -11,7 +11,10 @@
         </figure>
         <div class="card-body p-2">
           <p class="text-xs line-clamp-2"><%= result.name %></p>
-          <p class="text-xs text-gray-500"><%= result.source == "rakuten" ? "楽天市場" : "Yahoo!ショッピング" %></p>
+          <p class="text-xs text-gray-500"><%= result.source == "rakuten" ? "楽天市場" : "Yahoo!ショッピング" %><%= " / #{result.shop_name}" if result.shop_name.present? %></p>
+          <% if result.price.present? %>
+            <p class="text-xs font-bold">¥<%= number_with_delimiter(result.price) %></p>
+          <% end %>
           <%= button_to "この商品を追加",
               gift_list_gift_items_path(gift_list),
               method: :post,

@@ -44,6 +44,7 @@ class YahooProductSearch
         name: item["name"],
         image_url: item.dig("image", "medium"),
         price: item["price"],
+        shop_name: item.dig("seller", "name"),
         url: item["url"],
         source: "yahoo"
       )

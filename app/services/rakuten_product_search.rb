@@ -52,6 +52,7 @@ class RakutenProductSearch
         name: item["itemName"],
         image_url: item.dig("mediumImageUrls", 0, "imageUrl"),
         price: item["itemPrice"],
+        shop_name: item["shopName"],
         url: item["itemUrl"],
         source: "rakuten"
       )

@@ -7,7 +7,8 @@ class YahooProductSearchTest < ActiveSupport::TestCase
         name: "電動ミル付きコーヒーメーカー",
         price: 5980,
         url: "https://store.shopping.yahoo.co.jp/shop/coffee-mill.html",
-        image: { small: "https://item-shopping.c.yimg.jp/small.jpg", medium: "https://item-shopping.c.yimg.jp/medium.jpg" }
+        image: { small: "https://item-shopping.c.yimg.jp/small.jpg", medium: "https://item-shopping.c.yimg.jp/medium.jpg" },
+        seller: { name: "コーヒー専門店" }
       }
     ]
   }.to_json
@@ -28,6 +29,7 @@ class YahooProductSearchTest < ActiveSupport::TestCase
       assert_equal 5980, result.price
       assert_equal "https://store.shopping.yahoo.co.jp/shop/coffee-mill.html", result.url
       assert_equal "https://item-shopping.c.yimg.jp/medium.jpg", result.image_url
+      assert_equal "コーヒー専門店", result.shop_name
       assert_equal "yahoo", result.source
     end
   ensure
