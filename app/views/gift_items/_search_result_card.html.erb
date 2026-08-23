@@ -1,6 +1,7 @@
+<% display_image_url = result.full_image_url.presence || result.image_url %>
 <div class="bg-white border border-ash-border p-2.5 space-y-2 text-xs">
   <div class="aspect-square bg-ash-bg overflow-hidden flex items-center justify-center">
-    <%= image_tag result.image_url, class: "w-full h-full object-contain" if result.image_url.present? %>
+    <%= image_tag display_image_url, class: "w-full h-full object-contain" if display_image_url.present? %>
   </div>
   <p class="text-ash-text leading-snug line-clamp-2"><%= result.name %></p>
   <p class="text-[10px] text-ash-sub">
@@ -14,7 +15,7 @@
       method: :post,
       params: {
         gift_item: { name: result.name, url: result.url, price: result.price },
-        image_url: result.image_url
+        image_url: display_image_url
       },
       class: "w-full py-2 bg-ink hover:bg-ink-hover text-white font-serif text-[11px] tracking-wide transition" %>
 </div>

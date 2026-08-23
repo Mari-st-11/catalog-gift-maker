@@ -41,9 +41,12 @@ class YahooProductSearch
     (json["hits"] || []).filter_map do |item|
       next if item.blank?
 
+      image_url = item.dig("image", "medium")
+
       ProductSearchResult.new(
         name: item["name"],
-        image_url: item.dig("image", "medium"),
+        image_url: image_url,
+        full_image_url: enlarge(image_url),
         price: item["price"],
         shop_name: item.dig("seller", "name"),
         url: item["url"],
@@ -52,4 +55,13 @@ class YahooProductSearch
     end
   end
   private_class_method :parse
+
+  # "medium"サムネイルは146x146しかなく、保存してそのまま拡大表示すると
+  # 画質が粗くなるため、保存時は600x600の"l"サイズに差し替える。
+  def self.enlarge(image_url)
+    return image_url if image_url.blank?
+
+    image_url.sub("/i/g/", "/i/l/")
+  end
+  private_class_method :enlarge
 end

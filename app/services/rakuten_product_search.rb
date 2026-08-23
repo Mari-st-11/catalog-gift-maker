@@ -49,9 +49,12 @@ class RakutenProductSearch
       item = wrapper["Item"]
       next if item.blank?
 
+      image_url = item.dig("mediumImageUrls", 0, "imageUrl")
+
       ProductSearchResult.new(
         name: item["itemName"],
-        image_url: item.dig("mediumImageUrls", 0, "imageUrl"),
+        image_url: image_url,
+        full_image_url: enlarge(image_url),
         price: item["itemPrice"],
         shop_name: item["shopName"],
         url: item["itemUrl"],
@@ -60,4 +63,13 @@ class RakutenProductSearch
     end
   end
   private_class_method :parse
+
+  # 一覧のサムネイルは128x128しかなく、保存してそのまま拡大表示すると
+  # 画質が粗くなるため、保存時は`_ex`パラメータを大きいサイズに差し替える。
+  def self.enlarge(image_url)
+    return image_url if image_url.blank?
+
+    image_url.sub(/_ex=\d+x\d+\z/, "_ex=600x600")
+  end
+  private_class_method :enlarge
 end
