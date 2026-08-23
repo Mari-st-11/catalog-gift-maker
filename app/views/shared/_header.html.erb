@@ -1,4 +1,4 @@
-<header class="bg-ash-nav border-b border-ash-border sticky top-0 z-40 backdrop-blur-md">
+<header class="bg-gold-light border-b border-gold-border sticky top-0 z-40 backdrop-blur-md">
 <div class="container mx-auto flex flex-wrap px-5 py-4 flex-col md:flex-row items-center">
   <h1 class="flex title-font items-center mb-4 md:mb-0">
     <%= link_to root_path, class: "flex items-center space-x-2" do %>
@@ -6,11 +6,11 @@
       <span class="font-serif text-sm font-semibold tracking-wider text-ash-text">カタログギフトメーカー</span>
     <% end %>
   </h1>
-  <ul class="md:ml-auto flex flex-wrap items-center gap-5 text-xs font-light text-ash-sub">
-    <li><%= link_to "ギフトリスト一覧", gift_lists_path, class: "hover:text-ash-text transition-colors" %></li>
+  <ul class="md:ml-auto flex flex-wrap items-center gap-5 text-xs font-light text-gold-dark">
+    <li><%= link_to "ギフトリスト一覧", gift_lists_path, class: "hover:text-ink transition-colors" %></li>
     <% if user_signed_in? %>
       <li>
-        <%= link_to notifications_path, class: "relative flex items-center hover:text-ash-text transition-colors" do %>
+        <%= link_to notifications_path, class: "relative flex items-center hover:text-ink transition-colors" do %>
           <i data-lucide="bell" class="w-4 h-4"></i>
           <% unread_count = current_user.notifications.unread.count %>
           <% if unread_count.positive? %>
@@ -18,10 +18,18 @@
           <% end %>
         <% end %>
       </li>
+      <li class="relative" data-controller="dropdown">
+        <button type="button" data-action="dropdown#toggle" class="font-serif text-ash-text hover:underline">
+          <%= current_user.name %>
+        </button>
+        <div data-dropdown-target="menu" class="hidden absolute right-0 mt-3 w-40 bg-white border border-ash-border shadow-lg py-1 text-xs z-50">
+          <%= link_to "プロフィール編集", edit_user_registration_path, class: "block px-4 py-2.5 text-ash-text hover:bg-ash-bg transition-colors font-serif" %>
+          <%= link_to "ログアウト", destroy_user_session_path, class: "block px-4 py-2.5 text-ash-text hover:bg-ash-bg transition-colors font-serif", data: { turbo_method: :delete } %>
+        </div>
+      </li>
+    <% else %>
+      <li><%= link_to "ログイン", new_user_session_path, class: "hover:text-ink transition-colors" %></li>
     <% end %>
-    <li><%= link_to "ログイン", new_user_session_path, class: "hover:text-ash-text transition-colors" if !user_signed_in? %></li>
-    <li><%= link_to "ログアウト", destroy_user_session_path, class: "hover:text-ash-text transition-colors", data: { turbo_method: :delete } if user_signed_in? %></li>
-    <li><%= link_to current_user.name, edit_user_registration_path, class: "font-serif text-ash-text hover:underline" if user_signed_in? %></li>
   </ul>
 </div>
 </header>
