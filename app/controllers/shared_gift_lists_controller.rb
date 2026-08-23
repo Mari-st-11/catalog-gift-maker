@@ -1,4 +1,6 @@
 class SharedGiftListsController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound, with: :render_link_expired
+
   before_action :set_gift_list, only: %i[ show choose confirm cancel ]
 
   def show
@@ -48,5 +50,9 @@ class SharedGiftListsController < ApplicationController
 
   def set_gift_list
     @gift_list = GiftList.find_by!(public_token: params[:id])
+  end
+
+  def render_link_expired
+    render "shared/link_expired", status: :not_found
   end
 end

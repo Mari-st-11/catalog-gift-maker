@@ -52,4 +52,14 @@ class SharedGiftListFlowTest < ActionDispatch::IntegrationTest
     assert_redirected_to shared_gift_list_path(@gift_list.public_token)
     assert @item_a.reload.confirmed?
   end
+
+  test "リンクを再発行すると、古いリンクでは案内画面が表示される(生のエラーにならない)" do
+    old_token = @gift_list.public_token
+    @gift_list.regenerate_public_token!
+
+    get shared_gift_list_path(old_token)
+
+    assert_response :not_found
+    assert_match "このリンクは無効です", response.body
+  end
 end

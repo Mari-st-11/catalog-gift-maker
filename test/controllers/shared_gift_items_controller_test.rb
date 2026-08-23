@@ -19,5 +19,6 @@ class SharedGiftItemsControllerTest < ActionDispatch::IntegrationTest
   test "gift_item.idだけ合っていても、紐付かないshared_gift_list_idでは閲覧できない(連番ID総当たり対策)" do
     get shared_gift_list_shared_gift_item_path(@other_gift_list.public_token, @gift_item)
     assert_response :not_found
+    assert_match "このリンクは無効です", response.body
   end
 end

@@ -1,12 +1,21 @@
 <% flash.each do |message_type, message| %>
-  <% color = case message_type.to_s
-             when "success" then "text-gold-dark"
-             when "warning", "alert" then "text-clay-dark"
-             else "text-ash-text"
-             end %>
-  <div class="max-w-md mx-auto mt-4 px-6 text-xs font-serif flex items-center justify-center space-x-1.5 <%= color %>">
-    <% if message_type.to_s == "success" %><i data-lucide="check-circle" class="w-4 h-4 flex-shrink-0"></i><% end %>
-    <% if [ "warning", "alert" ].include?(message_type.to_s) %><i data-lucide="triangle-alert" class="w-4 h-4 flex-shrink-0"></i><% end %>
+  <%
+    is_success = [ "success", "notice" ].include?(message_type.to_s)
+    is_warning = [ "warning", "alert", "error" ].include?(message_type.to_s)
+    style = if is_success
+              "bg-gold-light text-gold-dark border border-gold-border"
+            elsif is_warning
+              "bg-clay-light text-clay-dark border border-clay/40"
+            else
+              "bg-white text-ash-text border border-ash-border"
+            end
+  %>
+  <div class="max-w-md mx-auto mt-4 px-4 py-3 text-xs font-serif flex items-center space-x-2 <%= style %>">
+    <% if is_success %>
+      <i data-lucide="check-circle" class="w-4 h-4 flex-shrink-0"></i>
+    <% elsif is_warning %>
+      <i data-lucide="circle-alert" class="w-4 h-4 flex-shrink-0"></i>
+    <% end %>
     <span><%= message %></span>
   </div>
 <% end %>
