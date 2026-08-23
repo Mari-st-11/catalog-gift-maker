@@ -16,11 +16,21 @@ class RakutenProductSearchTest < ActiveSupport::TestCase
 
   test "APIキー未設定の場合は空配列を返す" do
     ENV.delete("RAKUTEN_APPLICATION_ID")
+    ENV.delete("RAKUTEN_ACCESS_KEY")
     assert_equal [], RakutenProductSearch.search("コーヒー")
+  end
+
+  test "アプリIDのみでアクセスキー未設定の場合も空配列を返す" do
+    ENV["RAKUTEN_APPLICATION_ID"] = "dummy-app-id"
+    ENV.delete("RAKUTEN_ACCESS_KEY")
+    assert_equal [], RakutenProductSearch.search("コーヒー")
+  ensure
+    ENV.delete("RAKUTEN_APPLICATION_ID")
   end
 
   test "正常なレスポンスを統一フォーマットに変換する" do
     ENV["RAKUTEN_APPLICATION_ID"] = "dummy-app-id"
+    ENV["RAKUTEN_ACCESS_KEY"] = "dummy-access-key"
     RakutenProductSearch.stub(:fetch, SAMPLE_RESPONSE) do
       results = RakutenProductSearch.search("コーヒー")
 
@@ -34,14 +44,17 @@ class RakutenProductSearchTest < ActiveSupport::TestCase
     end
   ensure
     ENV.delete("RAKUTEN_APPLICATION_ID")
+    ENV.delete("RAKUTEN_ACCESS_KEY")
   end
 
   test "API呼び出しが失敗しても例外を出さず空配列を返す" do
     ENV["RAKUTEN_APPLICATION_ID"] = "dummy-app-id"
+    ENV["RAKUTEN_ACCESS_KEY"] = "dummy-access-key"
     RakutenProductSearch.stub(:fetch, ->(_uri) { raise "network error" }) do
       assert_equal [], RakutenProductSearch.search("コーヒー")
     end
   ensure
     ENV.delete("RAKUTEN_APPLICATION_ID")
+    ENV.delete("RAKUTEN_ACCESS_KEY")
   end
 end

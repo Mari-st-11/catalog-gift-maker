@@ -67,6 +67,14 @@
         バグも修正（`url_ogp`/`manual`もそれぞれ正しく設定するようにした）
       - `RAKUTEN_APPLICATION_ID`・`YAHOO_CLIENT_ID`はユーザー側で取得・設定が必要
         （`.env`にプレースホルダーを追加済み、本番はRenderの環境変数への追加も別途必要）
+      - 2026-08-23、実際にAPIキーを取得・設定して動作確認したところ楽天側だけ動かず調査。
+        楽天APIは2025年6月に認証方式が変更されており、`applicationId`だけでなく
+        `accessKey`(新規)も必須になり、エンドポイントも`app.rakuten.co.jp`から
+        `openapi.rakuten.co.jp`(かつバージョン`20260701`)に変更されていた。
+        `RakutenProductSearch`をこの新方式に追随させ、`RAKUTEN_ACCESS_KEY`を追加、
+        リクエストに`Origin`ヘッダー(登録した許可ドメイン)も付与するよう修正して解決。
+        本番のRenderにも`RAKUTEN_ACCESS_KEY`の追加が必要（詳細は
+        [redesign_decisions.md](redesign_decisions.md)参照）。
 - [x] アプリ内通知（フェーズ1）: 商品が選ばれたら`Notification`レコードは以前から作られていたが、
       画面上に表示する仕組みが無かったため追加。ヘッダーに通知ベル・未読件数バッジを表示し、
       `/notifications`で一覧を見られるようにした（閲覧すると自動で既読になる）
