@@ -7,7 +7,7 @@
     <% end %>
   </h1>
   <ul class="md:ml-auto flex flex-wrap items-center gap-5 text-xs font-light text-gold-dark">
-    <li><%= link_to "ギフトリスト一覧", gift_lists_path, class: "hover:text-ink transition-colors" %></li>
+    <li><%= link_to "マイカタログを見る", gift_lists_path, class: "hover:text-ink transition-colors" %></li>
     <% if user_signed_in? %>
       <li>
         <%= link_to notifications_path, class: "relative flex items-center hover:text-ink transition-colors" do %>

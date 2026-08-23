@@ -1,7 +1,11 @@
 <div class="bg-white p-6 border border-ash-border space-y-5 text-left" data-controller="tabs">
   <div class="grid grid-cols-3 gap-1 bg-ash-bg p-1 border border-ash-border text-[11px]">
     <button type="button" data-tabs-target="tab" data-action="tabs#select" data-tabs-name-param="search"
-      class="py-2 bg-white border border-ash-border text-ash-text font-serif text-center transition-colors">検索</button>
+      class="py-2 bg-white border border-ash-border text-ash-text font-serif text-center transition-colors flex items-center justify-center space-x-1">
+      <span class="w-3.5 h-3.5 rounded-full bg-[#BF0000] text-white text-[8px] font-bold flex items-center justify-center flex-shrink-0">R</span>
+      <span class="w-3.5 h-3.5 rounded-full bg-[#FF0033] text-white text-[8px] font-bold flex items-center justify-center flex-shrink-0">Y</span>
+      <span>検索</span>
+    </button>
     <button type="button" data-tabs-target="tab" data-action="tabs#select" data-tabs-name-param="url"
       class="py-2 border border-transparent text-ash-sub font-serif text-center transition-colors">URLで追加</button>
     <button type="button" data-tabs-target="tab" data-action="tabs#select" data-tabs-name-param="manual"
@@ -25,7 +29,7 @@
     <%= form_with model: gift_item, url: gift_list_gift_items_path do |f| %>
       <%= f.url_field :url, placeholder: "https://〜",
           class: "w-full p-3 bg-ash-bg border border-ash-border focus:outline-none focus:border-gold text-ash-text" %>
-      <button class="w-full py-2.5 mt-3 border border-ash-border bg-ash-bg hover:bg-white text-ash-text font-serif transition">
+      <button class="w-full py-2.5 mt-3 bg-ink hover:bg-ink-hover text-white font-serif transition">
         このURLから追加する
       </button>
     <% end %>

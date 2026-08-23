@@ -22,7 +22,7 @@
         相手の選択待ち
       </span>
     <% end %>
-    <span class="text-[11px] text-ash-sub font-light"><%= l gift_list.created_at.to_date, format: :long %></span>
+    <span class="text-[11px] text-ash-sub font-light">作成日: <%= l gift_list.created_at.to_date, format: :long %></span>
   </div>
 
   <div class="space-y-1">
@@ -50,14 +50,20 @@
   <% elsif !gift_list.completed? %>
     <div class="text-xs text-ash-sub font-light leading-relaxed flex justify-between items-center pt-1">
       <span>掲載商品: <%= gift_list.gift_items.size %>点</span>
-      <button type="button"
-        data-controller="clipboard"
-        data-clipboard-text-value="<%= shared_gift_list_url(gift_list.public_token) %>"
-        data-action="clipboard#copy"
-        class="text-gold-dark hover:underline flex items-center space-x-1">
-        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-        <span>共有URLをコピー</span>
-      </button>
+      <div class="flex items-center space-x-4">
+        <button type="button"
+          data-controller="clipboard"
+          data-clipboard-text-value="<%= shared_gift_list_url(gift_list.public_token) %>"
+          data-action="clipboard#copy"
+          class="text-gold-dark hover:underline flex items-center space-x-1">
+          <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+          <span>共有URLをコピー</span>
+        </button>
+        <%= link_to gift_list_path(gift_list), class: "text-gold-dark hover:underline flex items-center space-x-1" do %>
+          <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+          <span>カタログの中を見る</span>
+        <% end %>
+      </div>
     </div>
   <% end %>
 </article>

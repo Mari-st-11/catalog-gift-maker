@@ -28,10 +28,10 @@
 }
 
 .btn-gold-subtle {
-  background: linear-gradient(135deg, #CFAF69 0%, #C5A059 50%, #B58F47 100%);
+  background: linear-gradient(135deg, #BE9754 0%, #A9823D 50%, #8C6A2E 100%);
 }
 .btn-gold-subtle:hover {
-  background: linear-gradient(135deg, #C5A059 0%, #B58F47 50%, #A37E36 100%);
+  background: linear-gradient(135deg, #A9823D 0%, #8C6A2E 50%, #6F5424 100%);
 }
 
 .fade-in {

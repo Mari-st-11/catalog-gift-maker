@@ -20,7 +20,10 @@
         <% end %>
 
         <div class="space-y-1.5">
-          <label class="text-ash-text font-serif block">贈る相手のお名前</label>
+          <label class="text-ash-text font-serif block">
+            贈る相手のお名前
+            <span class="text-[10px] text-clay-dark font-normal ml-1">（必須）</span>
+          </label>
           <%= f.text_field :recipient_name, autofocus: true,
               class: "w-full p-3 bg-ash-bg border border-ash-border text-ash-text focus:outline-none focus:border-gold" %>
         </div>
