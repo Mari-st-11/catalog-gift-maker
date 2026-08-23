@@ -1,13 +1,18 @@
 <header class="bg-gold-light border-b border-gold-border sticky top-0 z-40 backdrop-blur-md">
-<div class="container mx-auto flex flex-wrap px-5 py-4 flex-col md:flex-row items-center">
-  <h1 class="flex title-font items-center mb-4 md:mb-0">
-    <%= link_to root_path, class: "flex items-center space-x-2" do %>
-      <%= image_tag "https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/cgm-logo.png", width: "36px" %>
-      <span class="font-serif text-sm font-semibold tracking-wider text-ash-text">カタログギフトメーカー</span>
+<div class="container mx-auto flex items-center justify-between gap-3 px-4 py-2.5 md:px-5 md:py-4">
+  <h1 class="flex title-font items-center flex-shrink-0">
+    <%= link_to root_path, class: "flex items-center space-x-1.5 md:space-x-2" do %>
+      <%= image_tag "https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/cgm-logo.png", class: "w-6 md:w-9 flex-shrink-0" %>
+      <span class="font-serif text-xs md:text-sm font-semibold tracking-wider text-ash-text whitespace-nowrap">カタログギフトメーカー</span>
     <% end %>
   </h1>
-  <ul class="md:ml-auto flex flex-wrap items-center gap-5 text-xs font-light text-gold-dark">
-    <li><%= link_to "マイカタログを見る", gift_lists_path, class: "hover:text-ink transition-colors" %></li>
+  <ul class="flex items-center gap-3 md:gap-5 text-[11px] md:text-xs font-light text-gold-dark flex-shrink-0">
+    <li class="whitespace-nowrap">
+      <%= link_to gift_lists_path, class: "hover:text-ink transition-colors" do %>
+        <span class="md:hidden">マイカタログ</span>
+        <span class="hidden md:inline">マイカタログを見る</span>
+      <% end %>
+    </li>
     <% if user_signed_in? %>
       <li>
         <%= link_to notifications_path, class: "relative flex items-center hover:text-ink transition-colors" do %>
@@ -18,7 +23,7 @@
           <% end %>
         <% end %>
       </li>
-      <li class="relative" data-controller="dropdown">
+      <li class="relative whitespace-nowrap" data-controller="dropdown">
         <button type="button" data-action="dropdown#toggle" class="font-serif text-ash-text hover:underline">
           <%= current_user.name %>
         </button>
@@ -28,7 +33,7 @@
         </div>
       </li>
     <% else %>
-      <li><%= link_to "ログイン", new_user_session_path, class: "hover:text-ink transition-colors" %></li>
+      <li class="whitespace-nowrap"><%= link_to "ログイン", new_user_session_path, class: "hover:text-ink transition-colors" %></li>
     <% end %>
   </ul>
 </div>
