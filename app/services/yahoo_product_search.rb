@@ -5,7 +5,7 @@ class YahooProductSearch
   ENDPOINT = "https://shopping.yahooapis.jp/ShoppingWebService/V3/itemSearch"
   TIMEOUT_SECONDS = 3
 
-  def self.search(keyword, limit: 10)
+  def self.search(keyword, limit: 10, page: 1)
     client_id = ENV["YAHOO_CLIENT_ID"]
     return [] if client_id.blank? || keyword.blank?
 
@@ -13,7 +13,8 @@ class YahooProductSearch
     uri.query = URI.encode_www_form(
       appid: client_id,
       query: keyword,
-      results: limit
+      results: limit,
+      start: ((page - 1) * limit) + 1
     )
 
     parse(fetch(uri))

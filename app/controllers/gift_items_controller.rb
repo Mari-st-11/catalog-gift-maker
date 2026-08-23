@@ -15,7 +15,8 @@ class GiftItemsController < ApplicationController
     return redirect_to gift_lists_path, alert: "対象のギフトリストが見つかりません" if @gift_list.nil?
 
     @keyword = params[:keyword].to_s
-    @results = ProductSearch.call(@keyword)
+    @page = params[:page].presence&.to_i || 1
+    @results = ProductSearch.call(@keyword, page: @page)
 
     respond_to do |format|
       format.turbo_stream

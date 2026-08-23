@@ -1,0 +1,20 @@
+<div class="bg-white border border-ash-border p-2.5 space-y-2 text-xs">
+  <div class="aspect-square bg-ash-bg overflow-hidden flex items-center justify-center">
+    <%= image_tag result.image_url, class: "w-full h-full object-contain" if result.image_url.present? %>
+  </div>
+  <p class="text-ash-text leading-snug line-clamp-2"><%= result.name %></p>
+  <p class="text-[10px] text-ash-sub">
+    <%= result.source == "rakuten" ? "楽天市場" : "Yahoo!ショッピング" %><%= " / #{result.shop_name}" if result.shop_name.present? %>
+  </p>
+  <% if result.price.present? %>
+    <p class="text-xs font-bold text-ash-text">¥<%= number_with_delimiter(result.price) %></p>
+  <% end %>
+  <%= button_to "カタログに追加",
+      gift_list_gift_items_path(gift_list),
+      method: :post,
+      params: {
+        gift_item: { name: result.name, url: result.url, price: result.price },
+        image_url: result.image_url
+      },
+      class: "w-full py-2 bg-ink hover:bg-ink-hover text-white font-serif text-[11px] tracking-wide transition" %>
+</div>

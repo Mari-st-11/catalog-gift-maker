@@ -75,6 +75,12 @@
         リクエストに`Origin`ヘッダー(登録した許可ドメイン)も付与するよう修正して解決。
         本番のRenderにも`RAKUTEN_ACCESS_KEY`の追加が必要（詳細は
         [redesign_decisions.md](redesign_decisions.md)参照）。
+      - 検索結果カードに価格・ショップ名を表示（`ProductSearchResult#shop_name`を追加）。
+        贈り主向けの検索結果画面にのみ表示し、`GiftItem`には保存しないため受け取り主の
+        公開ページには一切出ない。
+      - 検索結果を2カラム・大きめの画像に変更し、「もっと見る」ボタンでページング
+        (`RakutenProductSearch`/`YahooProductSearch`に`page`引数を追加、Yahoo側は
+        `start`オフセットに変換)。2ページ目以降はTurbo Streamでグリッドに追記(append)する。
 - [x] アプリ内通知（フェーズ1）: 商品が選ばれたら`Notification`レコードは以前から作られていたが、
       画面上に表示する仕組みが無かったため追加。ヘッダーに通知ベル・未読件数バッジを表示し、
       `/notifications`で一覧を見られるようにした（閲覧すると自動で既読になる）

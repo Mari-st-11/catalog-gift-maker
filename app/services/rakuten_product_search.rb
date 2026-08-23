@@ -8,7 +8,7 @@ class RakutenProductSearch
   ENDPOINT = "https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260701"
   TIMEOUT_SECONDS = 3
 
-  def self.search(keyword, limit: 10)
+  def self.search(keyword, limit: 10, page: 1)
     application_id = ENV["RAKUTEN_APPLICATION_ID"]
     access_key = ENV["RAKUTEN_ACCESS_KEY"]
     return [] if application_id.blank? || access_key.blank? || keyword.blank?
@@ -19,6 +19,7 @@ class RakutenProductSearch
       accessKey: access_key,
       keyword: keyword,
       hits: limit,
+      page: page,
       format: "json"
     )
 

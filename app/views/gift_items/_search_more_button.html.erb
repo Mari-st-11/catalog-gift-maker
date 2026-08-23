@@ -1,0 +1,5 @@
+<% if keyword.present? %>
+  <%= link_to "もっと見る", search_gift_list_gift_items_path(gift_list, keyword: keyword, page: page),
+      data: { turbo_stream: true },
+      class: "block w-full py-2.5 text-center border border-ash-border text-ash-sub hover:border-gold hover:text-gold-dark font-serif text-xs tracking-wide transition" %>
+<% end %>

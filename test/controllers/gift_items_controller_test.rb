@@ -41,6 +41,31 @@ class GiftItemsControllerTest < ActionDispatch::IntegrationTest
     assert_match "テスト商品", response.body
   end
 
+  test "検索結果の2ページ目はグリッドに追記され、次ページへのもっと見るボタンが表示される" do
+    sign_in @user
+    result = ProductSearchResult.new(name: "追加商品", price: 2000, url: "https://example.com/item2", image_url: "https://example.com/item2.jpg", source: "yahoo")
+
+    ProductSearch.stub(:call, [ result ]) do
+      get search_gift_list_gift_items_path(@gift_list), params: { keyword: "テスト", page: 2 }, as: :turbo_stream
+    end
+
+    assert_response :success
+    assert_match "turbo-stream action=\"append\" target=\"search_results_grid\"", response.body
+    assert_match "追加商品", response.body
+    assert_match "page=3", response.body
+  end
+
+  test "検索結果が尽きたら、もっと見るボタンの代わりに終了メッセージを表示する" do
+    sign_in @user
+
+    ProductSearch.stub(:call, []) do
+      get search_gift_list_gift_items_path(@gift_list), params: { keyword: "テスト", page: 2 }, as: :turbo_stream
+    end
+
+    assert_response :success
+    assert_match "これ以上の商品はありません", response.body
+  end
+
   test "API検索結果から選んだ商品はsource_type: api_searchとして登録される" do
     sign_in @user
 

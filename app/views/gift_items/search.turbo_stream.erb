@@ -1,3 +1,16 @@
-<%= turbo_stream.update "search_results" do %>
-  <%= render partial: "search_results", locals: { results: @results, keyword: @keyword, gift_list: @gift_list } %>
+<% if @page > 1 %>
+  <%= turbo_stream.append "search_results_grid" do %>
+    <%= render partial: "search_result_card", collection: @results, as: :result, locals: { gift_list: @gift_list } %>
+  <% end %>
+  <%= turbo_stream.update "search_results_more" do %>
+    <% if @results.present? %>
+      <%= render "search_more_button", keyword: @keyword, gift_list: @gift_list, page: @page + 1 %>
+    <% else %>
+      <p class="text-center text-[11px] text-ash-sub py-1">これ以上の商品はありません</p>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.update "search_results" do %>
+    <%= render partial: "search_results", locals: { results: @results, keyword: @keyword, gift_list: @gift_list } %>
+  <% end %>
 <% end %>

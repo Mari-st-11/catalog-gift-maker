@@ -2,29 +2,10 @@
   <p class="text-sm mt-3">「<%= keyword %>」に一致する商品が見つかりませんでした。</p>
 <% end %>
 
-<% if results.present? %>
-  <div class="grid grid-cols-2 gap-3 mt-3 md:grid-cols-3">
-    <% results.each do |result| %>
-      <div class="card bg-base-100 card-sm shadow-sm">
-        <figure class="px-2 pt-2">
-          <%= image_tag result.image_url, class: "h-24 object-contain" if result.image_url.present? %>
-        </figure>
-        <div class="card-body p-2">
-          <p class="text-xs line-clamp-2"><%= result.name %></p>
-          <p class="text-xs text-gray-500"><%= result.source == "rakuten" ? "楽天市場" : "Yahoo!ショッピング" %><%= " / #{result.shop_name}" if result.shop_name.present? %></p>
-          <% if result.price.present? %>
-            <p class="text-xs font-bold">¥<%= number_with_delimiter(result.price) %></p>
-          <% end %>
-          <%= button_to "この商品を追加",
-              gift_list_gift_items_path(gift_list),
-              method: :post,
-              params: {
-                gift_item: { name: result.name, url: result.url, price: result.price },
-                image_url: result.image_url
-              },
-              class: "btn btn-accent btn-xs w-full mt-1" %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-<% end %>
+<div id="search_results_grid" class="grid grid-cols-2 gap-3 mt-3">
+  <%= render partial: "search_result_card", collection: results, as: :result, locals: { gift_list: gift_list } if results.present? %>
+</div>
+
+<div id="search_results_more" class="mt-3">
+  <%= render "search_more_button", keyword: keyword, gift_list: gift_list, page: 2 if results.present? %>
+</div>
