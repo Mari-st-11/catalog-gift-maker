@@ -18,3 +18,6 @@ application.register("carousel", CarouselController)
 
 import ChipSelectController from "./chip_select_controller"
 application.register("chip-select", ChipSelectController)
+
+import TabsController from "./tabs_controller"
+application.register("tabs", TabsController)

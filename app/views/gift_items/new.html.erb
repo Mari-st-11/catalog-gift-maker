@@ -8,7 +8,7 @@
 
   <%= render "gift_lists/step_indicator", current_step: 2 %>
 
-  <div class="p-6 sm:p-7 text-center">
-    <%= render "new_form", gift_item: @gift_item %>
+  <div class="p-6 sm:p-7 max-w-md mx-auto">
+    <%= render "new_form", gift_item: @gift_item, gift_list: @gift_list, gift_items: @gift_items %>
   </div>
 </div>

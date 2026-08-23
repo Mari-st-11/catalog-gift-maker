@@ -7,6 +7,7 @@ class GiftItemsController < ApplicationController
     return redirect_to gift_lists_path, alert: "対象のギフトリストが見つかりません" if @gift_list.nil?
 
     @gift_item = GiftItem.new
+    @gift_items = @gift_list.gift_items
   end
 
   # 楽天/Yahoo!ショッピングを横断検索する(APIキー未設定・片方の障害時は空配列を返すのみ)
@@ -69,13 +70,14 @@ class GiftItemsController < ApplicationController
       end
     else
       @gift_item.source_type = :manual
-      @gift_item.name = "商品名を入力してください"
-      @gift_item.description = "説明文を入力してください"
-      @gift_item.image = nil
+      @gift_item.name = "商品名を入力してください" if @gift_item.name.blank?
+      @gift_item.description = "説明文を入力してください" if @gift_item.description.blank?
     end
 
     if @gift_item.save
-      if ogp_info_fetched && image_downloaded
+      if @gift_item.manual?
+        flash[:success] = "ギフト情報を追加しました！"
+      elsif ogp_info_fetched && image_downloaded
         flash[:success] = "ギフト情報を追加しました！"
       elsif ogp_info_fetched && !image_downloaded
         flash[:warning] = "ギフト情報は取得できましたが、画像の取得に失敗しました。"
@@ -83,7 +85,10 @@ class GiftItemsController < ApplicationController
         flash[:warning] = "URLからギフト情報を自動で取得できませんでした。商品名・商品説明を入力してください。"
       end
 
-      redirect_to gift_item_path(@gift_item)
+      redirect_to new_gift_list_gift_item_path(@gift_list)
+    else
+      @gift_items = @gift_list.gift_items
+      render :new, status: :unprocessable_entity
     end
   end
 
