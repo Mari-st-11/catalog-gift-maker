@@ -1,4 +1,6 @@
 class SharedGiftListsController < ApplicationController
+  layout "public"
+
   rescue_from ActiveRecord::RecordNotFound, with: :render_link_expired
 
   before_action :set_gift_list, only: %i[ show choose confirm cancel ]

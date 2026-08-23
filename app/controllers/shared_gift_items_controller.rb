@@ -1,4 +1,6 @@
 class SharedGiftItemsController < ApplicationController
+  layout "public"
+
   rescue_from ActiveRecord::RecordNotFound, with: :render_link_expired
 
   def show
