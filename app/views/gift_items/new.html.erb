@@ -2,13 +2,13 @@
   <header class="px-7 py-6 flex items-center border-b border-ash-border bg-white sticky top-0 z-30">
     <%= link_to gift_list_path(@gift_list), class: "text-xs text-ash-sub hover:text-ash-text flex items-center space-x-1 font-serif" do %>
       <i data-lucide="chevron-left" class="w-4 h-4"></i>
-      <span>一覧へ戻る</span>
+      <span>ギフト一覧を見る</span>
     <% end %>
   </header>
 
   <%= render "gift_lists/step_indicator", current_step: 2 %>
 
   <div class="p-6 sm:p-7 max-w-md mx-auto">
-    <%= render "new_form", gift_item: @gift_item, gift_list: @gift_list, gift_items: @gift_items %>
+    <%= render "new_form", gift_item: @gift_item, gift_list: @gift_list, gift_items: @gift_items, initial_tab: @initial_tab || "search" %>
   </div>
 </div>

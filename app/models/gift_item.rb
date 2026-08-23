@@ -1,6 +1,6 @@
 class GiftItem < ApplicationRecord
-  validates :url, presence: true, unless: :name?, format: /\A#{URI.regexp(%w[http https])}\z/
-  validates :name, length: { maximum: 225 }, presence: true, unless: :url?
+  validates :url, format: { with: /\A#{URI.regexp(%w[http https])}\z/ }, allow_blank: true
+  validates :name, length: { maximum: 225 }, presence: true
   validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
 
   enum :status, { unselected: 0, selected: 1, confirmed: 2 }

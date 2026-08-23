@@ -11,14 +11,14 @@ class SharedGiftListFlowTest < ActionDispatch::IntegrationTest
   test "選択は1回だけ許可され、2回目の選び直しは拒否される" do
     post choose_shared_gift_list_path(@gift_list.public_token), params: { gift_item_id: @item_a.id }
     assert_redirected_to shared_gift_list_path(@gift_list.public_token)
-    assert @item_a.reload.selected?
+    assert @item_a.reload.confirmed?, "選択と同時に確定(通知)まで完了するはず"
     assert @gift_list.reload.selected?
 
     post choose_shared_gift_list_path(@gift_list.public_token), params: { gift_item_id: @item_b.id }
     follow_redirect!
     assert_match "すでに他のギフトが選択されています", response.body
-    assert @item_a.reload.selected?, "最初に選ばれた商品の状態は変わらないはず"
-    assert_not @item_b.reload.selected?, "2回目の選択は反映されないはず"
+    assert @item_a.reload.confirmed?, "最初に選ばれた商品の状態は変わらないはず"
+    assert_not @item_b.reload.confirmed?, "2回目の選択は反映されないはず"
   end
 
   test "cancelは未ログインだと拒否される" do

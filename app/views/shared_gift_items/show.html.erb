@@ -36,6 +36,7 @@
 
     <% unless @gift_item.selected? || @gift_item.confirmed? %>
       <%= button_to choose_shared_gift_list_path(@gift_item.gift_list.public_token, gift_item_id: @gift_item.id),
+          data: { turbo_confirm: "このプレゼントで#{@gift_item.gift_list.user.name}さんに通知していいですか？" },
           class: "w-full py-4 text-white font-serif text-xs tracking-widest shadow-md flex items-center justify-center space-x-2 btn-gold-subtle transition" do %>
         <i data-lucide="gift" class="w-4 h-4"></i>
         <span>これに決める</span>

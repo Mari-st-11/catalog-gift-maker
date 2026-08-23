@@ -68,16 +68,6 @@
       <p class="text-[11px] text-ash-sub font-light tracking-wide">お好きな商品を1つお選びいただけます</p>
     </div>
 
-    <% if @gift_items.any?(&:selected?) %>
-      <% selected_item = @gift_items.find(&:selected?) %>
-      <div class="bg-white p-5 border border-gold-border text-center space-y-3">
-        <p class="text-xs text-ash-sub font-light">選んだギフトはまだお知らせしていません。ボタンを押して伝えましょう。</p>
-        <%= button_to "#{@gift_list.user.name}さんに伝える", confirm_shared_gift_list_path(@gift_list.public_token),
-            method: :post, data: { turbo_confirm: "#{@gift_list.user.name}さんに伝えても良いですか？" },
-            class: "w-full py-3 text-white font-serif text-xs tracking-widest shadow-md btn-gold-subtle transition" %>
-      </div>
-    <% end %>
-
     <% if @gift_items.present? %>
       <div class="space-y-5">
         <% @gift_items.each do |gift_item| %>

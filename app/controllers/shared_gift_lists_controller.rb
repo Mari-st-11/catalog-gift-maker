@@ -3,7 +3,7 @@ class SharedGiftListsController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_link_expired
 
-  before_action :set_gift_list, only: %i[ show choose confirm cancel ]
+  before_action :set_gift_list, only: %i[ show choose cancel ]
 
   def show
     @gift_items = @gift_list.gift_items.includes(:user).order(:id)
@@ -18,20 +18,15 @@ class SharedGiftListsController < ApplicationController
     @gift_items = @gift_list.gift_items
     @selected_gift_item = @gift_list.gift_items.find(params[:gift_item_id])
     @unselected_gift_items = @gift_list.gift_items.where.not(id: params[:gift_item_id])
-    # 選択されたアイテムのstatusをselectedに変更
+    # 選択と同時に確定させる(以前はselected→confirmedの2ステップだったが、
+    # 確認ダイアログで意図確認できれば十分なため1ステップに統合した)
     @selected_gift_item.selected!
-    # 選択されなかったアイテムのstatusをunselectedに変更
+    @selected_gift_item.confirmed!
     @unselected_gift_items.each do |unselected_gift_item|
       unselected_gift_item.unselected!
     end
-    redirect_to shared_gift_list_path(@gift_list.public_token)
-  end
 
-  def confirm
-    @selected_gift_item = @gift_list.gift_items.where(status: [ :selected ]).first
-    @selected_gift_item.confirmed!
-
-    flash[:success] = "#{@gift_list.user.name}さんに通知を行いました"
+    flash[:success] = "#{@gift_list.user.name}さんに通知しました"
     redirect_to shared_gift_list_path(@gift_list.public_token)
   end
 

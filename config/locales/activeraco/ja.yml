@@ -15,3 +15,6 @@ ja:
         recipient_name: ギフトを贈る方の名前
         purpose: 贈る用途
         content: メッセージ
+      gift_item:
+        name: 商品名
+        url: URL

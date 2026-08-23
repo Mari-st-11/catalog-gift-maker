@@ -40,6 +40,8 @@
               <span>ギフトを購入する</span>
               <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
             <% end %>
+          <% else %>
+            <p class="text-[11px] text-ash-sub font-light text-center py-1">購入先のURLが未登録です。お店で直接お求めください。</p>
           <% end %>
           <%= button_to cancel_shared_gift_list_path(@gift_list.public_token), method: :post,
               data: { turbo_confirm: "ギフトを未選択状態にします" },

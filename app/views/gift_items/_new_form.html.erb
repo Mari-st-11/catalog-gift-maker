@@ -1,18 +1,30 @@
+<% initial_tab ||= "search" %>
 <div class="bg-white p-6 border border-ash-border space-y-5 text-left" data-controller="tabs">
+  <% if gift_item.errors.any? %>
+    <div class="text-clay-dark text-xs space-y-1 bg-clay-light border border-clay/40 p-3">
+      <% gift_item.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
   <div class="grid grid-cols-3 gap-1 bg-ash-bg p-1 border border-ash-border text-[11px]">
     <button type="button" data-tabs-target="tab" data-action="tabs#select" data-tabs-name-param="search"
-      class="py-2 bg-white border border-ash-border text-ash-text font-serif text-center transition-colors flex items-center justify-center space-x-1">
+      class="py-2 border font-serif text-center transition-colors flex items-center justify-center space-x-1
+      <%= initial_tab == "search" ? "bg-white border-ash-border text-ash-text" : "border-transparent text-ash-sub" %>">
       <span class="w-3.5 h-3.5 rounded-full bg-[#BF0000] text-white text-[8px] font-bold flex items-center justify-center flex-shrink-0">R</span>
       <span class="w-3.5 h-3.5 rounded-full bg-[#FF0033] text-white text-[8px] font-bold flex items-center justify-center flex-shrink-0">Y</span>
       <span>検索</span>
     </button>
     <button type="button" data-tabs-target="tab" data-action="tabs#select" data-tabs-name-param="url"
-      class="py-2 border border-transparent text-ash-sub font-serif text-center transition-colors">URLで追加</button>
+      class="py-2 border font-serif text-center transition-colors
+      <%= initial_tab == "url" ? "bg-white border-ash-border text-ash-text" : "border-transparent text-ash-sub" %>">URLで追加</button>
     <button type="button" data-tabs-target="tab" data-action="tabs#select" data-tabs-name-param="manual"
-      class="py-2 border border-transparent text-ash-sub font-serif text-center transition-colors">自分で入力</button>
+      class="py-2 border font-serif text-center transition-colors
+      <%= initial_tab == "manual" ? "bg-white border-ash-border text-ash-text" : "border-transparent text-ash-sub" %>">自分で入力</button>
   </div>
 
-  <div data-tabs-target="panel" data-tabs-name="search" class="space-y-3">
+  <div data-tabs-target="panel" data-tabs-name="search" class="space-y-3 <%= "hidden" unless initial_tab == "search" %>">
     <%= form_with url: search_gift_list_gift_items_path, method: :get, data: { turbo_stream: true } do |f| %>
       <div class="flex gap-2 text-xs">
         <%= f.text_field :keyword, placeholder: "キーワードを入力(例: コーヒーメーカー)",
@@ -24,7 +36,7 @@
     <div id="search_results" class="pt-2"></div>
   </div>
 
-  <div data-tabs-target="panel" data-tabs-name="url" class="hidden space-y-3 text-xs">
+  <div data-tabs-target="panel" data-tabs-name="url" class="space-y-3 text-xs <%= "hidden" unless initial_tab == "url" %>">
     <p class="text-[11px] text-ash-sub font-light">Amazonやminne等の商品ページのリンクを貼ると、商品名や写真を自動で読み込みます</p>
     <%= form_with model: gift_item, url: gift_list_gift_items_path do |f| %>
       <%= f.url_field :url, placeholder: "https://〜",
@@ -36,7 +48,7 @@
     <p class="text-[11px] text-ash-sub font-light">※現在、Amazonは商品データを取得できません</p>
   </div>
 
-  <div data-tabs-target="panel" data-tabs-name="manual" class="hidden space-y-3 text-xs">
+  <div data-tabs-target="panel" data-tabs-name="manual" class="space-y-3 text-xs <%= "hidden" unless initial_tab == "manual" %>">
     <p class="text-[11px] text-ash-sub font-light">お好きな画像を使って、個人ショップの商品なども登録できます</p>
     <%= form_with model: gift_item, url: gift_list_gift_items_path do |f| %>
       <div class="space-y-1.5">
@@ -72,7 +84,10 @@
       <% gift_items.each_with_index do |item, index| %>
         <div class="p-3 border border-ash-border flex justify-between items-center">
           <span class="font-serif text-ash-text"><%= index + 1 %>. <%= item.name %></span>
-          <%= link_to "削除", gift_item_path(item), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "text-ash-sub hover:text-clay-dark" %>
+          <div class="flex items-center space-x-3">
+            <%= link_to "編集", edit_gift_item_path(item), class: "text-gold-dark hover:underline" %>
+            <%= link_to "削除", gift_item_path(item), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "text-ash-sub hover:text-clay-dark" %>
+          </div>
         </div>
       <% end %>
     </div>

@@ -53,7 +53,7 @@ class GiftItemsController < ApplicationController
         # OGP情報を取得
         @gift_item.name = doc.at('meta[property="og:title"]')&.[]("content") || doc.at("title")&.text
         @gift_item.description = doc.css('meta[property="og:description"], meta[name="description"]').first&.[]("content") || ""
-        ogp_info_fetched = @gift_item.name.present? || @gift_item.description.present?
+        ogp_info_fetched = @gift_item.name.present?
 
         og_image_meta = doc.css('meta[property="og:image"], meta[name="og:image"]').first # meta nameの場合も取得
         if og_image_meta.present?
@@ -63,15 +63,8 @@ class GiftItemsController < ApplicationController
       rescue SafeHtmlFetcher::FetchError => e
         Rails.logger.warn("OGP fetch failed for #{@gift_item.url}: #{e.message}")
       end
-
-      unless ogp_info_fetched
-        @gift_item.name = "商品名を入力してください"
-        @gift_item.description = "説明文を入力してください"
-      end
     else
       @gift_item.source_type = :manual
-      @gift_item.name = "商品名を入力してください" if @gift_item.name.blank?
-      @gift_item.description = "説明文を入力してください" if @gift_item.description.blank?
     end
 
     if @gift_item.save
@@ -81,13 +74,13 @@ class GiftItemsController < ApplicationController
         flash[:success] = "ギフト情報を追加しました！"
       elsif ogp_info_fetched && !image_downloaded
         flash[:warning] = "ギフト情報は取得できましたが、画像の取得に失敗しました。"
-      elsif !ogp_info_fetched && !image_downloaded
-        flash[:warning] = "URLからギフト情報を自動で取得できませんでした。商品名・商品説明を入力してください。"
       end
 
       redirect_to new_gift_list_gift_item_path(@gift_list)
     else
       @gift_items = @gift_list.gift_items
+      @initial_tab = @gift_item.url.present? ? "url" : "manual"
+      flash.now[:warning] = @gift_item.url.present? ? "URLから商品名を自動取得できませんでした。商品名を入力してください。" : "商品名を入力してください。"
       render :new, status: :unprocessable_entity
     end
   end
