@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_08_22_120001) do
+ActiveRecord::Schema[7.2].define(version: 2026_08_23_070324) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,6 +55,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_08_22_120001) do
     t.integer "price"
     t.integer "source_type", default: 2, null: false
     t.text "affiliate_url"
+    t.string "external_image_url"
     t.index ["gift_list_uuid"], name: "index_gift_items_on_gift_list_uuid"
     t.index ["source_type"], name: "index_gift_items_on_source_type"
     t.index ["user_id"], name: "index_gift_items_on_user_id"

@@ -33,17 +33,13 @@ class GiftItemsController < ApplicationController
     image_downloaded = false
 
     if params[:image_url].present?
-      # API検索結果から選択された商品
+      # API検索結果から選択された商品。画像は自社サーバーに保存せず、
+      # 楽天/Yahoo!の利用規約に配慮してAPIが返すURLをそのまま参照する(ホットリンク)。
       @gift_item.source_type = :api_search
       @gift_item.description ||= ""
+      @gift_item.external_image_url = params[:image_url]
       ogp_info_fetched = true
-
-      begin
-        @gift_item.image = SafeHtmlFetcher.fetch_as_io(params[:image_url])
-        image_downloaded = true
-      rescue SafeHtmlFetcher::FetchError => e
-        Rails.logger.warn("API result image fetch failed: #{e.message}")
-      end
+      image_downloaded = true
     elsif @gift_item.url.present?
       @gift_item.source_type = :url_ogp
 

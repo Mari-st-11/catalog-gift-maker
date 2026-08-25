@@ -1,7 +1,7 @@
 <div class="bg-white p-4 border border-ash-border shadow-[0_2px_12px_-4px_rgba(0,0,0,0.02)] space-y-3">
   <%= link_to shared_gift_list_shared_gift_item_path(@gift_list.public_token, gift_item), class: "flex items-center space-x-4" do %>
-    <% if gift_item.image.url.presence %>
-      <%= image_tag gift_item.image.url, class: "w-24 h-24 object-cover flex-shrink-0 border border-ash-border" %>
+    <% if gift_item.display_image_url.presence %>
+      <%= image_tag gift_item.display_image_url, class: "w-24 h-24 object-cover flex-shrink-0 border border-ash-border" %>
     <% end %>
     <div class="flex-1 min-w-0 space-y-1.5">
       <h2 class="font-serif text-sm font-semibold text-ash-text leading-snug line-clamp-2"><%= gift_item.name %></h2>

@@ -34,8 +34,8 @@
 
   <% if gift_list.selected? && selected_item %>
     <div class="p-3.5 bg-ash-bg border border-ash-border flex space-x-3 items-center">
-      <% if selected_item.image.url.present? %>
-        <%= image_tag selected_item.image.url, class: "w-12 h-12 object-cover border border-ash-border flex-shrink-0" %>
+      <% if selected_item.display_image_url.present? %>
+        <%= image_tag selected_item.display_image_url, class: "w-12 h-12 object-cover border border-ash-border flex-shrink-0" %>
       <% end %>
       <div class="flex-1 min-w-0">
         <span class="text-[10px] text-gold-dark font-en tracking-wider block">SELECTED GIFT</span>

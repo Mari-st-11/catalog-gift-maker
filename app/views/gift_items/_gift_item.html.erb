@@ -1,7 +1,7 @@
 <%= link_to gift_item_path(gift_item), class: "block bg-white border border-ash-border hover:border-gold/60 transition-colors" do %>
-  <% if gift_item.image.url.presence %>
+  <% if gift_item.display_image_url.presence %>
     <div class="aspect-square bg-ash-bg overflow-hidden">
-      <%= image_tag gift_item.image.url, class: "w-full h-full object-cover" %>
+      <%= image_tag gift_item.display_image_url, class: "w-full h-full object-cover" %>
     </div>
   <% end %>
   <div class="p-3 space-y-1">

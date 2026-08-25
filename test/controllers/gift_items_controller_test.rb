@@ -66,24 +66,22 @@ class GiftItemsControllerTest < ActionDispatch::IntegrationTest
     assert_match "これ以上の商品はありません", response.body
   end
 
-  test "API検索結果から選んだ商品はsource_type: api_searchとして登録される" do
+  test "API検索結果から選んだ商品はsource_type: api_searchとして登録され、画像は保存せずURLをそのまま参照する" do
     sign_in @user
 
-    fake_io = StringIO.new("fake image body")
-    fake_io.define_singleton_method(:original_filename) { "item.jpg" }
-
-    SafeHtmlFetcher.stub(:fetch_as_io, fake_io) do
-      assert_difference -> { @gift_list.gift_items.count }, 1 do
-        post gift_list_gift_items_path(@gift_list), params: {
-          gift_item: { name: "コーヒーメーカー", url: "https://example.com/item", price: 3980 },
-          image_url: "https://example.com/item.jpg"
-        }
-      end
+    assert_difference -> { @gift_list.gift_items.count }, 1 do
+      post gift_list_gift_items_path(@gift_list), params: {
+        gift_item: { name: "コーヒーメーカー", url: "https://example.com/item", price: 3980 },
+        image_url: "https://example.com/item.jpg"
+      }
     end
 
     gift_item = @gift_list.gift_items.last
     assert gift_item.api_search?
     assert_equal 3980, gift_item.price
+    assert_equal "https://example.com/item.jpg", gift_item.external_image_url
+    assert_not gift_item.image.present?
+    assert_equal "https://example.com/item.jpg", gift_item.display_image_url
   end
 
   test "商品URLに内部アドレスを指定しても500エラーにならず、商品名の入力を促す(SSRF対策)" do

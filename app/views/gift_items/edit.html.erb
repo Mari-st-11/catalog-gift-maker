@@ -11,9 +11,9 @@
 
     <%= form_with model: @gift_item do |f| %>
       <div class="bg-white p-6 border border-ash-border space-y-4 text-xs font-light">
-        <% if @gift_item.image.url.presence %>
+        <% if @gift_item.display_image_url.presence %>
           <div class="aspect-[4/3] bg-ash-bg overflow-hidden border border-ash-border">
-            <%= image_tag @gift_item.image.url, class: "w-full h-full object-cover" %>
+            <%= image_tag @gift_item.display_image_url, class: "w-full h-full object-cover" %>
           </div>
         <% end %>
 

@@ -81,6 +81,11 @@
       - 検索結果を2カラム・大きめの画像に変更し、「もっと見る」ボタンでページング
         (`RakutenProductSearch`/`YahooProductSearch`に`page`引数を追加、Yahoo側は
         `start`オフセットに変換)。2ページ目以降はTurbo Streamでグリッドに追記(append)する。
+      - API検索由来の商品画像は自社サーバーに保存せず、APIが返すURLをそのまま
+        参照するホットリンク方式に変更（`GiftItem#external_image_url`を追加）。
+        楽天ウェブサービスの利用規約上、取得画像の保存・不特定多数への公開に
+        懸念があったための対応（詳細は[redesign_decisions.md](redesign_decisions.md)参照）。
+        URL入力(OGP)・手動アップロード画像は従来通り自社サーバーに保存する。
 - [x] アプリ内通知（フェーズ1）: 商品が選ばれたら`Notification`レコードは以前から作られていたが、
       画面上に表示する仕組みが無かったため追加。ヘッダーに通知ベル・未読件数バッジを表示し、
       `/notifications`で一覧を見られるようにした（閲覧すると自動で既読になる）

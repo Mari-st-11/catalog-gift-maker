@@ -11,9 +11,9 @@
   </header>
 
   <div class="p-6 sm:p-7 max-w-md mx-auto space-y-5">
-    <% if @gift_item.image.url.presence %>
+    <% if @gift_item.display_image_url.presence %>
       <div class="aspect-[4/3] bg-ash-bg overflow-hidden border border-ash-border">
-        <%= image_tag @gift_item.image.url, class: "w-full h-full object-cover" %>
+        <%= image_tag @gift_item.display_image_url, class: "w-full h-full object-cover" %>
       </div>
     <% end %>
 

@@ -30,4 +30,19 @@ class GiftItemTest < ActiveSupport::TestCase
     @gift_item.price = nil
     assert @gift_item.valid?
   end
+
+  test "display_image_urlはexternal_image_urlしかない場合そちらを返す" do
+    @gift_item.external_image_url = "https://example.com/item.jpg"
+    assert_equal "https://example.com/item.jpg", @gift_item.display_image_url
+  end
+
+  test "display_image_urlはimageが添付されていればexternal_image_urlより優先する" do
+    @gift_item.external_image_url = "https://example.com/item.jpg"
+    fake_io = StringIO.new("fake image body")
+    fake_io.define_singleton_method(:original_filename) { "uploaded.jpg" }
+    @gift_item.image = fake_io
+    @gift_item.save!
+
+    assert_match "uploaded.jpg", @gift_item.display_image_url
+  end
 end

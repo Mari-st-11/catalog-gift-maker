@@ -1,5 +1,6 @@
 class GiftItem < ApplicationRecord
   validates :url, format: { with: /\A#{URI.regexp(%w[http https])}\z/ }, allow_blank: true
+  validates :external_image_url, format: { with: /\A#{URI.regexp(%w[http https])}\z/ }, allow_blank: true
   validates :name, length: { maximum: 225 }, presence: true
   validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
 
@@ -12,6 +13,14 @@ class GiftItem < ApplicationRecord
   belongs_to :user
   belongs_to :gift_list, primary_key: :uuid, foreign_key: :gift_list_uuid
   has_many :notifications, dependent: :destroy
+
+  # API検索(楽天/Yahoo)経由の商品は画像を自社サーバーに保存せず、
+  # APIが返すURLをそのまま参照する(ホットリンク)。利用規約上、取得した画像を
+  # 保存して不特定多数に公開することを避けるための対応(詳細はredesign_decisions.md参照)。
+  # URL入力のOGP画像・手動アップロード画像はこれまで通りCarrierWaveで保存する。
+  def display_image_url
+    image.present? ? image.url : external_image_url
+  end
 
   # 受け取り主が商品を選択したら、贈り主への通知レコードを作成する
   # (LINE通知の送信はNotificationモデル側/専用サービスで後続実装)

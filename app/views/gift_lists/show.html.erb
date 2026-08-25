@@ -28,8 +28,8 @@
       <div class="bg-white p-6 border border-gold/60 shadow-[0_2px_12px_-4px_rgba(197,160,89,0.1)] space-y-4">
         <span class="font-en text-[10px] tracking-[0.2em] text-gold-dark uppercase block">SELECTED GIFT</span>
         <div class="flex space-x-3 items-center">
-          <% if @selected_gift_item.image.url.presence %>
-            <%= image_tag @selected_gift_item.image.url, class: "w-16 h-16 object-cover border border-ash-border flex-shrink-0" %>
+          <% if @selected_gift_item.display_image_url.presence %>
+            <%= image_tag @selected_gift_item.display_image_url, class: "w-16 h-16 object-cover border border-ash-border flex-shrink-0" %>
           <% end %>
           <p class="text-sm font-serif text-ash-text"><%= @selected_gift_item.name %></p>
         </div>
