@@ -1,21 +1,21 @@
-<header class="bg-gold-dark border-b border-black/10 sticky top-0 z-40 backdrop-blur-md">
+<header class="bg-gold-light border-b border-gold-border sticky top-0 z-40 backdrop-blur-md">
 <div class="container mx-auto flex items-center justify-between gap-3 px-4 py-2.5 md:px-5 md:py-4">
   <h1 class="flex title-font items-center flex-shrink-0">
     <%= link_to root_path, class: "flex items-center space-x-1.5 md:space-x-2" do %>
       <%= image_tag "https://cgm-production-images.s3.ap-northeast-1.amazonaws.com/default/cgm-logo.png", class: "w-6 md:w-9 flex-shrink-0" %>
-      <span class="font-serif text-xs md:text-sm font-semibold tracking-wider text-white whitespace-nowrap">カタログギフトメーカー</span>
+      <span class="font-serif text-xs md:text-sm font-semibold tracking-wider text-ash-text whitespace-nowrap">カタログギフトメーカー</span>
     <% end %>
   </h1>
-  <ul class="flex items-center gap-3 md:gap-5 text-[11px] md:text-xs font-light text-white/85 flex-shrink-0">
+  <ul class="flex items-center gap-3 md:gap-5 text-[11px] md:text-xs font-light text-gold-dark flex-shrink-0">
     <li class="whitespace-nowrap">
-      <%= link_to gift_lists_path, class: "hover:text-white transition-colors" do %>
+      <%= link_to gift_lists_path, class: "hover:text-ink transition-colors" do %>
         <span class="md:hidden">マイカタログ</span>
         <span class="hidden md:inline">マイカタログを見る</span>
       <% end %>
     </li>
     <% if user_signed_in? %>
       <li>
-        <%= link_to notifications_path, class: "relative flex items-center hover:text-white transition-colors" do %>
+        <%= link_to notifications_path, class: "relative flex items-center hover:text-ink transition-colors" do %>
           <i data-lucide="bell" class="w-4 h-4"></i>
           <% unread_count = current_user.notifications.unread.count %>
           <% if unread_count.positive? %>
@@ -24,7 +24,7 @@
         <% end %>
       </li>
       <li class="relative whitespace-nowrap" data-controller="dropdown">
-        <button type="button" data-action="dropdown#toggle" class="font-serif text-white hover:underline">
+        <button type="button" data-action="dropdown#toggle" class="font-serif text-ash-text hover:underline">
           <%= current_user.name %>
         </button>
         <div data-dropdown-target="menu" class="hidden absolute right-0 mt-3 w-40 bg-white border border-ash-border shadow-lg py-1 text-xs z-50">
@@ -33,7 +33,7 @@
         </div>
       </li>
     <% else %>
-      <li class="whitespace-nowrap"><%= link_to "ログイン", new_user_session_path, class: "hover:text-white transition-colors" %></li>
+      <li class="whitespace-nowrap"><%= link_to "ログイン", new_user_session_path, class: "hover:text-ink transition-colors" %></li>
     <% end %>
   </ul>
 </div>
